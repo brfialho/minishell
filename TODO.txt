@@ -1,0 +1,5 @@
+# Study pipex
+# Lexer
+# Define arquitecture
+# Git branches
+# Bthree
