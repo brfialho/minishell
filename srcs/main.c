@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/15 14:26:06 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/15 14:35:13 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 int	main(int argc, char **argv)
 {
+	(void)argc;
+	(void)argv;
 	ft_printf("Minishell!\n");
 }
