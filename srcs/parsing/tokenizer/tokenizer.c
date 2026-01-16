@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/16 18:00:49 by brfialho         ###   ########.fr       */
+/*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
+/*   Updated: 2026/01/16 17:59:56 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "parsing.h"
 
-# include "libft.h"
-
-typedef enum e_token_code
+void	tokenizer(t_list **head, char *input)
 {
-	WORD,
-	PIPE,
-	AND,
-	OR
-}	t_token_code;
-
-typedef struct s_token
-{
-	t_token_code	code;
-	char			*string;
-}	t_token;
-
-void	tokenizer(t_list **head, char *input);
-
-#endif
+	(void) head;
+	(void) input;
+	// do stuff
+}
