@@ -1,6 +1,13 @@
 CC= cc -Werror -Wextra -Wall -Ilibft/headers -Iincludes -Iincludes/execution -Iincludes/parsing
 
-SRC= srcs/main.c
+MAIN= srcs/main.c
+
+ifeq ($(findstring parse, $(MAKECMDGOALS)), parse)
+	MAIN = srcs/parsing/parsing_test_main.c
+endif
+
+SRC= $(MAIN) \
+	srcs/parsing/tokenizer/tokenizer.c
 
 O_DIR= obj/
 OBJ= $(SRC:%.c=$(O_DIR)%.o)
@@ -9,6 +16,8 @@ NAME= minishell
 
 LIBFT= libft/libft.a
 LIBPATH= libft/
+
+parse: re
 
 all: $(LIBFT) $(NAME)
 
