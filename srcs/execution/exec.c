@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/01/16 17:54:04 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/01/16 18:08:36 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,5 @@ int	set_redir(t_redir *redir)
     return (0);
 }
 
-int	exec_cmd(t_cmd *cmd, t_shell_state *shell)
-{
-
-}
 
 
