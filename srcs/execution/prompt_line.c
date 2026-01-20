@@ -1,17 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   prompt_line.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/01/20 20:07:07 by rafreire         ###   ########.fr       */
+/*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
+/*   Updated: 2026/01/20 20:07:13 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "main.h"
 
+char    *read_prompt_line(void)
+{
+    char    *line;
 
-
-
+    line = readline("minishell$ ");
+    if (!line)
+    {
+        printf("exit\n");
+        return (NULL);
+    }
+    if (g_status_shell == 130)
+    {
+        g_status_shell = 0;
+        free(line);
+        return (NULL);
+    }
+    if (*line)
+        add_history(line);
+    return line;
+}

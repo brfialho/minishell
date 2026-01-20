@@ -1,17 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   handler.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/01/20 20:07:07 by rafreire         ###   ########.fr       */
+/*   Created: 2026/01/20 19:15:03 by rafreire          #+#    #+#             */
+/*   Updated: 2026/01/20 19:16:40 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#ifndef HANDLER_H
+# define HANDLER_H
 
+# include "parsing.h"
+# include "execution.h"
+# include "main.h"
 
+void    sigint_prompt(int sig);
+void    sigint_handler(int sig);
+void    sigint_heredoc(int sig);
 
-
+#endif
