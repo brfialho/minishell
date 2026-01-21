@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/16 18:00:49 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/21 19:07:37 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ typedef enum e_token_code
 	WORD,
 	PIPE,
 	AND,
-	OR
+	OR,
+	REDIR_IN,
+	REDIR_OUT,
 }	t_token_code;
 
 typedef struct s_token
