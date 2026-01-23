@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/23 17:22:33 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/23 18:07:11 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,22 @@
 
 typedef enum e_token_code
 {
-	WORD = 0,
-	AND = 1,
-	OR = 2,
-	APPEND = 3,
-	HEARDOC = 4,
-	PIPE = '|',
-	INFILE = '<',
-	OUTFILE = '>'
+	WORD,
+	AND,
+	OR,
+	APPEND,
+	HEARDOC,
+	PIPE,
+	INFILE,
+	OUTFILE
 }	t_token_code;
+
+typedef enum e_state
+{
+	DEFAULT,
+	IN_D_QUOTES,
+	IN_S_QUOTES
+}	t_state;
 
 typedef struct s_token
 {
@@ -37,9 +44,9 @@ typedef struct s_token
 
 typedef struct s_lexer
 {
+	t_state	state;
 	t_token	*token;
-	char	*left;
-	int		state;
+	char	**split;
 }	t_lexer;
 
 
