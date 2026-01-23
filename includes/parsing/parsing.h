@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/23 15:16:42 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/23 17:22:33 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,18 @@
 
 # include "libft.h"
 
-# define META "|&;()<>\n\t "
+# define META "|&;()<>\n\t"
 
 typedef enum e_token_code
 {
-	WORD,
-	PIPE,
-	AND,
-	OR,
-	INFILE,
-	OUTFILE,
-	APPEND,
-	NEWLINE,
-	HEARDOC
+	WORD = 0,
+	AND = 1,
+	OR = 2,
+	APPEND = 3,
+	HEARDOC = 4,
+	PIPE = '|',
+	INFILE = '<',
+	OUTFILE = '>'
 }	t_token_code;
 
 typedef struct s_token
@@ -36,6 +35,14 @@ typedef struct s_token
 	char			*string;
 }	t_token;
 
-void	lexer(t_list **head, char *input);
+typedef struct s_lexer
+{
+	t_token	*token;
+	char	*left;
+	int		state;
+}	t_lexer;
+
+
+void	lexer(t_list **head, const char *input);
 
 #endif
