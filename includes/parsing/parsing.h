@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/21 20:41:14 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/23 15:16:42 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ typedef struct s_token
 	char			*string;
 }	t_token;
 
-void	tokenizer(t_list **head, char *input);
+void	lexer(t_list **head, char *input);
 
 #endif
