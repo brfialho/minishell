@@ -7,7 +7,7 @@ ifeq ($(findstring parse, $(MAKECMDGOALS)), parse)
 endif
 
 SRC= $(MAIN) \
-	srcs/parsing/tokenizer/tokenizer.c
+	srcs/parsing/lexer/lexer.c
 
 O_DIR= obj/
 OBJ= $(SRC:%.c=$(O_DIR)%.o)
@@ -17,7 +17,7 @@ NAME= minishell
 LIBFT= libft/libft.a
 LIBPATH= libft/
 
-parse: re
+parse: all
 
 all: $(LIBFT) $(NAME)
 
