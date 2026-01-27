@@ -1,12 +1,10 @@
-CC= cc -Werror -Wextra -Wall -Ilibft/headers -Iincludes -Iincludes/execution -Iincludes/parsing
 
-MAIN= srcs/main.c
+INCLUDES= -Iincludes -Iincludes/execution -Iincludes/parsing -Iincludes/tests
+CC= cc -Werror -Wextra -Wall $(INCLUDES)
 
-ifeq ($(findstring parse, $(MAKECMDGOALS)), parse)
-	MAIN = srcs/parsing/parsing_test_main.c
-endif
+TEST_SRC= tests/tester_lexer/lexer_split.c
 
-SRC= $(MAIN) \
+SRC= srcs/main.c \
 	srcs/parsing/lexer/lexer.c
 
 O_DIR= obj/
@@ -16,8 +14,6 @@ NAME= minishell
 
 LIBFT= libft/libft.a
 LIBPATH= libft/
-
-parse: all
 
 all: $(LIBFT) $(NAME)
 
@@ -60,5 +56,7 @@ fclean:
 	@rm -f $(NAME)
 
 re: fclean all
+
+tests: re 
 
 .PHONY: $(LIBFT) re fclean clean

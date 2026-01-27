@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   tests.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/27 16:17:02 by brfialho         ###   ########.fr       */
+/*   Created: 2026/01/27 16:41:13 by brfialho          #+#    #+#             */
+/*   Updated: 2026/01/27 16:50:59 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#ifndef TESTS_H
+# define TESTS_H
 
-void	lexer(t_list **head, const char *input)
-{
-	t_lexer	lexer;
+# include "libft.h"
 
-	lexer.state = DEFAULT;
-	lexer_split(&lexer, input);
+# define RED "\033[31m"
+# define GREEN "\033[32m"
+# define BOLD "\033[1m"
+# define RESET "\033[0m"
 
-	(void)head;
-	int	i;
+# define EXIT_SUCCESS 1
+# define EXIT_FAILURE 1
 
-	i = 0;
-	ft_printf("SIZE: %d\n", ft_split_len(lexer.split));
-	while (lexer.split[i])
-		ft_printf("ITEM: %s\n", lexer.split[i++]);
-}
+#endif
