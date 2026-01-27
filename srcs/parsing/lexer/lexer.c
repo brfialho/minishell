@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/23 19:39:20 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/27 16:07:46 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,50 +39,46 @@ size_t	lexer_count_words(char const *s)
 	return (words);
 }
 
-char	in_word(t_lexer *lexer, char *s, int i)
+int	get_word_size(char *s, char c)
 {
-	int	bool;
-	
-	if ((lexer->state == IN_D_QUOTES && s[i - 1] == '"') 
-		|| ((lexer->state = IN_S_QUOTES) && s[i - 1] == '\''))
-			lexer->state = DEFAULT;
-	bool = s[i] 
-			&& ((s[i] != ' ' && lexer->state == DEFAULT)
-			|| (s[i] != '"' && lexer->state == IN_D_QUOTES)
-			|| (s[i] != '\'' && lexer->state == IN_S_QUOTES));
-	if (s[i] == '"' && lexer->state == DEFAULT)
-			lexer->state = IN_D_QUOTES;
-	if (s[i] == '\'' && lexer->state == DEFAULT)
-			lexer->state = IN_S_QUOTES;
-	return (bool);
+	int	size;
+
+	size = 0;
+	if (c == '\'' || c == '"')
+		size++;
+	while (s[size] && s[size] != c)
+		size++;
+	if (s[size] == '\'' || s[size] == '"')
+		size++;
+	return (size);
 }
 
 char	lexer_fill_split(t_lexer *lexer, char *s)
 {
 	size_t	word;
+	int		word_size;
 	int		letter;
 
 	word = 0;
-	while (*s && *s == ' ')
-		s++;
 	while (*s)
 	{
-		letter = 0;
-		while (in_word(lexer, s, letter))
-			letter++;
-		lexer->split[word] = ft_calloc(letter + 1, sizeof(char));
+		while (*s && *s == ' ')
+			s++;
+		if (!*s)
+			break;
+		if (*s == '"' || *s == '\'')
+			word_size = get_word_size(s, *s);
+		else
+			word_size = get_word_size(s, ' ');
+		lexer->split[word] = ft_calloc(word_size + 1, sizeof(char));
 		if (!lexer->split[word])
-			return (0);
+			return (FALSE);
 		letter = -1;
-		while (in_word(lexer, s, ++letter))
-			lexer->split[word][letter] = s[letter];
+		while (++letter < word_size)
+			lexer->split[word][letter] = *s++;
 		word++;
-		letter = 0;
-		while (s[letter] && s[letter] == ' ')
-			letter++;
-		s += letter;
 	}
-	return (1);
+	return (TRUE);
 }
 
 char	**lexer_split(t_lexer *lexer, const char *input)
@@ -109,10 +105,10 @@ void	lexer(t_list **head, const char *input)
 	lexer_split(&lexer, input);
 
 	(void)head;
-	ft_printf("%d\n", lexer_count_words(input));
 	int	i;
 
 	i = 0;
+	ft_printf("SIZE: %d\n", ft_split_len(lexer.split));
 	while (lexer.split[i])
 		ft_printf("ITEM: %s\n", lexer.split[i++]);
 }
