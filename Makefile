@@ -61,6 +61,7 @@ clean:
 	$(LOADING)
 	@make --no-print-directory -C $(LIBPATH) clean
 	@rm -rf $(O_DIR)
+	@rm -rf $(TEST_BIN_DIR)
 
 fclean:
 	@make --no-print-directory -C $(LIBPATH) fclean
