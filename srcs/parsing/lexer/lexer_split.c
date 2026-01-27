@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 16:16:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/27 16:23:05 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:50:52 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	lexer_fill_split(t_lexer *lexer, char *s)
 	return (TRUE);
 }
 
-int	lexer_split(t_lexer *lexer, const char *input)
+char	**lexer_split(t_lexer *lexer, const char *input)
 {
 	size_t	split_counter;
 

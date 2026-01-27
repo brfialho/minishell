@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/27 16:23:10 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:50:59 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ typedef struct s_lexer
 
 
 void	lexer(t_list **head, const char *input);
-int		lexer_split(t_lexer *lexer, const char *input);
+char	**lexer_split(t_lexer *lexer, const char *input);
 
 #endif

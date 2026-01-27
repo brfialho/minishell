@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 16:41:13 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/27 16:50:59 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/27 19:29:17 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 # define GREEN "\033[32m"
 # define BOLD "\033[1m"
 # define RESET "\033[0m"
+# define YELLOW "\033[33m"
 
-# define EXIT_SUCCESS 1
-# define EXIT_FAILURE 1
+# define TEST "# Testing with " YELLOW BOLD "\"%s\" ...\n"
+# define SUCCESS GREEN BOLD "=== SUCCESS ✅ ===\n\n" RESET
+# define FAIL RED BOLD "=== FAILURE ❌ ===\n\n" RESET
 
 #endif
