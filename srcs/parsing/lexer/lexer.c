@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/28 18:44:00 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/28 20:39:53 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_state	get_state(char c)
 		return (IN_D_QUOTES);
 	if (c == '\'')
 		return (IN_S_QUOTES);
+	if (c == ' ')
+		return (IN_SPACE);
 	if (ft_str_charcount(OPERATOR, c))
 		return (IN_OPERATOR);
 	return (DEFAULT);
@@ -43,8 +45,8 @@ char	*tokenize_default(t_lexer *lexer, char *input)
 	char	*token_str;
 	t_token	*token;
 
-	len = -1;
-	while(get_state(input[++len]) == DEFAULT)
+	len = 0;
+	while(get_state(input[len]) == DEFAULT)
 		len++;
 	token_str = ft_calloc(len + 1, sizeof(char));
 	if (!token_str)

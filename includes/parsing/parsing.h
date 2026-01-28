@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/28 18:43:40 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/28 18:57:59 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef enum e_state
 	IN_OPERATOR,
 	IN_D_QUOTES,
 	IN_S_QUOTES,
+	IN_SPACE,
 	IN_NULL
 }	t_state;
 
