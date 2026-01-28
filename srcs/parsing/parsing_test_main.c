@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/23 18:53:36 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/28 18:51:14 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,12 @@ void	del(void *content)
 int main(int argc, char **argv)
 {
 	(void) argc;
-	t_list **token_lst;
+	t_lexer lexer_data;
 
-	token_lst = ft_calloc(1, sizeof(t_list *));
-	if (!token_lst)
-		return (1);
 	ft_printf("%s\n", argv[1]);
-	lexer(token_lst, argv[1]);
-	if (token_lst)
-		lst_for_each(*token_lst, print_node);
-	lst_del_all(token_lst, del);
-	free(token_lst);
+	lexer(&lexer_data, argv[1]);
+	if (lexer_data.token_lst)
+		lst_for_each(*(t_list **)(lexer_data.token_lst), print_node);
+	lst_del_all(lexer_data.token_lst, del);
+	free(lexer_data.token_lst);
 }

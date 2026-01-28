@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/27 18:50:59 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/28 18:43:40 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-# define META "|&;()<>\n\t"
+# define OPERATOR "|&;()<>"
 
 typedef enum e_token_code
 {
@@ -32,8 +32,10 @@ typedef enum e_token_code
 typedef enum e_state
 {
 	DEFAULT,
+	IN_OPERATOR,
 	IN_D_QUOTES,
-	IN_S_QUOTES
+	IN_S_QUOTES,
+	IN_NULL
 }	t_state;
 
 typedef struct s_token
@@ -45,12 +47,13 @@ typedef struct s_token
 typedef struct s_lexer
 {
 	t_state	state;
-	t_token	*token;
+	t_list	**token_lst;
 	char	**split;
+	int		error;
 }	t_lexer;
 
 
-void	lexer(t_list **head, const char *input);
+void	lexer(t_lexer *lexer, const char *input);
 char	**lexer_split(t_lexer *lexer, const char *input);
 
 #endif
