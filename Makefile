@@ -20,6 +20,10 @@ CC= cc -Werror -Wextra -Wall $(INCLUDES)
 
 MAIN_SRC= srcs/main.c
 
+ifeq ($(findstring parse, $(MAKECMDGOALS)), parse)
+	MAIN_SRC = srcs/parsing/parsing_test_main.c
+endif
+
 SRC= srcs/parsing/lexer/lexer.c \
 	srcs/parsing/lexer/lexer_split.c
 
@@ -35,6 +39,10 @@ LIBPATH= libft/
 TEST_BIN_DIR= tests/bin/
 TEST_NAMES= lexer_split
 TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
+
+parse: re
+#	@rm -rf $(O_DIR)
+#	@rm -f $(NAME)
 
 all: $(LIBFT) $(NAME)
 
