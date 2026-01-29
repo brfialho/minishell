@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 17:36:44 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/29 18:43:03 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_lexer
 
 // LEXER
 
-void	lexer(t_lexer *lexer, const char *input);
+void	ft_lexer(t_lexer *lexer, const char *input);
 char	*tokenize(t_lexer *lexer, char *input);
 void	init_operators(t_lexer *lexer);
 t_token	*alloc_token(t_token_code code, char *s);

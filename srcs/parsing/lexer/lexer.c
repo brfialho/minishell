@@ -6,13 +6,13 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 17:35:20 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/29 18:43:08 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	lexer(t_lexer *lexer, const char *input)
+void	ft_lexer(t_lexer *lexer, const char *input)
 {
 	char	*s;
 

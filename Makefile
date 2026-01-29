@@ -39,7 +39,7 @@ LIBFT= libft/libft.a
 LIBPATH= libft/
 
 TEST_BIN_DIR= tests/bin/
-TEST_NAMES= lexer_split
+TEST_NAMES= lexer_split lexer
 TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
 parse: re
@@ -62,6 +62,11 @@ $(LIBFT):
 	@make --no-print-directory -C $(LIBPATH)
 
 $(TEST_BIN_DIR)lexer_split: tests/tester_lexer/tester_lexer_split.c $(LIBFT) $(OBJ)
+	@mkdir -p $(TEST_BIN_DIR)
+	@echo "$(MAGENTA)Compiling test$(RESET) $(notdir $@)"
+	@$(CC) $< $(OBJ) $(LIBFT) -o $@
+
+$(TEST_BIN_DIR)lexer: tests/tester_lexer/tester_lexer.c $(LIBFT) $(OBJ)
 	@mkdir -p $(TEST_BIN_DIR)
 	@echo "$(MAGENTA)Compiling test$(RESET) $(notdir $@)"
 	@$(CC) $< $(OBJ) $(LIBFT) -o $@
