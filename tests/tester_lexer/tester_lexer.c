@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:39:21 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 19:47:21 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:51:34 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ int main(void)
 	else
 		ft_printf(SUCCESS);
 	lst_del_all(lexer.token_lst, free_lexer);
+	free(lexer.token_lst);
 	ft_bzero(&lexer, sizeof(t_lexer));
 	}
 }
