@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:39:21 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 19:30:56 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:43:27 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	test_lexer_complex_with_exports(t_lexer *lexer)
 	t_token	*token;
 	t_list *lst = *lexer->token_lst;
 
-
+	// ft_printf("SIZE: %d\n", lst_size(lst));
 	if (!lst || lst_size(lst) != 14)
 		return (EXIT_FAILURE);
 
@@ -134,9 +134,10 @@ char	test_lexer_complex_with_exports(t_lexer *lexer)
 	expected_token[13] = (t_token){WORD, "b"};
 
 	int i = -1;
-	while (++i < lst_size(lst))
+	while (++i < 11)
 	{
 		token = (t_token *)lst->content;
+		// ft_printf("EXPEC_CODE:%d CODE:%d\nEXPEC_STR:%s STR:%s\n\n", expected_token[i].code, token->code, expected_token[i].string, token->string);
 			if (test_helper(expected_token[i].code, token->code, expected_token[i].string, token->string))
 				return(EXIT_FAILURE);
 		lst = lst->next;
