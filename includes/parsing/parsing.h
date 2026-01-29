@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 19:32:47 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:46:52 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-# define OPERATOR "|&;()<>="
+# define OPERATOR "|&;()<>=$"
 
 # define OP_COUNT 13
 
