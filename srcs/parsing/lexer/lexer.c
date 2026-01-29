@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/28 21:27:14 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/28 22:10:00 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,9 @@ char	*tokenize_operator(t_lexer *lexer, char *input)
 	i = 0;
 	while (ft_strncmp(input, lexer->op_lst[i].str, lexer->op_lst[i].str_len))
 		i++;
-	token = ft_calloc(1, sizeof(t_token));
+	token = alloc_token(lexer->op_lst[i].code, lexer->op_lst[i].str);
 	if (!token)
 		lexer->error = TRUE;
-	token->code = lexer->op_lst[i].code;
-	token->string = lexer->op_lst[i].str;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + lexer->op_lst[i].str_len);
 }
@@ -69,8 +67,39 @@ char	*tokenize_default(t_lexer *lexer, char *input)
 	if (!token_str)
 		lexer->error = TRUE;
 	ft_memcpy(token_str, input, len);
-	token = alloc_token(WORD, token_str);
 	if (!token_str)
+		lexer->error = TRUE;
+	token = alloc_token(WORD, token_str);
+	if (!token)
+		lexer->error = TRUE;
+	lst_add_end(lexer->token_lst, lst_new_node(token));
+	return (input + len);
+}
+
+char	*tokenize_quoted(t_lexer *lexer, char *input)
+{
+	t_token	*token;
+	char	*token_str;
+	int		len;
+
+	len = 1;
+	while (input[len] && get_state(input[len]) != lexer->state)
+		len++;
+	if (!input[len])
+	{
+		lexer->error = TRUE;
+		return (input + len);
+	}
+	len++;
+	token_str = ft_calloc(len + 1, sizeof(char));
+	if (!token_str)
+		lexer->error = TRUE;
+	ft_memcpy(token_str, input, len);
+	token = ft_calloc(1, sizeof(t_token));
+	if (!token_str)
+		lexer->error = TRUE;
+	token = alloc_token(WORD, token_str);
+	if (!token)
 		lexer->error = TRUE;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + len);
@@ -81,14 +110,13 @@ char	*tokenize(t_lexer *lexer, char *input)
 	lexer->state = get_state(*input);
 	if (lexer->state == IN_NULL)
 		return (input);
-	// if (lexer->state == IN_D_QUOTES 
-	// 	|| lexer->state == IN_S_QUOTES)
-	// 	return (tokenize_quoted(lexer, input));
+	if (lexer->state == IN_D_QUOTES 
+		|| lexer->state == IN_S_QUOTES)
+		return (tokenize_quoted(lexer, input));
 	if (lexer->state == IN_OPERATOR)
 		return (tokenize_operator(lexer, input));
 	else
 		return (tokenize_default(lexer, input));
-
 }
 
 void	init_operators(t_lexer *lexer)
