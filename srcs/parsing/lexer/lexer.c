@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/28 20:39:53 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/28 21:05:01 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,23 @@ char	*tokenize(t_lexer *lexer, char *input)
 
 }
 
+void	init_operators(t_lexer *lexer)
+{
+	lexer->op_lst[0] = (t_operator){"<<", 2};
+	lexer->op_lst[1] = (t_operator){">>", 2};
+	lexer->op_lst[2] = (t_operator){"&&", 2};
+	lexer->op_lst[3] = (t_operator){"||", 2};
+	lexer->op_lst[4] = (t_operator){"<", 1};
+	lexer->op_lst[5] = (t_operator){">", 1};
+	lexer->op_lst[6] = (t_operator){"&", 1};
+	lexer->op_lst[7] = (t_operator){"|", 1};
+	lexer->op_lst[8] = (t_operator){";", 1};
+	lexer->op_lst[9] = (t_operator){"=", 1};
+	lexer->op_lst[10] = (t_operator){"(", 1};
+	lexer->op_lst[11] = (t_operator){")", 1};
+	lexer->op_lst[12] = (t_operator){"\n", 1};
+}
+
 void	lexer(t_lexer *lexer, const char *input)
 {
 	char	*s;
@@ -81,6 +98,7 @@ void	lexer(t_lexer *lexer, const char *input)
 	lexer->token_lst = ft_calloc(1, sizeof(t_list **));
 	if (!lexer->token_lst)
 		return ;
+	init_operators(lexer);
 	s = (char *)input;
 	while (*s)
 	{

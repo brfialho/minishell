@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/28 18:57:59 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/28 21:02:41 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,18 @@
 typedef enum e_token_code
 {
 	WORD,
-	AND,
-	OR,
+	LOGICAL_AND,
+	LOGICAL_OR,
+	LOGICAL_NOT,
+	BACKGROUND,
+	PIPE,
+	ASSIGNMENT,
+	INFILE,
+	OUTFILE,
 	APPEND,
 	HEARDOC,
-	PIPE,
-	INFILE,
-	OUTFILE
+	OPEN_PARENTHESIS,
+	CLOSE_PARENTHESIS
 }	t_token_code;
 
 typedef enum e_state
@@ -45,12 +50,20 @@ typedef struct s_token
 	char			*string;
 }	t_token;
 
+typedef struct s_operator
+{
+	char	*str;
+	int		str_len;
+}	t_operator;
+
 typedef struct s_lexer
 {
-	t_state	state;
-	t_list	**token_lst;
-	char	**split;
-	int		error;
+	t_state		state;
+	t_list		**token_lst;
+	t_operator	op_lst[13];
+	int			error;
+
+	char		**split;
 }	t_lexer;
 
 
