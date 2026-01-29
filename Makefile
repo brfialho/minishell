@@ -25,7 +25,6 @@ ifeq ($(findstring parse, $(MAKECMDGOALS)), parse)
 endif
 
 SRC= srcs/parsing/lexer/lexer.c \
-	srcs/parsing/lexer/lexer_split.c \
 	srcs/parsing/lexer/tokenize.c \
 	srcs/parsing/lexer/utils.c
 
@@ -39,7 +38,7 @@ LIBFT= libft/libft.a
 LIBPATH= libft/
 
 TEST_BIN_DIR= tests/bin/
-TEST_NAMES= lexer_split lexer
+TEST_NAMES= lexer
 TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
 parse: re
@@ -60,11 +59,6 @@ $(O_DIR)%.o: %.c
 
 $(LIBFT):
 	@make --no-print-directory -C $(LIBPATH)
-
-$(TEST_BIN_DIR)lexer_split: tests/tester_lexer/tester_lexer_split.c $(LIBFT) $(OBJ)
-	@mkdir -p $(TEST_BIN_DIR)
-	@echo "$(MAGENTA)Compiling test$(RESET) $(notdir $@)"
-	@$(CC) $< $(OBJ) $(LIBFT) -o $@
 
 $(TEST_BIN_DIR)lexer: tests/tester_lexer/tester_lexer.c $(LIBFT) $(OBJ)
 	@mkdir -p $(TEST_BIN_DIR)

@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 18:43:03 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:32:47 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ typedef struct s_lexer
 	t_list		**token_lst;
 	t_operator	op_lst[OP_COUNT];
 	int			error;
-
-	char		**split;
 }	t_lexer;
 
 
