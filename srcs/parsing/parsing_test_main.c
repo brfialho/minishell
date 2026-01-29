@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/28 18:51:14 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/28 21:25:20 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 void	print_node(void *content)
 {
-	ft_printf("Token: %d String: %s\n", ((t_token *)content)->code, ((t_token *)content)->string);
+	ft_printf("Code: %d String: %s\n", ((t_token *)content)->code, ((t_token *)content)->string);
 }
 
 void	del(void *content)
 {
 	t_token *token = content;
-	free(token->string);
+
+	if (token->code == WORD)
+		free(token->string);
 	free(token);
 }
 
