@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/28 21:20:15 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/29 17:36:44 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef enum e_token_code
 	HEREDOC,
 	OPEN_PARENTHESIS,
 	CLOSE_PARENTHESIS,
-	ENDLINE
+	EXPANSION
 }	t_token_code;
 
 typedef enum e_state
@@ -70,7 +70,12 @@ typedef struct s_lexer
 }	t_lexer;
 
 
+// LEXER
+
 void	lexer(t_lexer *lexer, const char *input);
+char	*tokenize(t_lexer *lexer, char *input);
+void	init_operators(t_lexer *lexer);
+t_token	*alloc_token(t_token_code code, char *s);
 char	**lexer_split(t_lexer *lexer, const char *input);
 
 #endif

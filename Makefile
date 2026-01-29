@@ -25,7 +25,9 @@ ifeq ($(findstring parse, $(MAKECMDGOALS)), parse)
 endif
 
 SRC= srcs/parsing/lexer/lexer.c \
-	srcs/parsing/lexer/lexer_split.c
+	srcs/parsing/lexer/lexer_split.c \
+	srcs/parsing/lexer/tokenize.c \
+	srcs/parsing/lexer/utils.c
 
 O_DIR= obj/
 OBJ= $(SRC:%.c=$(O_DIR)%.o)
