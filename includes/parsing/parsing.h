@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 19:46:52 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/01/30 22:06:43 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ void	ft_lexer(t_lexer *lexer, const char *input);
 char	*tokenize(t_lexer *lexer, char *input);
 void	init_operators(t_lexer *lexer);
 t_token	*alloc_token(t_token_code code, char *s);
-char	**lexer_split(t_lexer *lexer, const char *input);
+void	lexer_destroy(t_lexer *lexer);
 
 #endif
