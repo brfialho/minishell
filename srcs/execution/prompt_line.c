@@ -6,11 +6,13 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/01/20 20:07:13 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/04 08:57:16 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+# include "parsing/parsing.h"
+# include "execution/execution.h"
+# include "main.h"
 
 char    *read_prompt_line(void)
 {

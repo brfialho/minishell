@@ -6,11 +6,13 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:35:33 by rafreire          #+#    #+#             */
-/*   Updated: 2026/01/20 20:02:42 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/04 08:59:26 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+int g_status_shell = 0;
 
 int main(void)
 {

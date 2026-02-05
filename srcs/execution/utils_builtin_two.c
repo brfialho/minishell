@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   utils_builtin_two.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/04 08:52:13 by rafreire         ###   ########.fr       */
+/*   Created: 2026/02/04 14:30:44 by rafreire          #+#    #+#             */
+/*   Updated: 2026/02/04 21:11:07 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "execution.h"
 
-# include "libft.h"
-
-typedef struct s_redir t_redir;  // forward declaration
-
-typedef enum e_token_code
+int		builtin_env(char **envp)
 {
-	WORD,
-	PIPE,
-	AND,
-	OR
-}	t_token_code;
+    
+}
 
-typedef struct s_token
+int		builtin_exit(t_cmd *cmd)
 {
-	t_token_code	code;
-	char			*string;
-}	t_token;
+    
+}
 
-void	tokenizer(t_list **head, char *input);
+char    *ft_get_envp(char **envp, char *key)
+{
+	int		i;
 
-#endif
+    i = 0;
+	while(*envp && ft_strncmp(*envp, key, 5) != 0)
+    {
+        
+		envp++;
+    }
+	return(NULL);
+}

@@ -6,12 +6,13 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:34 by rafreire          #+#    #+#             */
-/*   Updated: 2026/01/20 19:30:02 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/04 09:13:19 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
-#include "main.h"
+# include "parsing/parsing.h"
+# include "execution/execution.h"
+# include "main.h"
 
 int    open_redir_fd(t_redir *redir)
 {
@@ -64,9 +65,10 @@ int read_heredoc_loop(t_redir *redir, int write_fd)
         {
             if (g_status_shell == 130)
                 return (-1);
+            printf("warning: here-document delimited by end-of-file (wanted `%s')\n", redir->target);
             break;
         }
-        if (ft_strcmp(line, redir->target) == 0)
+        if (strcmp(line, redir->target) == 0)
         {
             free(line);
             break;
