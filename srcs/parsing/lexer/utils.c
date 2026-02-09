@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:33:53 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/09 19:31:29 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/09 19:54:54 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,3 @@ void	init_operators(t_lexer *lexer)
 	lexer->op_lst[12] = (t_operator){"$", 1, EXPANSION};
 }
 
-t_token	*alloc_token(t_token_code code, char *s)
-{
-	t_token	*token;
-
-	token = safe_calloc(1, sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->code = code;
-	token->string = s;
-	return (token);
-}

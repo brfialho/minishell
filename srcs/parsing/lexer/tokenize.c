@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:31:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/09 19:31:21 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/09 19:53:24 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,10 @@ static char	*tokenize_quoted(t_lexer *lexer, char *input)
 	}
 	len++;
 	token_str = safe_calloc(len + 1, sizeof(char));
-	if (!token_str)
-		lexer->error = TRUE;
 	ft_memcpy(token_str, input, len);
 	token = safe_calloc(1, sizeof(t_token));
-	if (!token_str)
-		lexer->error = TRUE;
-	token = alloc_token(WORD, token_str);
-	if (!token)
-		lexer->error = TRUE;
+	token->code = WORD;
+	token->string = token_str;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + len);
 }
@@ -70,14 +65,10 @@ static char	*tokenize_default(t_lexer *lexer, char *input)
 	while(get_state(input[len]) == DEFAULT)
 		len++;
 	token_str = safe_calloc(len + 1, sizeof(char));
-	if (!token_str)
-		lexer->error = TRUE;
 	ft_memcpy(token_str, input, len);
-	if (!token_str)
-		lexer->error = TRUE;
-	token = alloc_token(WORD, token_str);
-	if (!token)
-		lexer->error = TRUE;
+	token = safe_calloc(1, sizeof(t_token));
+	token->code = WORD;
+	token->string = token_str;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + len);
 }
@@ -90,9 +81,9 @@ static char	*tokenize_operator(t_lexer *lexer, char *input)
 	i = 0;
 	while (ft_strncmp(input, lexer->op_lst[i].str, lexer->op_lst[i].str_len))
 		i++;
-	token = alloc_token(lexer->op_lst[i].code, lexer->op_lst[i].str);
-	if (!token)
-		lexer->error = TRUE;
+	token = safe_calloc(1, sizeof(t_token));
+	token->code = lexer->op_lst[i].code;
+	token->string = lexer->op_lst[i].str;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + lexer->op_lst[i].str_len);
 }

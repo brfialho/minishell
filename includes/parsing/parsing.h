@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/09 19:33:04 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/09 19:54:50 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct s_lexer
 void	ft_lexer(t_lexer *lexer, const char *input);
 char	*tokenize(t_lexer *lexer, char *input);
 void	init_operators(t_lexer *lexer);
-t_token	*alloc_token(t_token_code code, char *s);
 void	lexer_destroy(t_lexer *lexer);
 
 typedef enum e_node_type
