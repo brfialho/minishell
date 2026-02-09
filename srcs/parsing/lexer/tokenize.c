@@ -6,11 +6,11 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:31:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 17:35:26 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/09 19:31:21 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "main.h"
 
 static t_state	get_state(char c);
 static char	*tokenize_operator(t_lexer *lexer, char *input);
@@ -46,11 +46,11 @@ static char	*tokenize_quoted(t_lexer *lexer, char *input)
 		return (input + len);
 	}
 	len++;
-	token_str = ft_calloc(len + 1, sizeof(char));
+	token_str = safe_calloc(len + 1, sizeof(char));
 	if (!token_str)
 		lexer->error = TRUE;
 	ft_memcpy(token_str, input, len);
-	token = ft_calloc(1, sizeof(t_token));
+	token = safe_calloc(1, sizeof(t_token));
 	if (!token_str)
 		lexer->error = TRUE;
 	token = alloc_token(WORD, token_str);
@@ -69,7 +69,7 @@ static char	*tokenize_default(t_lexer *lexer, char *input)
 	len = 0;
 	while(get_state(input[len]) == DEFAULT)
 		len++;
-	token_str = ft_calloc(len + 1, sizeof(char));
+	token_str = safe_calloc(len + 1, sizeof(char));
 	if (!token_str)
 		lexer->error = TRUE;
 	ft_memcpy(token_str, input, len);

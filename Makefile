@@ -27,7 +27,8 @@ endif
 SRC= srcs/parsing/lexer/lexer.c \
 	srcs/parsing/lexer/tokenize.c \
 	srcs/parsing/lexer/lexer_destroy.c \
-	srcs/parsing/lexer/utils.c
+	srcs/parsing/lexer/utils.c \
+	srcs/utils/utils.c
 
 O_DIR= obj/
 OBJ= $(SRC:%.c=$(O_DIR)%.o)

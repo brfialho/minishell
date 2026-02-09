@@ -6,11 +6,11 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:33:53 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 17:34:23 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/09 19:31:29 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "main.h"
 
 void	init_operators(t_lexer *lexer)
 {
@@ -33,7 +33,7 @@ t_token	*alloc_token(t_token_code code, char *s)
 {
 	t_token	*token;
 
-	token = ft_calloc(1, sizeof(t_token));
+	token = safe_calloc(1, sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->code = code;
