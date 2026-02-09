@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/30 22:06:43 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/09 17:15:13 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define OP_COUNT 13
 
+// LEXER
 typedef enum e_token_code
 {
 	INVALID,
@@ -67,13 +68,24 @@ typedef struct s_lexer
 	int			error;
 }	t_lexer;
 
-
-// LEXER
-
 void	ft_lexer(t_lexer *lexer, const char *input);
 char	*tokenize(t_lexer *lexer, char *input);
 void	init_operators(t_lexer *lexer);
 t_token	*alloc_token(t_token_code code, char *s);
 void	lexer_destroy(t_lexer *lexer);
+
+typedef enum e_node_type
+{
+	EXEC,
+	OP,
+	SUB
+}	t_node_type;
+
+typedef struct t_ast_node
+{
+	t_node_type type;
+	t_ast_node left;
+	t_ast_node right;
+}	t_ast_node;
 
 #endif
