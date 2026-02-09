@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:42:40 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/04 14:04:59 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/09 12:58:31 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,10 @@ int     is_builtin(char *cmd)
     return (0);
 }
 
+int	has_pipe(t_cmd *cmd)
+{
+	if (!cmd)
+		return (0);
+	return (cmd->pipe_in != -1 || cmd->pipe_out != -1);
+}
 

@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:34 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/04 09:13:19 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:19:05 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int    open_redir_fd(t_redir *redir)
 int apply_redir_fd(int fd, t_redir *redir)
 {
     if (redir->type == REDIR_IN || redir->type == REDIR_HEREDOC)
-        return (dup2(fd, STDIN));
+        return (dup2(fd, STDIN_FILENO));
     if (redir->type == REDIR_OUT || redir->type == REDIR_APPEND)
         return (dup2(fd, STDOUT));
     return (-1);

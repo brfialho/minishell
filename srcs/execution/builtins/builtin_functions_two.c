@@ -6,22 +6,21 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/04 21:19:17 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/06 10:50:29 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-
 int		builtin_echo(t_cmd *cmd)
 {
     int i;
-	int newline;
     int j;
+	int newline;
 
-	i = 1;
+	i = 0;
 	newline = 1;
-	while (cmd->argv[i] && cmd->argv[i][0] == '-' && cmd->argv[i][1] == 'n')
+	while (cmd->argv[i++] && cmd->argv[i][0] == '-' && cmd->argv[i][1] == 'n')
 	{
 		j = 1;
 		while (cmd->argv[i][j] == 'n')
@@ -29,7 +28,6 @@ int		builtin_echo(t_cmd *cmd)
 		if (cmd->argv[i][j] != '\0')
 			break;
 		newline = 0;
-		i++;
 	}
 	while (cmd->argv[i])
 	{
@@ -41,20 +39,6 @@ int		builtin_echo(t_cmd *cmd)
 	if (newline)
 		ft_putstr_fd("\n", STDOUT);
 	return (0);
-}
-
-int		builtin_cd(t_cmd *cmd, char **envp)
-{
-    char    *path;
-    char    *cwd;
-
-    cwd = getcwd(NULL, 0);
-    if (cmd->argv[0][0] == "cd" && cmd->argv[1] == NULL)
-    path = ft_get_envp(&envp, "HOME");
-    if (path == NULL)
-        perror("Home not set");
-    else
-        chdir(path);
 }
 
 int		builtin_pwd(void)
@@ -72,12 +56,20 @@ int		builtin_pwd(void)
     return (0);
 }
 
-int		builtin_export(t_cmd *cmd, char ***envp)
+int		builtin_env(t_env *env)
 {
-    
+    while (env)
+	{
+		if (env->value)
+			printf("%s=%s\n", env->key, env->value);
+		env = env->next;
+	}
+	return (0);
 }
 
-int		builtin_unset(t_cmd *cmd, char ***envp)
+int		builtin_exit(t_cmd *cmd)
 {
-    
+    (void)cmd;
+	printf("exit\n");
+	exit(0);
 }
