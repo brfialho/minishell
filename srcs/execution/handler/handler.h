@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   handler.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 14:24:10 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/20 20:20:28 by rafreire         ###   ########.fr       */
+/*   Created: 2026/01/20 19:15:03 by rafreire          #+#    #+#             */
+/*   Updated: 2026/02/11 14:58:28 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef HANDLER_H
+# define HANDLER_H
 
-# include "../libft/headers/libft.h"
-# include "../includes/parsing/parsing.h"
-# include "../includes/execution/execution.h"
-# include "../srcs/execution/handler/handler.h"
-# include "../srcs/execution/signals/set_signals.h"
+# include "parsing/parsing.h"
+# include "execution/execution.h"
+# include "main.h"
 
-extern int g_status_shell;
+void	sigint_prompt(int sig);
+void	sigint_handler(int sig);
+void	sigint_heredoc(int sig);
 
 #endif

@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   handler_basic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 14:24:10 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/20 20:20:28 by rafreire         ###   ########.fr       */
+/*   Created: 2026/01/20 18:28:56 by rafreire          #+#    #+#             */
+/*   Updated: 2026/02/11 14:54:59 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "main.h"
 
-# include "../libft/headers/libft.h"
-# include "../includes/parsing/parsing.h"
-# include "../includes/execution/execution.h"
-# include "../srcs/execution/handler/handler.h"
-# include "../srcs/execution/signals/set_signals.h"
+void	sigint_handler(int sig)
+{
+	(void)sig;
+	g_status_shell = 130;
+}
 
-extern int g_status_shell;
+void	sigint_prompt(int sig)
+{
+	(void)sig;
+	g_status_shell = 130;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
-#endif
+void	sigint_heredoc(int sig)
+{
+	(void)sig;
+	g_status_shell = 130;
+	write(1, "\n", 1);
+}

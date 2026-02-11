@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   prompt_line.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 14:24:10 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/20 20:20:28 by rafreire         ###   ########.fr       */
+/*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
+/*   Updated: 2026/02/11 15:15:17 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "parsing/parsing.h"
+#include "execution/execution.h"
+#include "main.h"
 
-# include "../libft/headers/libft.h"
-# include "../includes/parsing/parsing.h"
-# include "../includes/execution/execution.h"
-# include "../srcs/execution/handler/handler.h"
-# include "../srcs/execution/signals/set_signals.h"
+char	*read_prompt_line(void)
+{
+	char	*line;
 
-extern int g_status_shell;
-
-#endif
+	line = readline("minishell$ ");
+	if (!line)
+	{
+		printf("exit\n");
+		return (NULL);
+	}
+	if (g_status_shell == 130)
+	{
+		g_status_shell = 0;
+		free(line);
+		return (NULL);
+	}
+	if (*line)
+		add_history(line);
+	return (line);
+}
