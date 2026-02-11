@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/09 12:58:44 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/11 18:45:54 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ typedef struct s_cmd
 	char	*path;
 	t_redir	*redir;
 	int		heredoc_fd;
-	int		pipe_in;
-	int		pipe_out;
+	int		pipe_in; //remover dps
+	int		pipe_out; //remover dps
+	struct	s_cmd *next; //remover dps
 }	t_cmd;
 
 typedef struct s_redir
@@ -76,6 +77,7 @@ int     is_builtin(char *cmd);
 int		execute_builtin(t_cmd *cmd, t_env **env);
 int		exec_builtin_parent(t_cmd *cmd, t_env **env);
 int		has_pipe(t_cmd *cmd);
+int		exec_pipeline(t_cmd *cmd_list, t_env **env);
 void	exec_builtin_child(t_cmd *cmd, t_env **env);
 char    *read_prompt_line(void);
 
