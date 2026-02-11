@@ -6,15 +6,15 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:21 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/06 10:59:55 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/11 15:04:53 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int execute_builtin(t_cmd *cmd, t_env **env)
+int	execute_builtin(t_cmd *cmd, t_env **env)
 {
-	char *builtin;
+	char	*builtin;
 
 	if (!cmd || !cmd->argv || !cmd->argv[0])
 		return (1);

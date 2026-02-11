@@ -6,9 +6,13 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:02:08 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/09 13:02:17 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/11 16:17:55 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
+int	exec_pipeline(t_cmd *cmd_list, t_env **env)
+{
+	
+}

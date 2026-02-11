@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:15:03 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/04 08:55:43 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:58:28 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "execution/execution.h"
 # include "main.h"
 
-void    sigint_prompt(int sig);
-void    sigint_handler(int sig);
-void    sigint_heredoc(int sig);
+void	sigint_prompt(int sig);
+void	sigint_handler(int sig);
+void	sigint_heredoc(int sig);
 
 #endif

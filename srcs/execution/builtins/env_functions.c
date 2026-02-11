@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_builtin_three.c                              :+:      :+:    :+:   */
+/*   env_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 10:26:24 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/06 10:48:39 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:57:37 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_env	*env_from_envp(char **envp)
 
 void	env_add_back(t_env **env, t_env *new)
 {
-    t_env	*tmp;
+	t_env	*tmp;
 
 	if (!env || !new)
 		return ;
@@ -62,7 +62,10 @@ void	ft_set_env(t_env **env, char *key, char *value)
 		if (!ft_strcmp(tmp->key, key))
 		{
 			free(tmp->value);
-			tmp->value = value ? ft_strdup(value) : NULL;
+			if (value)
+				tmp->value = ft_strdup(value);
+			else
+				tmp->value = NULL;
 			return ;
 		}
 		tmp = tmp->next;

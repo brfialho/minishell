@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/09 13:06:36 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:53:07 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static void	exec_child(t_cmd *cmd, t_env **env)
 {
 	char	**envp_exec;
 
-    if (is_builtin(cmd->argv[0]))
-    {
+	if (is_builtin(cmd->argv[0]))
+	{
 		exec_builtin_child(cmd, env);
-        exit(0);
-    }
+		exit(0);
+	}
 	if (set_redir(cmd->redir, cmd) == -1)
 		exit(1);
 	if (cmd->heredoc_fd != -1)
@@ -70,9 +70,3 @@ int	ft_exec_cmd(t_cmd *cmd, t_env **env)
 		return (exec_builtin_parent(cmd, env));
 	return (exec_external_cmd(cmd, env));
 }
-
-
-
-
-
-

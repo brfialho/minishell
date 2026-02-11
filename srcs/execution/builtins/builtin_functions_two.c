@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_builtin.c                                    :+:      :+:    :+:   */
+/*   builtin_functions_two.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/06 10:50:29 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/11 15:04:10 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int		builtin_echo(t_cmd *cmd)
+int	builtin_echo(t_cmd *cmd)
 {
-    int i;
-    int j;
-	int newline;
+	int	i;
+	int	j;
+	int	newline;
 
 	i = 0;
 	newline = 1;
@@ -26,7 +26,7 @@ int		builtin_echo(t_cmd *cmd)
 		while (cmd->argv[i][j] == 'n')
 			j++;
 		if (cmd->argv[i][j] != '\0')
-			break;
+			break ;
 		newline = 0;
 	}
 	while (cmd->argv[i])
@@ -41,24 +41,24 @@ int		builtin_echo(t_cmd *cmd)
 	return (0);
 }
 
-int		builtin_pwd(void)
+int	builtin_pwd(void)
 {
-    char *cwd;
+	char	*cwd;
 
-    cwd = getcwd(NULL, 0);
-    if (!cwd)
-    {
-        perror("pwd");
-        return (1);
-    }
-    ft_putendl_fd(cwd, STDOUT);
-    free(cwd);
-    return (0);
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		perror("pwd");
+		return (1);
+	}
+	ft_putendl_fd(cwd, STDOUT);
+	free(cwd);
+	return (0);
 }
 
-int		builtin_env(t_env *env)
+int	builtin_env(t_env *env)
 {
-    while (env)
+	while (env)
 	{
 		if (env->value)
 			printf("%s=%s\n", env->key, env->value);
@@ -67,9 +67,9 @@ int		builtin_env(t_env *env)
 	return (0);
 }
 
-int		builtin_exit(t_cmd *cmd)
+int	builtin_exit(t_cmd *cmd)
 {
-    (void)cmd;
+	(void)cmd;
 	printf("exit\n");
 	exit(0);
 }

@@ -6,13 +6,13 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 09:58:33 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/09 10:13:09 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/11 15:02:20 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-char    *ft_get_envp(t_env *env, char *key)
+char	*ft_get_envp(t_env *env, char *key)
 {
 	while (env)
 	{
