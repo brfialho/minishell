@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:31:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/09 19:53:24 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/12 19:14:17 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static char	*tokenize_quoted(t_lexer *lexer, char *input)
 	token = safe_calloc(1, sizeof(t_token));
 	token->code = WORD;
 	token->string = token_str;
+	token->precedence = 0;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + len);
 }
@@ -69,6 +70,7 @@ static char	*tokenize_default(t_lexer *lexer, char *input)
 	token = safe_calloc(1, sizeof(t_token));
 	token->code = WORD;
 	token->string = token_str;
+	token->precedence = 0;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + len);
 }
@@ -84,6 +86,7 @@ static char	*tokenize_operator(t_lexer *lexer, char *input)
 	token = safe_calloc(1, sizeof(t_token));
 	token->code = lexer->op_lst[i].code;
 	token->string = lexer->op_lst[i].str;
+	token->precedence = lexer->op_lst[i].precedence;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + lexer->op_lst[i].str_len);
 }
