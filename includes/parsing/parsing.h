@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/12 19:13:40 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/12 19:44:22 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,7 @@ typedef struct t_ast_node
 	struct t_ast_node *left;
 	struct t_ast_node *right;
 }	t_ast_node;
+
+int	parser(t_lexer *lexer);
 
 #endif

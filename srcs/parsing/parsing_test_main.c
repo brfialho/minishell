@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/09 19:30:19 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/12 19:49:33 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int main(int argc, char **argv)
 
 	ft_printf("%s\n", argv[1]);
 	ft_lexer(&lexer_data, argv[1]);
+	parser(&lexer_data);
 	// if (lexer_data.token_lst)
 	// 	lst_for_each(*(t_list **)(lexer_data.token_lst), print_node);
 	lexer_destroy(&lexer_data);
