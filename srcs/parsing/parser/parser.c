@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/12 19:51:13 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/12 20:14:41 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,19 @@ t_list	*get_lower_prec(t_list *token_lst)
 
 int	parser(t_lexer *lexer)
 {
+	t_list *token_lst;
+	t_list *lower_prec_node;
 	// t_ast_node	**root;
 
 	// root = safe_calloc(1, sizeof(t_ast_node *));
-	t_token token;
-	// int i = lst_size(*lexer->token_lst);
-	// while (--i)
-	// {
-		token = (*(t_token *)get_lower_prec(*lexer->token_lst)->content);
-		ft_printf("TOKEN: %s PREC: %d\n", token.string, token.precedence);
-	// }
+	int i = lst_size(*lexer->token_lst);
+	token_lst = lst_dup(*lexer->token_lst, NULL);
+	while (i--)
+	{
+		lower_prec_node = get_lower_prec(token_lst);
+		t_token * token = lower_prec_node->content;
+		ft_printf("TOKEN: %s PREC: %d\n", token->string, token->precedence);
+		free (lst_detach(&token_lst, lower_prec_node));
+	}
 	return (0);
 }
