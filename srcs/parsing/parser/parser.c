@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/12 22:13:56 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/12 22:17:53 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,6 @@ t_list	*get_lower_prec(t_list *token_lst)
 		return (NULL);
 	return (lower_prec_node);
 }
-
-// NAO FUNCIONA SEM WORDS NA BEIRA
-// NAO TA COLOCANDO O CONTENT CERTO
-// NAO TRATA ERRO
-// ESTA IGNORANDO TODAS AS WORDS MENOS A PRIMEIRA NA LEAG
-// TEM LEAK
-
 void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
 {
     if (ast == NULL)
@@ -94,7 +87,11 @@ void	read_ast_content(void *content)
 // }
 
 
-
+// NAO FUNCIONA SEM WORDS NA BEIRA
+// NAO TA COLOCANDO O CONTENT CERTO
+// NAO TRATA ERRO
+// ESTA IGNORANDO TODAS AS WORDS MENOS A PRIMEIRA NA LEAG
+// TEM LEAK
 t_ast	*ast_builder(t_list *token_lst)
 {
 	t_ast	*node;
