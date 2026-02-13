@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/12 21:57:31 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/12 22:13:56 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,9 @@ void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
     free(new_prefix);
 }
 
-void	read_ast(t_ast *root)
+void	read_ast_content(void *content)
 {
-	if (root == NULL)
-		return ;
-	read_ast(root->left);
-	read_ast(root->right);
-	ft_printf("%s\n", ((t_token *)root->content)->string);
+	ft_printf("%s\n", ((t_token *)content)->string);
 }
 
 // static void	del_token(void	*content)
@@ -97,22 +93,7 @@ void	read_ast(t_ast *root)
 // 	free(token);
 // }
 
-void ast_del_all_helper(t_ast *root, void (*del)(void *))
-{
-	if (root == NULL)
-		return ;
-	ast_del_all_helper(root->left, del);
-	ast_del_all_helper(root->right, del);
-	if (del)
-		del(root->content);
-	free(root);
-}
 
-void	ast_del_all(t_ast **root, void (*del)(void *))
-{
-	ast_del_all_helper(*root, del);
-	*root = NULL;
-}
 
 t_ast	*ast_builder(t_list *token_lst)
 {
@@ -146,7 +127,7 @@ int	parser(t_lexer *lexer)
 	token_lst = lst_dup(*lexer->token_lst, NULL);
 
 	*root = ast_builder(token_lst);
-	// read_ast(*root);
+	ast_for_each(*root, read_ast_content);
 	// print_ast_visual(*root, 0, "", 0);
 	ast_del_all(root, NULL);
 	free(root);
