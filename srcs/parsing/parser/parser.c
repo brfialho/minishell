@@ -6,11 +6,35 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/12 20:14:41 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/12 21:57:31 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+t_list	*lst_cut(t_list **head, t_list *node)
+{
+	t_list	*lst;
+
+	if (*head == node)
+	{
+		*head = (*head)->next;
+		node->next = NULL;
+		return (node);
+	}
+	lst = *head;
+	while (lst)
+	{
+		if (lst->next == node)
+		{
+			lst->next = NULL;
+			node->next = NULL;
+			return (node);
+		}
+		lst = lst->next;
+	}
+	return (NULL);
+}
 
 t_list	*get_lower_prec(t_list *token_lst)
 {
@@ -25,26 +49,110 @@ t_list	*get_lower_prec(t_list *token_lst)
 			lower_prec_node = lst;
 		lst = lst->next;
 	}
-	// if (((t_token *)lst->content)->precedence == 0)
-	// 	return (NULL);
+	if (((t_token *)lower_prec_node->content)->precedence == 0)
+		return (NULL);
 	return (lower_prec_node);
 }
 
+// NAO FUNCIONA SEM WORDS NA BEIRA
+// NAO TA COLOCANDO O CONTENT CERTO
+// NAO TRATA ERRO
+// ESTA IGNORANDO TODAS AS WORDS MENOS A PRIMEIRA NA LEAG
+// TEM LEAK
+
+void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
+{
+    if (ast == NULL)
+        return ;
+    ft_printf("%s", prefix);
+    if (depth > 0)
+        ft_printf("%s", is_left ? "├── " : "└── ");
+    ft_printf("%s\n", ((t_token *)ast->content)->string);
+    char *new_prefix;
+    if (depth == 0)
+        new_prefix = ft_strdup("");
+    else
+        new_prefix = ft_strjoin(prefix, is_left ? "│   " : "    ");
+    print_ast_visual(ast->left, depth + 1, new_prefix, 1);
+    print_ast_visual(ast->right, depth + 1, new_prefix, 0);
+    free(new_prefix);
+}
+
+void	read_ast(t_ast *root)
+{
+	if (root == NULL)
+		return ;
+	read_ast(root->left);
+	read_ast(root->right);
+	ft_printf("%s\n", ((t_token *)root->content)->string);
+}
+
+// static void	del_token(void	*content)
+// {
+// 	t_token	*token;
+
+// 	token = content;
+// 	if (token->code == WORD)
+// 		free(token->string);
+// 	free(token);
+// }
+
+void ast_del_all_helper(t_ast *root, void (*del)(void *))
+{
+	if (root == NULL)
+		return ;
+	ast_del_all_helper(root->left, del);
+	ast_del_all_helper(root->right, del);
+	if (del)
+		del(root->content);
+	free(root);
+}
+
+void	ast_del_all(t_ast **root, void (*del)(void *))
+{
+	ast_del_all_helper(*root, del);
+	*root = NULL;
+}
+
+t_ast	*ast_builder(t_list *token_lst)
+{
+	t_ast	*node;
+	t_list	*lower_prec;
+	t_list	*right;
+
+	lower_prec = get_lower_prec(token_lst);
+	if (lower_prec == NULL)
+	{
+		node = ast_new_node(token_lst->content);
+		free (token_lst);
+		return (node);
+	}
+	node = ast_new_node(lower_prec->content);
+	right = lower_prec->next;
+	free(lst_cut(&token_lst, lower_prec));
+	node->left = ast_builder(token_lst);
+	node->right = ast_builder(right);
+	return (node);
+}
+
+
+
 int	parser(t_lexer *lexer)
 {
-	t_list *token_lst;
-	t_list *lower_prec_node;
-	// t_ast_node	**root;
+	t_list	*token_lst;
+	t_ast	**root;
 
-	// root = safe_calloc(1, sizeof(t_ast_node *));
-	int i = lst_size(*lexer->token_lst);
+	root = safe_calloc(1, sizeof(t_ast *));
 	token_lst = lst_dup(*lexer->token_lst, NULL);
-	while (i--)
-	{
-		lower_prec_node = get_lower_prec(token_lst);
-		t_token * token = lower_prec_node->content;
-		ft_printf("TOKEN: %s PREC: %d\n", token->string, token->precedence);
-		free (lst_detach(&token_lst, lower_prec_node));
-	}
+
+	*root = ast_builder(token_lst);
+	// read_ast(*root);
+	// print_ast_visual(*root, 0, "", 0);
+	ast_del_all(root, NULL);
+	free(root);
+	// int i = lst_size(*lexer->token_lst);
+	// while (i--)
+	// {
+	// }
 	return (0);
 }

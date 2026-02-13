@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/12 19:44:22 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/12 20:28:08 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,11 @@ typedef enum e_node_type
 	SUB
 }	t_node_type;
 
-typedef struct t_ast_node
+typedef struct s_msh_ast
 {
-	t_node_type type;
-	struct t_ast_node *left;
-	struct t_ast_node *right;
-}	t_ast_node;
+	t_node_type			type;
+	t_token				*token;
+}	t_msh_ast;
 
 int	parser(t_lexer *lexer);
 
