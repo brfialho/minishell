@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/14 04:48:26 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/14 06:07:17 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_msh_ast
 {
 	t_node_type	type;
 	char		**argv;
+	char		*path;
 	char		*str;
 }	t_msh_ast;
 
