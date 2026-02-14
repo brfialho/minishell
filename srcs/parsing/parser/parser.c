@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/12 22:21:24 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/14 03:12:51 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,45 @@ void	read_ast_content(void *content)
 // 	free(token);
 // }
 
-
+// TEM QUE TRATAR SE O PRIMEIRO ITEM DA LISTA DE TOKENS NAO FOR WORD DA PAU POR CAUSA DA LST_CUT
 // NAO FUNCIONA SEM WORDS NA BEIRA
 // NAO TA COLOCANDO O CONTENT CERTO
 // NAO TRATA ERRO
 // ESTA IGNORANDO TODAS AS WORDS MENOS A PRIMEIRA NA LEAG
 // TEM LEAK
+
+t_list	*mini_lst_cut(t_list **head, t_list *node)
+{
+	t_list	*lst;
+
+	if (*head == node)
+	{
+		*head = NULL;
+		node->next = NULL;
+		return (node);
+	}
+	lst = *head;
+	while (lst)
+	{
+		if (lst->next == node)
+		{
+			lst->next = NULL;
+			node->next = NULL;
+			return (node);
+		}
+		lst = lst->next;
+	}
+	return (NULL);
+}
+
 t_ast	*ast_builder(t_list *token_lst)
 {
 	t_ast	*node;
 	t_list	*lower_prec;
 	t_list	*right;
 
+	if (token_lst == NULL)
+		return (NULL);
 	lower_prec = get_lower_prec(token_lst);
 	if (lower_prec == NULL)
 	{
@@ -85,7 +112,7 @@ t_ast	*ast_builder(t_list *token_lst)
 	}
 	node = ast_new_node(lower_prec->content);
 	right = lower_prec->next;
-	free(lst_cut(&token_lst, lower_prec));
+	free(mini_lst_cut(&token_lst, lower_prec));
 	node->left = ast_builder(token_lst);
 	node->right = ast_builder(right);
 	return (node);
@@ -102,13 +129,9 @@ int	parser(t_lexer *lexer)
 	token_lst = lst_dup(*lexer->token_lst, NULL);
 
 	*root = ast_builder(token_lst);
-	ast_for_each(*root, read_ast_content);
-	// print_ast_visual(*root, 0, "", 0);
+	// ast_for_each(*root, read_ast_content);
+	print_ast_visual(*root, 0, "", 0);
 	ast_del_all(root, NULL);
 	free(root);
-	// int i = lst_size(*lexer->token_lst);
-	// while (i--)
-	// {
-	// }
 	return (0);
 }
