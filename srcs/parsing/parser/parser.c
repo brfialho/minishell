@@ -6,13 +6,11 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/14 03:12:51 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/14 04:45:59 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-
 
 t_list	*get_lower_prec(t_list *token_lst)
 {
@@ -31,6 +29,7 @@ t_list	*get_lower_prec(t_list *token_lst)
 		return (NULL);
 	return (lower_prec_node);
 }
+
 void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
 {
     if (ast == NULL)
@@ -38,7 +37,7 @@ void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
     ft_printf("%s", prefix);
     if (depth > 0)
         ft_printf("%s", is_left ? "├── " : "└── ");
-    ft_printf("%s\n", ((t_token *)ast->content)->string);
+    ft_printf("%s:%d\n", ((t_msh_ast *)ast->content)->str, ((t_msh_ast *)ast->content)->type);
     char *new_prefix;
     if (depth == 0)
         new_prefix = ft_strdup("");
@@ -54,18 +53,6 @@ void	read_ast_content(void *content)
 	ft_printf("%s\n", ((t_token *)content)->string);
 }
 
-// static void	del_token(void	*content)
-// {
-// 	t_token	*token;
-
-// 	token = content;
-// 	if (token->code == WORD)
-// 		free(token->string);
-// 	free(token);
-// }
-
-// TEM QUE TRATAR SE O PRIMEIRO ITEM DA LISTA DE TOKENS NAO FOR WORD DA PAU POR CAUSA DA LST_CUT
-// NAO FUNCIONA SEM WORDS NA BEIRA
 // NAO TA COLOCANDO O CONTENT CERTO
 // NAO TRATA ERRO
 // ESTA IGNORANDO TODAS AS WORDS MENOS A PRIMEIRA NA LEAG
@@ -95,6 +82,32 @@ t_list	*mini_lst_cut(t_list **head, t_list *node)
 	return (NULL);
 }
 
+t_ast	*get_operator_node(t_token *token)
+{
+	t_msh_ast	*content;
+	t_ast		*node;
+
+	content = safe_calloc(1, sizeof(t_msh_ast));
+	if (token->code == PIPE)
+		content->type = PIPE_OP;
+	else if (token->code == LOGICAL_AND)
+		content->type = AND;
+	else if (token->code == LOGICAL_OR)
+		content->type = OR;
+	content->str = token->string;
+	node = ast_new_node(content);
+	return (node);
+}
+
+// t_ast	*get_exec_node(t_token *token)
+// {
+// 	t_msh_ast	*content;
+// 	t_ast		*node;
+
+	
+	
+// }
+
 t_ast	*ast_builder(t_list *token_lst)
 {
 	t_ast	*node;
@@ -106,19 +119,18 @@ t_ast	*ast_builder(t_list *token_lst)
 	lower_prec = get_lower_prec(token_lst);
 	if (lower_prec == NULL)
 	{
+		// get_exec_node(token_lst);
 		node = ast_new_node(token_lst->content);
 		free (token_lst);
 		return (node);
 	}
-	node = ast_new_node(lower_prec->content);
+	node = get_operator_node(lower_prec->content);
 	right = lower_prec->next;
 	free(mini_lst_cut(&token_lst, lower_prec));
 	node->left = ast_builder(token_lst);
 	node->right = ast_builder(right);
 	return (node);
 }
-
-
 
 int	parser(t_lexer *lexer)
 {
