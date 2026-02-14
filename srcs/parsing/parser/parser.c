@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/14 06:36:12 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/14 20:13:58 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
 		string = ft_strdup("");
 		while (((t_msh_ast *)ast->content)->argv[i])
 			string = ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), " ");
+		string = ft_strjoin(string, ":");
+		t_list *redir = *((t_msh_ast *)ast->content)->redir;
+		while (redir)
+		{
+			string = ft_strjoin(ft_strjoin(string, ((t_redir *)redir->content)->target), " ");
+			redir = redir->next;
+		}
 	}
     ft_printf("%s:%d\n", string, ((t_msh_ast *)ast->content)->type);
     char *new_prefix;
@@ -106,18 +113,37 @@ t_ast	*get_operator_node(t_token *token)
 	return (ast_new_node(content));
 }
 
+t_list	*parse_redir(t_list **redir, t_list *token_lst)
+{
+	t_redir	*redir_node;
+
+	redir_node = safe_calloc(1, sizeof(t_redir));
+	redir_node->type = (int)((t_token *)token_lst->content)->code;
+	if (token_lst->next)
+		redir_node->target = ((t_token *)token_lst->next->content)->string;
+	lst_add_end(redir, lst_new_node(redir_node));
+	if (token_lst->next)
+		return (token_lst->next);
+	return (token_lst);
+}
+
+// DOESNT WORK WITH INFILE
 t_ast	*get_exec_node(t_list *token_lst)
 {
 	t_msh_ast	*content;
 	t_list		*lst;
 
 	content = safe_calloc(1, sizeof(t_msh_ast));
-	content->type = NODE_EXEC;
 	content->argv = safe_calloc(lst_size(token_lst) + 1, sizeof(char *));
+	content->redir = safe_calloc(1, sizeof(t_list *));
+	content->type = NODE_EXEC;
 	lst = token_lst;
 	while(lst)
-	{
-		content->argv[lst_size(token_lst) - lst_size(lst)] = ((t_token *)lst->content)->string;
+	{	
+		if (((t_token *)lst->content)->code < 5)
+			lst = parse_redir(content->redir, lst);
+		else
+			content->argv[lst_size(token_lst) - lst_size(lst)] = ((t_token *)lst->content)->string;
 		lst = lst->next;
 	}
 	lst_del_all(&token_lst, NULL);

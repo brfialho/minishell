@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/14 06:35:40 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/14 19:30:59 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@
 typedef enum e_token_code
 {
 	INVALID,
+	INFILE,
+	OUTFILE,
+	APPEND,
+	HEREDOC,
 	WORD,
 	LOGICAL_AND,
 	LOGICAL_OR,
 	PIPE,
 	ASSIGNMENT,
-	INFILE,
-	OUTFILE,
-	APPEND,
-	HEREDOC,
 	OPEN_PARENTHESIS,
 	CLOSE_PARENTHESIS,
 	EXPANSION
@@ -73,23 +73,6 @@ typedef struct s_lexer
 void	ft_lexer(t_lexer *lexer, const char *input);
 char	*tokenize(t_lexer *lexer, char *input);
 void	lexer_destroy(t_lexer *lexer);
-
-typedef enum e_node_type
-{
-	NODE_EXEC,
-	NODE_PIPE,
-	NODE_OR,
-	NODE_AND,
-	NODE_SUB
-}	t_node_type;
-
-typedef struct s_msh_ast
-{
-	t_node_type	type;
-	char		**argv;
-	char		*path;
-	char		*str;
-}	t_msh_ast;
 
 t_ast	**parser(t_lexer *lexer);
 
