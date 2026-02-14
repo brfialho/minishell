@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/14 06:05:39 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/14 06:15:19 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,32 +143,17 @@ t_ast	*ast_builder(t_list *token_lst)
 	return (node);
 }
 
-void	del_ast_node(void *content)
-{
-	t_msh_ast	*ast;
 
-	ast = content;
-	if (ast->type != EXEC)
-	{
-		free(content);
-		return ;
-	}
-	free (ast->argv);
-	free (content);
-}
 
-int	parser(t_lexer *lexer)
+t_ast	**parser(t_lexer *lexer)
 {
 	t_list	*token_lst;
 	t_ast	**root;
 
 	root = safe_calloc(1, sizeof(t_ast *));
 	token_lst = lst_dup(*lexer->token_lst, NULL);
-
 	*root = ast_builder(token_lst);
 	// ast_for_each(*root, read_ast_content);
 	print_ast_visual(*root, 0, "", 0);
-	ast_del_all(root, del_ast_node);
-	free(root);
-	return (0);
+	return (root);
 }
