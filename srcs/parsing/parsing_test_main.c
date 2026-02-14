@@ -6,11 +6,27 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/30 22:07:18 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/14 06:36:20 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "main.h"
+
+void	del_ast_node(void *content)
+{
+	t_msh_ast	*ast;
+
+	ast = content;
+	if (ast->type == NODE_EXEC)
+		free(ast->argv);
+	free (content);
+}
+
+void parser_destroy(t_ast **root)
+{
+	ast_del_all(root, del_ast_node);
+	free(root);
+}
 
 void	print_node(void *content)
 {
@@ -26,8 +42,6 @@ void	del(void *content)
 	free(token);
 }
 
-
-
 int main(int argc, char **argv)
 {
 	(void) argc;
@@ -35,7 +49,9 @@ int main(int argc, char **argv)
 
 	ft_printf("%s\n", argv[1]);
 	ft_lexer(&lexer_data, argv[1]);
-	if (lexer_data.token_lst)
-		lst_for_each(*(t_list **)(lexer_data.token_lst), print_node);
+	t_ast **root = parser(&lexer_data);
+	// if (lexer_data.token_lst)
+	// 	lst_for_each(*(t_list **)(lexer_data.token_lst), print_node);
 	lexer_destroy(&lexer_data);
+	parser_destroy(root);
 }

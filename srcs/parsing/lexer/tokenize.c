@@ -6,11 +6,11 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:31:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 17:35:26 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/12 19:14:17 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "main.h"
 
 static t_state	get_state(char c);
 static char	*tokenize_operator(t_lexer *lexer, char *input);
@@ -46,16 +46,12 @@ static char	*tokenize_quoted(t_lexer *lexer, char *input)
 		return (input + len);
 	}
 	len++;
-	token_str = ft_calloc(len + 1, sizeof(char));
-	if (!token_str)
-		lexer->error = TRUE;
+	token_str = safe_calloc(len + 1, sizeof(char));
 	ft_memcpy(token_str, input, len);
-	token = ft_calloc(1, sizeof(t_token));
-	if (!token_str)
-		lexer->error = TRUE;
-	token = alloc_token(WORD, token_str);
-	if (!token)
-		lexer->error = TRUE;
+	token = safe_calloc(1, sizeof(t_token));
+	token->code = WORD;
+	token->string = token_str;
+	token->precedence = 0;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + len);
 }
@@ -69,15 +65,12 @@ static char	*tokenize_default(t_lexer *lexer, char *input)
 	len = 0;
 	while(get_state(input[len]) == DEFAULT)
 		len++;
-	token_str = ft_calloc(len + 1, sizeof(char));
-	if (!token_str)
-		lexer->error = TRUE;
+	token_str = safe_calloc(len + 1, sizeof(char));
 	ft_memcpy(token_str, input, len);
-	if (!token_str)
-		lexer->error = TRUE;
-	token = alloc_token(WORD, token_str);
-	if (!token)
-		lexer->error = TRUE;
+	token = safe_calloc(1, sizeof(t_token));
+	token->code = WORD;
+	token->string = token_str;
+	token->precedence = 0;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + len);
 }
@@ -90,9 +83,10 @@ static char	*tokenize_operator(t_lexer *lexer, char *input)
 	i = 0;
 	while (ft_strncmp(input, lexer->op_lst[i].str, lexer->op_lst[i].str_len))
 		i++;
-	token = alloc_token(lexer->op_lst[i].code, lexer->op_lst[i].str);
-	if (!token)
-		lexer->error = TRUE;
+	token = safe_calloc(1, sizeof(t_token));
+	token->code = lexer->op_lst[i].code;
+	token->string = lexer->op_lst[i].str;
+	token->precedence = lexer->op_lst[i].precedence;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + lexer->op_lst[i].str_len);
 }

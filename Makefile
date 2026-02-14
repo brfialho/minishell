@@ -27,7 +27,8 @@ endif
 SRC= srcs/parsing/lexer/lexer.c \
 	srcs/parsing/lexer/tokenize.c \
 	srcs/parsing/lexer/lexer_destroy.c \
-	srcs/parsing/lexer/utils.c
+	srcs/parsing/parser/parser.c \
+	srcs/utils/utils.c
 
 O_DIR= obj/
 OBJ= $(SRC:%.c=$(O_DIR)%.o)
@@ -42,7 +43,7 @@ TEST_BIN_DIR= tests/bin/
 TEST_NAMES= lexer
 TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
-parse: re
+parse: re_nolib
 #	@rm -rf $(O_DIR)
 #	@rm -f $(NAME)
 
@@ -81,6 +82,20 @@ fclean:
 	@rm -f $(NAME)
 
 re: fclean all
+
+clean_nolib:
+	@echo "$(MAGENTA)Cleansing $(NAME) Objects"
+	$(LOADING)
+	@rm -rf $(O_DIR)
+	@rm -rf $(TEST_BIN_DIR)
+
+fclean_nolib:
+	@echo "$(MAGENTA)Cleansing $(NAME)"
+	$(LOADING)
+	@rm -rf $(O_DIR)
+	@rm -f $(NAME)
+
+re_nolib: fclean_nolib all
 
 test: fclean
 	@$(MAKE) --no-print-directory $(TEST_BINARIES)

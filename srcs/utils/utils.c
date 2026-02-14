@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 14:24:10 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/14 18:10:54 by brfialho         ###   ########.fr       */
+/*   Created: 2026/02/09 19:25:23 by brfialho          #+#    #+#             */
+/*   Updated: 2026/02/09 19:29:25 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "main.h"
 
-# include "../libft/headers/libft.h"
-# include "../includes/parsing/parsing.h"
-# include "../includes/execution/execution.h"
-# include "../srcs/execution/handler/handler.h"
-# include "../srcs/execution/signals/set_signals.h"
+void	*safe_calloc(size_t nmemb, size_t size)
+{
+	void	*ptr;
 
-extern int g_status_shell;
-
-void	*safe_calloc(size_t nmemb, size_t size);
-
-#endif
+	ptr = ft_calloc(nmemb, size);
+	if (!ptr)
+	{
+		ft_printf("System memory error\nTerminating now\n");
+		exit(1);
+	}
+	return (ptr);
+}

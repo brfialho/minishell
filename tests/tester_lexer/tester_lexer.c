@@ -6,17 +6,18 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:39:21 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 19:51:34 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/12 19:24:38 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
 #include "parsing.h"
 
-char	test_helper(t_token_code expc_code, t_token_code code,  char *expec_s, char *s)
+char	test_helper(char expec_precedence, t_token_code expc_code, char *expec_s, t_token token)
 {
-	if (code != expc_code
-		|| ft_strncmp(expec_s, s, ft_strlen(s)))
+	if (token.code != expc_code
+		|| ft_strncmp(expec_s, token.string, ft_strlen(token.string))
+		|| token.precedence != expec_precedence)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -31,16 +32,16 @@ char	test_lexer_simple_input(t_lexer *lexer)
 	if (!lst || lst_size(lst) != 4)
 		return (EXIT_FAILURE);
 
-	expected_token[0] = (t_token){WORD, "ls"};
-	expected_token[1] = (t_token){PIPE, "|"};
-	expected_token[2] = (t_token){WORD, "wc"};
-	expected_token[3] = (t_token){WORD, "-l"};
+	expected_token[0] = (t_token){WORD, "ls", 0};
+	expected_token[1] = (t_token){PIPE, "|", 1};
+	expected_token[2] = (t_token){WORD, "wc", 0};
+	expected_token[3] = (t_token){WORD, "-l", 0};
 
 	int i = -1;
 	while (++i < lst_size(lst))
 	{
 		token = (t_token *)lst->content;
-			if (test_helper(expected_token[i].code, token->code, expected_token[i].string, token->string))
+			if (test_helper(expected_token[i].precedence, expected_token[i].code, expected_token[i].string, *token))
 				return(EXIT_FAILURE);
 		lst = lst->next;
 	}
@@ -57,15 +58,15 @@ char	test_lexer_simple_input_no_spaces(t_lexer *lexer)
 	if (!lst || lst_size(lst) != 3)
 		return (EXIT_FAILURE);
 
-	expected_token[0] = (t_token){WORD, "ls"};
-	expected_token[1] = (t_token){PIPE, "|"};
-	expected_token[2] = (t_token){WORD, "grep"};
+	expected_token[0] = (t_token){WORD, "ls", 0};
+	expected_token[1] = (t_token){PIPE, "|", 1};
+	expected_token[2] = (t_token){WORD, "grep", 0};
 
 	int i = -1;
 	while (++i < lst_size(lst))
 	{
 		token = (t_token *)lst->content;
-			if (test_helper(expected_token[i].code, token->code, expected_token[i].string, token->string))
+			if (test_helper(expected_token[i].precedence, expected_token[i].code, expected_token[i].string, *token))
 				return(EXIT_FAILURE);
 		lst = lst->next;
 	}
@@ -82,26 +83,26 @@ char	test_lexer_complex_input(t_lexer *lexer)
 	if (!lst || lst_size(lst) != 14)
 		return (EXIT_FAILURE);
 
-	expected_token[0] = (t_token){WORD, "echo"};
-	expected_token[1] = (t_token){WORD, "\"Hello world $teste \""};
-	expected_token[2] = (t_token){PIPE, "|"};
-	expected_token[3] = (t_token){WORD, "wc"};
-	expected_token[4] = (t_token){WORD, "-l"};
-	expected_token[5] = (t_token){OUTFILE, ">"};
-	expected_token[6] = (t_token){WORD, "outfile.txt"};
-	expected_token[7] = (t_token){LOGICAL_AND, "&&"};
-	expected_token[8] = (t_token){WORD, "cat"};
-	expected_token[9] = (t_token){WORD, "outfile.txt"};
-	expected_token[10] = (t_token){LOGICAL_AND, "&&"};
-	expected_token[11] = (t_token){WORD, "rm"};
-	expected_token[12] = (t_token){WORD, "-rf"};
-	expected_token[13] = (t_token){WORD, "outfile.txt"};
+	expected_token[0] = (t_token){WORD, "echo", 0};
+	expected_token[1] = (t_token){WORD, "\"Hello world $teste \"", 0};
+	expected_token[2] = (t_token){PIPE, "|", 1};
+	expected_token[3] = (t_token){WORD, "wc", 0};
+	expected_token[4] = (t_token){WORD, "-l", 0};
+	expected_token[5] = (t_token){OUTFILE, ">", 0};
+	expected_token[6] = (t_token){WORD, "outfile.txt", 0};
+	expected_token[7] = (t_token){LOGICAL_AND, "&&", 2};
+	expected_token[8] = (t_token){WORD, "cat", 0};
+	expected_token[9] = (t_token){WORD, "outfile.txt", 0};
+	expected_token[10] = (t_token){LOGICAL_AND, "&&", 2};
+	expected_token[11] = (t_token){WORD, "rm", 0};
+	expected_token[12] = (t_token){WORD, "-rf", 0};
+	expected_token[13] = (t_token){WORD, "outfile.txt", 0};
 
 	int i = -1;
 	while (++i < lst_size(lst))
 	{
 		token = (t_token *)lst->content;
-			if (test_helper(expected_token[i].code, token->code, expected_token[i].string, token->string))
+			if (test_helper(expected_token[i].precedence, expected_token[i].code, expected_token[i].string, *token))
 				return(EXIT_FAILURE);
 		lst = lst->next;
 	}
@@ -118,27 +119,27 @@ char	test_lexer_complex_with_exports(t_lexer *lexer)
 	if (!lst || lst_size(lst) != 14)
 		return (EXIT_FAILURE);
 
-	expected_token[0] = (t_token){WORD, "export"};
-	expected_token[1] = (t_token){WORD, "a"};
-	expected_token[2] = (t_token){ASSIGNMENT, "="};
-	expected_token[3] = (t_token){WORD, "ech"};
-	expected_token[4] = (t_token){LOGICAL_AND, "&&"};
-	expected_token[5] = (t_token){WORD, "export"};
-	expected_token[6] = (t_token){WORD, "b"};
-	expected_token[7] = (t_token){ASSIGNMENT, "="};
-	expected_token[8] = (t_token){WORD, "\"o EEEBA\""};
-	expected_token[9] = (t_token){LOGICAL_AND, "&&"};
-	expected_token[10] = (t_token){EXPANSION, "$"};
-	expected_token[11] = (t_token){WORD, "a"};
-	expected_token[12] = (t_token){EXPANSION, "$"};
-	expected_token[13] = (t_token){WORD, "b"};
+	expected_token[0] = (t_token){WORD, "export", 0};
+	expected_token[1] = (t_token){WORD, "a", 0};
+	expected_token[2] = (t_token){ASSIGNMENT, "=", 0};
+	expected_token[3] = (t_token){WORD, "ech", 0};
+	expected_token[4] = (t_token){LOGICAL_AND, "&&", 2};
+	expected_token[5] = (t_token){WORD, "export", 0};
+	expected_token[6] = (t_token){WORD, "b", 0};
+	expected_token[7] = (t_token){ASSIGNMENT, "=", 0};
+	expected_token[8] = (t_token){WORD, "\"o EEEBA\"", 0};
+	expected_token[9] = (t_token){LOGICAL_AND, "&&", 2};
+	expected_token[10] = (t_token){EXPANSION, "$", 0};
+	expected_token[11] = (t_token){WORD, "a", 0};
+	expected_token[12] = (t_token){EXPANSION, "$", 0};
+	expected_token[13] = (t_token){WORD, "b", 0};
 
 	int i = -1;
 	while (++i < lst_size(lst))
 	{
 		token = (t_token *)lst->content;
 		// ft_printf("EXPEC_CODE:%d CODE:%d\nEXPEC_STR:%s STR:%s\n\n", expected_token[i].code, token->code, expected_token[i].string, token->string);
-			if (test_helper(expected_token[i].code, token->code, expected_token[i].string, token->string))
+			if (test_helper(expected_token[i].precedence, expected_token[i].code, expected_token[i].string, *token))
 				return(EXIT_FAILURE);
 		lst = lst->next;
 	}

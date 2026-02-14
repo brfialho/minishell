@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/11 19:18:03 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/14 18:11:09 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define OP_COUNT 13
 
+// LEXER
 typedef enum e_token_code
 {
 	INVALID,
@@ -50,10 +51,12 @@ typedef struct s_token
 {
 	t_token_code	code;
 	char			*string;
+	char			precedence;
 }	t_token;
 
 typedef struct s_operator
 {
+	char			precedence;
 	char			*str;
 	int				str_len;
 	t_token_code 	code;
@@ -67,13 +70,27 @@ typedef struct s_lexer
 	int			error;
 }	t_lexer;
 
-
-// LEXER
-
 void	ft_lexer(t_lexer *lexer, const char *input);
 char	*tokenize(t_lexer *lexer, char *input);
-void	init_operators(t_lexer *lexer);
-t_token	*alloc_token(t_token_code code, char *s);
 void	lexer_destroy(t_lexer *lexer);
+
+typedef enum e_node_type
+{
+	NODE_EXEC,
+	NODE_PIPE,
+	NODE_OR,
+	NODE_AND,
+	NODE_SUB
+}	t_node_type;
+
+typedef struct s_msh_ast
+{
+	t_node_type	type;
+	char		**argv;
+	char		*path;
+	char		*str;
+}	t_msh_ast;
+
+t_ast	**parser(t_lexer *lexer);
 
 #endif
