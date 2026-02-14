@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/14 06:30:50 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/14 06:36:20 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	del_ast_node(void *content)
 	t_msh_ast	*ast;
 
 	ast = content;
-	if (ast->type == EXEC)
+	if (ast->type == NODE_EXEC)
 		free(ast->argv);
 	free (content);
 }

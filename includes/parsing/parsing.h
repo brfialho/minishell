@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/14 06:14:51 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/14 06:35:40 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	lexer_destroy(t_lexer *lexer);
 
 typedef enum e_node_type
 {
-	EXEC,
-	PIPE_OP,
-	OR,
-	AND,
-	SUB
+	NODE_EXEC,
+	NODE_PIPE,
+	NODE_OR,
+	NODE_AND,
+	NODE_SUB
 }	t_node_type;
 
 typedef struct s_msh_ast

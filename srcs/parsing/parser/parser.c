@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/14 06:31:10 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/14 06:36:12 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
 		ft_printf("%s", is_left ? "├── " : "└── ");
 
 	string = ((t_msh_ast *)ast->content)->str;
-	if (((t_msh_ast *)ast->content)->type == EXEC)
+	if (((t_msh_ast *)ast->content)->type == NODE_EXEC)
 	{
 		i = 0;
 		string = ft_strdup("");
@@ -97,11 +97,11 @@ t_ast	*get_operator_node(t_token *token)
 
 	content = safe_calloc(1, sizeof(t_msh_ast));
 	if (token->code == PIPE)
-		content->type = PIPE_OP;
+		content->type = NODE_PIPE;
 	else if (token->code == LOGICAL_AND)
-		content->type = AND;
+		content->type = NODE_AND;
 	else if (token->code == LOGICAL_OR)
-		content->type = OR;
+		content->type = NODE_OR;
 	content->str = token->string;
 	return (ast_new_node(content));
 }
@@ -112,7 +112,7 @@ t_ast	*get_exec_node(t_list *token_lst)
 	t_list		*lst;
 
 	content = safe_calloc(1, sizeof(t_msh_ast));
-	content->type = EXEC;
+	content->type = NODE_EXEC;
 	content->argv = safe_calloc(lst_size(token_lst) + 1, sizeof(char *));
 	lst = token_lst;
 	while(lst)
