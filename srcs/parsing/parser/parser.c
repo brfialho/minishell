@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/14 20:13:58 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/14 21:18:25 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
 		t_list *redir = *((t_msh_ast *)ast->content)->redir;
 		while (redir)
 		{
-			string = ft_strjoin(ft_strjoin(string, ((t_redir *)redir->content)->target), " ");
+			string = ft_strjoin(ft_strjoin(ft_strjoin(ft_strjoin(string, ((t_redir *)redir->content)->target), "-"), ft_itoa(((t_redir *)redir->content)->type)), " ");
 			redir = redir->next;
 		}
 	}
@@ -132,18 +132,20 @@ t_ast	*get_exec_node(t_list *token_lst)
 {
 	t_msh_ast	*content;
 	t_list		*lst;
+	int			i;
 
 	content = safe_calloc(1, sizeof(t_msh_ast));
 	content->argv = safe_calloc(lst_size(token_lst) + 1, sizeof(char *));
 	content->redir = safe_calloc(1, sizeof(t_list *));
 	content->type = NODE_EXEC;
 	lst = token_lst;
+	i = 0;
 	while(lst)
 	{	
 		if (((t_token *)lst->content)->code < 5)
 			lst = parse_redir(content->redir, lst);
 		else
-			content->argv[lst_size(token_lst) - lst_size(lst)] = ((t_token *)lst->content)->string;
+			content->argv[i++] = ((t_token *)lst->content)->string;
 		lst = lst->next;
 	}
 	lst_del_all(&token_lst, NULL);
@@ -178,6 +180,6 @@ t_ast	**parser(t_lexer *lexer)
 	token_lst = lst_dup(*lexer->token_lst, NULL);
 	*root = ast_builder(token_lst);
 	// ast_for_each(*root, read_ast_content);
-	// print_ast_visual(*root, 0, "", 0);
+	print_ast_visual(*root, 0, "", 0);
 	return (root);
 }
