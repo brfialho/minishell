@@ -9,6 +9,7 @@ expansao - DIFICIL
 
 RAFA
 
+consertar as funçoes com as da lib, e safecalloc, re-test das funçoes
 pipeline - MEDIO
 exec expansao - MEDIO
 exec AND OR - FACIL

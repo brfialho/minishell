@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 10:26:24 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 15:02:53 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 19:14:39 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_env	*env_new(char *key, char *value)
 {
 	t_env	*new;
 
-	new = malloc(sizeof(t_env));
+	new = safe_calloc(1, sizeof(t_env));
 	if (!new)
 		return (NULL);
 	new->key = ft_strdup(key);
