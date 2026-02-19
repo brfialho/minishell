@@ -6,16 +6,15 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:00:28 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/11 14:59:00 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:12:24 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include "parsing/parsing.h"
-# include "execution/execution.h"
 # include "main.h"
+
 
 int		builtin_echo(t_cmd *cmd);
 int		builtin_cd(t_cmd *cmd, t_env **env);

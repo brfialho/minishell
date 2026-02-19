@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/11 14:53:07 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:29:51 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,43 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env)
 
 int	ft_exec_cmd(t_cmd *cmd, t_env **env)
 {
-	if (!cmd || !cmd->argv || !cmd->argv[0])
+	if (!cmd || !cmd->argv || !cmd->argv[0]) // perguntar se ast guarda redirect
 		return (0);
 	if (cmd->argv[0][0] == '\0')
 	{
 		ft_putendl_fd("minishell: : command not found", 2);
 		return (127);
 	}
-	if (is_builtin(cmd->argv[0]) && !has_pipe(cmd))
+	if (is_builtin(cmd->argv[0]))
 		return (exec_builtin_parent(cmd, env));
 	return (exec_external_cmd(cmd, env));
+}
+
+int exec_node(t_ast *node, t_env **env)
+{
+	int			status;
+	t_msh_ast	*data;
+
+	if (!node || !node->content)
+		return (0);
+	data = (t_msh_ast *)node->content;
+	if (data->type == NODE_EXEC)
+		return (exec_single_ast(node, env));
+	if (data->type == NODE_PIPE)
+		return (exec_pipeline_ast(node, env));
+	if (data->type == NODE_AND)
+	{
+		status = exec_node(node->left, env);
+		if (status == 0)
+			return (exec_node(node->right, env));
+		return status;
+	}
+	if (data->type == NODE_OR)
+	{
+		status = exec_node(node->left, env);
+		if (status != 0)
+			return (exec_node(node->right, env));
+		return status;
+	}
+	return (1);
 }

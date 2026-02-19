@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/11 18:45:54 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:56:18 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,14 @@
 # define STDOUT 1
 # define STDERR 2
 
-typedef enum e_redir_type
-{
-	REDIR_IN = 1,
-	REDIR_OUT,
-	REDIR_APPEND,
-	REDIR_HEREDOC
-} t_redir_type;
-
 typedef struct s_cmd
 {
 	char	**argv;
 	char	*path;
 	t_redir	*redir;
 	int		heredoc_fd;
-	int		pipe_in; //remover dps
-	int		pipe_out; //remover dps
-	struct	s_cmd *next; //remover dps
+	struct	s_cmd *next;
 }	t_cmd;
-
-typedef struct s_redir
-{
-	t_redir_type	type;
-	char			*target;
-	struct s_redir	*next;
-} t_redir;
 
 typedef struct s_env
 {
@@ -65,7 +48,6 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
-
 
 int		ft_exec_cmd(t_cmd *cmd, t_env **envp);
 int		set_redir(t_redir *redir, t_cmd *cmd);
@@ -76,9 +58,13 @@ int		read_heredoc_loop(t_redir *redir, int write_fd);
 int     is_builtin(char *cmd);
 int		execute_builtin(t_cmd *cmd, t_env **env);
 int		exec_builtin_parent(t_cmd *cmd, t_env **env);
-int		has_pipe(t_cmd *cmd);
-int		exec_pipeline(t_cmd *cmd_list, t_env **env);
+int		exec_pipeline_ast(t_ast *node, t_env **env);
+int 	exec_node(t_ast *node, t_env **env);
+int 	exec_single_ast(t_ast *node, t_env **env);
+t_cmd	*convert_ast_pipeline(t_ast *node);
+t_cmd	*cmd_add_back(t_cmd *left, t_cmd *right);
 void	exec_builtin_child(t_cmd *cmd, t_env **env);
+void	ft_cleaner_list(t_cmd *list);
 char    *read_prompt_line(void);
 
 #endif

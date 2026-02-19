@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:42:40 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/11 15:14:07 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:09:43 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,18 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-int	has_pipe(t_cmd *cmd)
+int exec_single_ast(t_ast *node, t_env **env)
 {
-	if (!cmd)
+	t_msh_ast	*data;
+	t_cmd 		cmd;
+
+	if (!node || !node->content)
 		return (0);
-	return (cmd->pipe_in != -1 || cmd->pipe_out != -1);
+	data = (t_msh_ast *)node->content;
+	cmd.argv = data->argv;
+	cmd.path = data->path;
+	cmd.redir = NULL;
+	cmd.heredoc_fd = -1;
+	cmd.next = NULL;
+	return (ft_exec_cmd(&cmd, env));
 }
