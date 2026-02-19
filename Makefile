@@ -80,7 +80,7 @@ $(LIBFT):
 $(TEST_BIN_DIR)lexer: tests/tester_lexer/tester_lexer.c $(LIBFT) $(OBJ)
 	@mkdir -p $(TEST_BIN_DIR)
 	@echo "$(MAGENTA)Compiling test$(RESET) $(notdir $@)"
-	@$(CC) $< $(OBJ) $(LIBFT) -o $@
+	@$(CC) $< $(OBJ) $(LIBFT) $(DEPENDENCIES) -o $@
 
 clean:
 	@echo "$(MAGENTA)Cleansing $(NAME) Objects"

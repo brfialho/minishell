@@ -6,14 +6,14 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 16:41:13 by brfialho          #+#    #+#             */
-/*   Updated: 2026/01/29 19:33:37 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:55:29 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTS_H
 # define TESTS_H
 
-# include "libft.h"
+# include "main.h"
 
 # define RED "\033[31m"
 # define GREEN "\033[32m"
