@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 18:31:26 by brfialho         ###   ########.fr       */
+/*   Created: 2026/02/19 18:22:05 by brfialho          #+#    #+#             */
+/*   Updated: 2026/02/19 18:30:57 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int g_status_shell = 0;
-
-int	main(int argc, char **argv, char **env)
+void	parsing(t_mini *mini)
 {
-	t_mini	mini;
-
-	ft_bzero(&mini ,sizeof(t_mini));
-	set_prompt_signals();
-	while (TRUE)
-	{
-		mini.input = read_prompt_line();
-		if (mini.input == NULL)
-			continue;
-		parsing(&mini);
-		executor(&mini);
-		destroy_cicle(&mini);
-	}
-	(void)argc;
-	(void)argv;
-	(void)env;
+	ft_lexer(&mini->lexer, mini->input);
+	mini->root = parser(&mini->lexer);
 }
-
