@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 14:56:46 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:51:40 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include "utils.h"
 # include "builtins.h"
 # include "handler.h"
-
-
 
 int		ft_exec_cmd(t_cmd *cmd, t_env **envp);
 int		set_redir(t_redir *redir, t_cmd *cmd);

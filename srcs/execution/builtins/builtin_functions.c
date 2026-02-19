@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:30:44 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 15:01:44 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 19:03:19 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	builtin_cd(t_cmd *cmd, t_env **env)
 		path = cmd->argv[1];
 	if (!path)
 	{
-		printf("minishell: cd: HOME not set\n");
+		ft_printf("minishell: cd: HOME not set\n");
 		return (1);
 	}
 	if (chdir(path) != 0)

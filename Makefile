@@ -33,21 +33,21 @@ SRC= srcs/parsing/lexer/lexer.c \
 	srcs/parsing/lexer/lexer_destroy.c \
 	srcs/parsing/parser/parser.c \
 	srcs/utils/utils.c \
-	srcs/execution/exec.c \
-	srcs/execution/exec_builtin_parent.c \
-	srcs/execution/pipeline.c \
-	srcs/execution/prompt_line.c \
-	srcs/execution/redir.c \
-	srcs/execution/utils_exec.c \
-	srcs/execution/utils_pipeline.c \
-	srcs/execution/utils_redir.c \
+	srcs/execution/exec/exec.c \
+	srcs/execution/exec/exec_builtin_parent.c \
+	srcs/execution/pipeline/pipeline.c \
+	srcs/prompt/prompt_line.c \
+	srcs/execution/redirect/redir.c \
+	srcs/execution/exec/utils_exec.c \
+	srcs/execution/pipeline/utils_pipeline.c \
+	srcs/execution/redirect/utils_redir.c \
 	srcs/execution/builtins/builtin_functions_two.c \
 	srcs/execution/builtins/builtin_functions.c \
 	srcs/execution/builtins/builtin.c \
 	srcs/execution/builtins/env_functions_two.c \
 	srcs/execution/builtins/env_functions.c \
 	srcs/execution/handler/handler_basic.c \
-	srcs/execution/signals/set_signals.c \
+	srcs/signals/set_signals.c \
 	srcs/destroy/destroy.c \
 	srcs/parsing/parsing.c \
 	srcs/execution/executor.c

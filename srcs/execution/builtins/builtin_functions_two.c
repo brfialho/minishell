@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions_two.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 17:46:25 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 19:03:00 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	builtin_env(t_env *env)
 	while (env)
 	{
 		if (env->value)
-			printf("%s=%s\n", env->key, env->value);
+			ft_printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
 	return (0);
