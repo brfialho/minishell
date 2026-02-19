@@ -1,0 +1,19 @@
+BRUNO
+
+syntax da arvore - DIFICIL
+path - MEDIO
+expansao - DIFICIL
+
+
+
+RAFA
+
+pipeline - MEDIO
+exec expansao - MEDIO
+exec AND OR - FACIL
+
+
+
+BOTH
+
+signal - FACIL?
