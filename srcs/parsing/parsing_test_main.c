@@ -6,11 +6,13 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 14:34:51 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:50:35 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "main.h"
+
+int g_status_shell = 0;
 
 void	del_ast_node(void *content)
 {
@@ -18,7 +20,11 @@ void	del_ast_node(void *content)
 
 	ast = content;
 	if (ast->type == NODE_EXEC)
+	{
 		free(ast->argv);
+		lst_del_all(ast->redir, free);
+		free(ast->redir);
+	}
 	free (content);
 }
 
