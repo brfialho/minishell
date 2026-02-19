@@ -24,6 +24,10 @@ ifeq ($(findstring parse, $(MAKECMDGOALS)), parse)
 	MAIN_SRC = srcs/parsing/parsing_test_main.c
 endif
 
+ifeq ($(findstring exec, $(MAKECMDGOALS)), exec)
+	MAIN_SRC = srcs/execution/execution_test_main.c
+endif
+
 SRC= srcs/parsing/lexer/lexer.c \
 	srcs/parsing/lexer/tokenize.c \
 	srcs/parsing/lexer/lexer_destroy.c \
@@ -62,6 +66,8 @@ TEST_NAMES= lexer
 TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
 parse: re_nolib
+
+exec: re_nolib
 #	@rm -rf $(O_DIR)
 #	@rm -f $(NAME)
 
