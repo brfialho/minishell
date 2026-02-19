@@ -3,6 +3,7 @@ BRUNO
 syntax da arvore - DIFICIL
 path - MEDIO
 expansao - DIFICIL
+	lexer aspas 
 
 
 
