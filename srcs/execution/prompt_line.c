@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 14:57:20 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:40:27 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,16 @@ char	*read_prompt_line(void)
 	char	*line;
 
 	line = readline("minishell$ ");
-	if (!line)
-	{
-		printf("exit\n");
+	if (!*line)
 		return (NULL);
-	}
-	if (g_status_shell == 130)
-	{
-		g_status_shell = 0;
-		free(line);
-		return (NULL);
-	}
-	if (*line)
-		add_history(line);
+	if (!ft_strncmp(line, "exit", ft_strlen("exit")))
+		exit(1);
+	add_history(line);
 	return (line);
 }
+	// if (g_status_shell == 130)
+	// {
+	// 	g_status_shell = 0;
+	// 	free(line);
+	// 	return (NULL);
+	// }
