@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:24:10 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 15:49:19 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:49:13 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 # include "parser.h"
 # include "execution.h"
 # include "handler.h"
+
+typedef struct s_mini
+{
+	char	*input;
+	t_lexer	lexer;
+	t_ast	**root;
+}	t_mini;
 
 extern int g_status_shell;
 
