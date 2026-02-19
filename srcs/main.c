@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 17:10:19 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:32:12 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,21 @@ int	main(int argc, char **argv, char **env)
 	t_mini	mini;
 
 	ft_bzero(&mini ,sizeof(t_mini));
+	// for (int i = 0; i < 20; i++)
+	// 	malloc(100);
 	while (1)
 	{
 		mini.input = readline("$Minishell ");
 		if (!ft_strncmp(mini.input, "exit", ft_strlen("exit")))
 			exit(1);
 		if (!*mini.input)
-		{
-			free(mini.input);
 			continue;
-		}
 		ft_lexer(&mini.lexer, mini.input);
 		mini.root = parser(&mini.lexer);
 		// exec
 		lexer_destroy(&mini.lexer);
 		ast_del_all(mini.root, del_ast_node);
 		free(mini.root);
-		free(mini.input);
 	}
 	(void)argc;
 	(void)argv;
