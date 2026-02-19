@@ -44,6 +44,7 @@ SRC= srcs/parsing/lexer/lexer.c \
 	srcs/execution/builtins/env_functions.c \
 	srcs/execution/handler/handler_basic.c \
 	srcs/execution/signals/set_signals.c \
+	srcs/destroy/destroy.c
 
 O_DIR= obj/
 OBJ= $(SRC:%.c=$(O_DIR)%.o)

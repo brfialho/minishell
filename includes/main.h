@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:24:10 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 17:57:30 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:08:29 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_mini
 	t_lexer	lexer;
 	t_ast	**root;
 }	t_mini;
+
+void	destroy_cicle(t_mini *mini);
 
 extern int g_status_shell;
 

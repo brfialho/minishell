@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 18:06:33 by brfialho         ###   ########.fr       */
+/*   Created: 2026/02/19 18:05:10 by brfialho          #+#    #+#             */
+/*   Updated: 2026/02/19 18:07:38 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int g_status_shell = 0;
+static void	del_ast_node(void *content);
 
-int	main(int argc, char **argv, char **env)
+void	destroy_cicle(t_mini *mini)
 {
-	t_mini	mini;
-
-	ft_bzero(&mini ,sizeof(t_mini));
-	set_prompt_signals();
-	while (TRUE)
-	{
-		mini.input = read_prompt_line();
-		if (mini.input == NULL)
-			continue;
-		ft_lexer(&mini.lexer, mini.input);
-		mini.root = parser(&mini.lexer);
-		destroy_cicle(&mini);
-	}
-	(void)argc;
-	(void)argv;
-	(void)env;
+	lexer_destroy(&mini->lexer);
+	ast_del_all(mini->root, del_ast_node);
+	free(mini->root);
 }
 
+static void	del_ast_node(void *content)
+{
+	t_msh_ast	*ast;
+
+	ast = content;
+	if (ast->type == NODE_EXEC)
+	{
+		free(ast->argv);
+		lst_del_all(ast->redir, free);
+		free(ast->redir);
+	}
+	free (content);
+}
