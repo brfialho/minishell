@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 14:52:27 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:46:25 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,8 @@ int	builtin_env(t_env *env)
 	return (0);
 }
 
-int	builtin_exit(t_cmd *cmd)
+int	builtin_exit(void)
 {
-	(void)cmd;
-	printf("exit\n");
+	ft_printf("exit\n");
 	exit(0);
 }

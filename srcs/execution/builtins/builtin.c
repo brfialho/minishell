@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:21 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 15:02:17 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:47:11 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int	execute_builtin(t_cmd *cmd, t_env **env)
 	if (!strcmp(builtin, "env"))
 		return (builtin_env(*env));
 	if (!strcmp(builtin, "exit"))
-		return (builtin_exit(cmd));
+		return (builtin_exit());
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 17:43:32 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:00:46 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 // Lexer
 # define OPERATOR "|&;()<>=$"
 # define OP_COUNT 13
+
+// Signal
+# define EXIT_CODE 130
 
 void	*safe_calloc(size_t nmemb, size_t size);
 
