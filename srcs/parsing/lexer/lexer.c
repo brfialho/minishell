@@ -6,11 +6,11 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/12 19:11:35 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:35:22 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "lexer.h"
 
 static void	init_operators(t_lexer *lexer);
 

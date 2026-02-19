@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:21 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/11 15:04:53 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:02:17 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "builtins.h"
 
 int	execute_builtin(t_cmd *cmd, t_env **env)
 {
@@ -19,19 +19,19 @@ int	execute_builtin(t_cmd *cmd, t_env **env)
 	if (!cmd || !cmd->argv || !cmd->argv[0])
 		return (1);
 	builtin = cmd->argv[0];
-	if (!ft_strcmp(builtin, "echo"))
+	if (!strcmp(builtin, "echo"))
 		return (builtin_echo(cmd));
-	if (!ft_strcmp(builtin, "cd"))
+	if (!strcmp(builtin, "cd"))
 		return (builtin_cd(cmd, env));
-	if (!ft_strcmp(builtin, "pwd"))
+	if (!strcmp(builtin, "pwd"))
 		return (builtin_pwd());
-	if (!ft_strcmp(builtin, "export"))
+	if (!strcmp(builtin, "export"))
 		return (builtin_export(cmd, env));
-	if (!ft_strcmp(builtin, "unset"))
+	if (!strcmp(builtin, "unset"))
 		return (builtin_unset(cmd, env));
-	if (!ft_strcmp(builtin, "env"))
+	if (!strcmp(builtin, "env"))
 		return (builtin_env(*env));
-	if (!ft_strcmp(builtin, "exit"))
+	if (!strcmp(builtin, "exit"))
 		return (builtin_exit(cmd));
 	return (1);
 }

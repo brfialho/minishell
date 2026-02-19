@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_line.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/11 15:15:17 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:57:20 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing/parsing.h"
-#include "execution/execution.h"
 #include "main.h"
 
 char	*read_prompt_line(void)

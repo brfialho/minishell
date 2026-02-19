@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions_two.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/11 15:04:10 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:52:27 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "builtins.h"
 
 int	builtin_echo(t_cmd *cmd)
 {

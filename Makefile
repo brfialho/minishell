@@ -65,7 +65,7 @@ parse: re_nolib
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ) $(MAIN_OBJ)
-	@$(CC) $(OBJ) $(MAIN_OBJ) $(LIBFT) -o $(NAME)
+	@$(CC) $(OBJ) $(MAIN_OBJ) $(LIBFT) $(DEPENDENCIES) -o $(NAME)
 	@echo -n "\033[32m\nSuccessfully Generated $(RESET)$(NAME) \n\n"
 
 $(O_DIR)%.o: %.c

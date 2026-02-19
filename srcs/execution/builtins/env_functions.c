@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 10:26:24 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/11 14:57:37 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:02:53 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "builtins.h"
 
 t_env	*env_from_envp(char **envp)
 {
@@ -59,7 +59,7 @@ void	ft_set_env(t_env **env, char *key, char *value)
 	tmp = *env;
 	while (tmp)
 	{
-		if (!ft_strcmp(tmp->key, key))
+		if (!strcmp(tmp->key, key))
 		{
 			free(tmp->value);
 			if (value)
@@ -82,7 +82,7 @@ void	ft_unset_env(t_env **env, char *key)
 	prev = NULL;
 	while (cur)
 	{
-		if (!ft_strcmp(cur->key, key))
+		if (!strcmp(cur->key, key))
 		{
 			if (prev)
 				prev->next = cur->next;

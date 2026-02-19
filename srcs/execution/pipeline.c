@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:02:08 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 13:13:34 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:00:28 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include "parser.h"
 
 t_cmd	*convert_ast_pipeline(t_ast *node)
 {
@@ -30,7 +31,8 @@ t_cmd	*convert_ast_pipeline(t_ast *node)
 		return (left);
 	}
 	else
-		return (create_cmd_from_ast(node));
+		return (NULL);
+		// return (create_cmd_from_ast(node));
 }
 
 int	exec_pipeline_ast(t_ast *node, t_env **env)
@@ -39,7 +41,9 @@ int	exec_pipeline_ast(t_ast *node, t_env **env)
 	int		status;
 
 	list = convert_ast_pipeline(node);
-	status = exec_pipeline_list(list, env);
+	(void)env;
+	// status = exec_pipeline_list(list, env);
+	status = 0;
 	ft_cleaner_list(list);
 	return (status);
 }

@@ -6,11 +6,11 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 21:44:30 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/09 19:30:11 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:35:17 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "lexer.h"
 
 static void	del_token(void	*content);
 

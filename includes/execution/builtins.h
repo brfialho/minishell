@@ -3,18 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:00:28 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 14:12:24 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:51:32 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include "main.h"
+# include "utils.h"
+# include "parser.h"
 
+typedef struct s_cmd
+{
+	char	**argv;
+	char	*path;
+	t_redir	*redir;
+	int		heredoc_fd;
+	struct	s_cmd *next;
+}	t_cmd;
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
 
 int		builtin_echo(t_cmd *cmd);
 int		builtin_cd(t_cmd *cmd, t_env **env);

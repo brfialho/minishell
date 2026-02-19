@@ -6,11 +6,11 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:31:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/12 19:14:17 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:35:27 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "lexer.h"
 
 static t_state	get_state(char c);
 static char	*tokenize_operator(t_lexer *lexer, char *input);

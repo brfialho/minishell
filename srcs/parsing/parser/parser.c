@@ -6,11 +6,11 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/14 06:36:12 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:34:19 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "parser.h"
 
 t_list	*get_lower_prec(t_list *token_lst)
 {

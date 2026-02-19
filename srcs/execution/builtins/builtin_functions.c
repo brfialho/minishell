@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:30:44 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/11 15:04:42 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:01:44 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "builtins.h"
 
 int	builtin_cd(t_cmd *cmd, t_env **env)
 {
@@ -50,7 +50,8 @@ int	builtin_export(t_cmd *cmd, t_env **env)
 	char	*eq;
 
 	if (!cmd->argv[1])
-		return (env_print_sorted(*env), 0);
+		return (0);
+		// return (env_print_sorted(*env), 0);
 	i = 1;
 	while (cmd->argv[i])
 	{

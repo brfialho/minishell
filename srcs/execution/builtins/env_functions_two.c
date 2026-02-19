@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   env_functions_two.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 09:58:33 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/11 15:02:20 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:02:32 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "builtins.h"
 
 char	*ft_get_envp(t_env *env, char *key)
 {
 	while (env)
 	{
-		if (!ft_strcmp(env->key, key))
+		if (!strcmp(env->key, key))
 			return (env->value);
 		env = env->next;
 	}
