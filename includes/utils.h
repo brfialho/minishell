@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/20 23:36:13 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 00:38:45 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 // Lexer
 # define OPERATOR "|&;()<>="
+# define WHITESPACE " \t"
 # define OP_COUNT 12
 
 // Signal
