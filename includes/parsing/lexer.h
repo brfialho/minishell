@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:49 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/21 19:15:44 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 20:01:26 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 #include "libft.h"
 # include "utils.h"
-
-
 
 typedef enum e_token_code
 {
@@ -50,8 +48,8 @@ typedef struct s_token
 	t_token_code	code;
 	char			*string;
 	char			precedence;
-	char			expandable;
-	//char 				space_next;
+	t_bool			expandable;
+	t_bool 			space_next;
 }	t_token;
 
 typedef struct s_operator
