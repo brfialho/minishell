@@ -121,7 +121,7 @@ fclean_nolib:
 
 re_nolib: fclean_nolib all
 
-test: fclean
+test: fclean_nolib
 	@$(MAKE) --no-print-directory $(TEST_BINARIES)
 	@echo "$(MAGENTA)$(BOLD)\nInitializing all unitary tests$(RESET)"
 	$(LOADING)
