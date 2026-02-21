@@ -1,0 +1,42 @@
+EX:  oi 'ola' outracoisaai
+EXP: oi  ola outracoisaai
+
+EX: "oi 'ola' outracoisaai"
+EXP: oi 'ola' outracoisaai
+
+EX: "oi '$USER' outracoisaai"
+EXP: oi 'brfialho' outracoisaai
+
+EX: 'oi "$USER" outracoisaai'
+EXP: oi "$USER" outracoisaai
+
+EX:  oi'ola'outracoisaai
+EXP: oiolaoutracoisaai
+
+EX:  oi 'ola' outracoisaai
+EXP: oi ola outracoisaai
+
+EX: "oi"'ola'"outracoisaai"
+EXP: oiolaoutracoisaai
+
+EX: "oi" 'ola' "outracoisaai"
+EXP: oi ola outracoisaai
+
+EX: "'"'"hello"'"'"
+EXP: '"hello"'
+
+EX: "'"'"'"hello"'"'"'"
+EXP: '"hello"'
+
+EX: """hello"""
+EXP: hello
+
+EX: '''hello'''
+EXP: hello
+
+EX: '''hello'''ola"oi"""t
+EXP: helloolaoit
+
+EX: export OI=oi && echo ola"$USER"seu" "pid$$'$USER''hello'''ola"oi"""t
+EXP: export OI=oi
+	 olabrfialhoseu pid1566558$USERhelloolaoi
