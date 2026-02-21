@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 18:17:23 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/20 23:32:00 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
 		i = 0;
 		string = ft_strdup("");
 		while (((t_msh_ast *)ast->content)->argv[i])
-			string = ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), " ");
+			string = ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), " ; ");
 		string = ft_strjoin(string, ":");
 		t_list *redir = *((t_msh_ast *)ast->content)->redir;
 		while (redir)
