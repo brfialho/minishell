@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:31:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 14:35:27 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 00:15:49 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static char	*tokenize_quoted(t_lexer *lexer, char *input)
 	token->code = WORD;
 	token->string = token_str;
 	token->precedence = 0;
+	if (lexer->state == IN_D_QUOTES)
+		token->expandable = TRUE;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + len);
 }
@@ -71,6 +73,7 @@ static char	*tokenize_default(t_lexer *lexer, char *input)
 	token->code = WORD;
 	token->string = token_str;
 	token->precedence = 0;
+	token->expandable = TRUE;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + len);
 }
