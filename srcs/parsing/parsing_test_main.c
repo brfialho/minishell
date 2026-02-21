@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/21 00:25:45 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 18:38:48 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,18 @@ void	trim_quotes11(t_token *token)
 
 void	trim_quoted_tokens11(t_lexer *lexer)
 {
-	t_list	*lst;
+	t_list			*lst;
+	t_token_code	prev_code;
 
 	lst = *lexer->token_lst;
+	prev_code = 0;
 	while (lst)
 	{
-		if (ft_str_charcount("\"'", ((t_token *)lst->content)->string[0]))
+		if (ft_str_charcount("\"'", ((t_token *)lst->content)->string[0])
+			&& prev_code != HEREDOC)
 			trim_quotes11(lst->content);
+		prev_code = ((t_token *)lst->content)->code;
+		ft_printf("PREV %d\n", prev_code);
 		lst = lst->next;
 	}
 }

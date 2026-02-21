@@ -58,3 +58,13 @@ EXP: ""
 
 EX: '"'"''"'"'
 EXP: "''"
+
+
+ARGV
+[0] echo
+[1] "ola"$USER"sey"" "pid$$$USERolaoit"
+EXPANDABLE[100]
+[1, 4
+0, 1
+1, 4
+...]

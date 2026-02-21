@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/21 00:19:06 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 18:30:35 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,18 @@ typedef enum e_redir_type
 	REDIR_HEREDOC = 4,
 }	t_redir_type;
 
+typedef struct s_expand
+{
+	char	expandable;
+	int		len;
+}	t_expand;
+
 typedef struct s_msh_ast
 {
 	t_node_type	type;
 	t_list		**redir;
 	char		**argv;
+	t_expand	expand[100];
 	char		*path;
 	char		*str;
 }	t_msh_ast;
