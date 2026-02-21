@@ -40,3 +40,18 @@ EXP: helloolaoit
 EX: export OI=oi && echo ola"$USER"seu" "pid$$'$USER''hello'''ola"oi"""t
 EXP: export OI=oi
 	 olabrfialhoseu pid1566558$USERhelloolaoi
+
+EX:  "''"
+EXP: ''
+
+EX:  "'"''"'"
+EXP: ''
+
+EX: "'""'"
+EXP: ''
+
+EX:
+EXP: ''
+
+EX: '""'
+EXP: ""
