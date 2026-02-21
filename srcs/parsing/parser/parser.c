@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/21 00:19:39 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 18:50:03 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,20 @@ t_list	*parse_redir(t_list **redir, t_list *token_lst)
 	return (token_lst);
 }
 
+t_list	*parse_argv(t_list **redir, t_list *token_lst)
+{
+	t_redir	*redir_node;
+
+	redir_node = safe_calloc(1, sizeof(t_redir));
+	redir_node->type = (int)((t_token *)token_lst->content)->code;
+	if (token_lst->next)
+		redir_node->target = ((t_token *)token_lst->next->content)->string;
+	lst_add_end(redir, lst_new_node(redir_node));
+	if (token_lst->next)
+		return (token_lst->next);
+	return (token_lst);
+}
+
 // DOESNT WORK WITH INFILE
 t_ast	*get_exec_node(t_list *token_lst)
 {
@@ -146,6 +160,7 @@ t_ast	*get_exec_node(t_list *token_lst)
 		if (((t_token *)lst->content)->code < 5)
 			lst = parse_redir(content->redir, lst);
 		else
+			// index = 
 			content->argv[i++] = ((t_token *)lst->content)->string;
 		lst = lst->next;
 	}

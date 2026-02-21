@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:49 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/21 00:13:35 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 19:15:44 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_token
 	char			*string;
 	char			precedence;
 	char			expandable;
+	//char 				space_next;
 }	t_token;
 
 typedef struct s_operator
