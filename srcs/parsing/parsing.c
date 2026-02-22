@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:22:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 18:30:57 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 03:20:35 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 void	parsing(t_mini *mini)
 {
 	ft_lexer(&mini->lexer, mini->input);
-	mini->root = parser(&mini->lexer);
+	trim_quoted_tokens(&mini->lexer);
+	parser(&mini->root, &mini->lexer);
 }

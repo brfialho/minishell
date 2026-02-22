@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parser_destroy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 19:25:23 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 14:58:59 by brfialho         ###   ########.fr       */
+/*   Created: 2026/02/22 02:48:34 by brfialho          #+#    #+#             */
+/*   Updated: 2026/02/22 02:56:39 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "parser.h"
 
-void	*safe_calloc(size_t nmemb, size_t size)
+static void	del_ast_node(void *content);
+
+void	parser_destroy(t_ast **root)
 {
-	void	*ptr;
+	ast_del_all(root, del_ast_node);
+	free(root);
+}
 
-	ptr = ft_calloc(nmemb, size);
-	if (!ptr)
+static void	del_ast_node(void *content)
+{
+	t_msh_ast	*ast;
+	int			i;
+
+	ast = content;
+	if (ast->type == NODE_EXEC)
 	{
-		ft_printf("System memory error\nTerminating now\n");
-		exit(1);
+		i = 0;
+		while (ast->argv[i])
+			free(ast->argv[i++]);
+		free(ast->argv);
+		lst_del_all(ast->redir, free);
+		free(ast->redir);
 	}
-	return (ptr);
+	free(content);
 }

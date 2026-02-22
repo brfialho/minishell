@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:31:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 14:35:27 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 03:27:44 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,16 @@ static char	*tokenize_quoted(t_lexer *lexer, char *input)
 		return (input + len);
 	}
 	len++;
-	token_str = safe_calloc(len + 1, sizeof(char));
+	token_str = ft_safe_calloc(len + 1, sizeof(char));
 	ft_memcpy(token_str, input, len);
-	token = safe_calloc(1, sizeof(t_token));
+	token = ft_safe_calloc(1, sizeof(t_token));
 	token->code = WORD;
 	token->string = token_str;
 	token->precedence = 0;
+	if (ft_str_charcount(WHITESPACE, input[len]))
+		token->space_next = TRUE;
+	if (lexer->state == IN_D_QUOTES)
+		token->expandable = TRUE;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + len);
 }
@@ -65,12 +69,15 @@ static char	*tokenize_default(t_lexer *lexer, char *input)
 	len = 0;
 	while(get_state(input[len]) == DEFAULT)
 		len++;
-	token_str = safe_calloc(len + 1, sizeof(char));
+	token_str = ft_safe_calloc(len + 1, sizeof(char));
 	ft_memcpy(token_str, input, len);
-	token = safe_calloc(1, sizeof(t_token));
+	token = ft_safe_calloc(1, sizeof(t_token));
 	token->code = WORD;
 	token->string = token_str;
 	token->precedence = 0;
+	token->expandable = TRUE;
+	if (ft_str_charcount(WHITESPACE, input[len]))
+		token->space_next = TRUE;
 	lst_add_end(lexer->token_lst, lst_new_node(token));
 	return (input + len);
 }
@@ -83,7 +90,7 @@ static char	*tokenize_operator(t_lexer *lexer, char *input)
 	i = 0;
 	while (ft_strncmp(input, lexer->op_lst[i].str, lexer->op_lst[i].str_len))
 		i++;
-	token = safe_calloc(1, sizeof(t_token));
+	token = ft_safe_calloc(1, sizeof(t_token));
 	token->code = lexer->op_lst[i].code;
 	token->string = lexer->op_lst[i].str;
 	token->precedence = lexer->op_lst[i].precedence;

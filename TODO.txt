@@ -1,20 +1,21 @@
 BRUNO
 
-syntax da arvore - DIFICIL
-path - MEDIO
-expansao - DIFICIL
-	lexer aspas 
-
-
+Fazer um teste unitário para o Parser
+Tratar Erros de input no lexer
+Tratar Erros de Syntax no parser
+Mandar o Path correto no exec?
 
 RAFA
 
-pipeline - MEDIO
-exec expansao - MEDIO
-exec AND OR - FACIL
+pipeline
+exec expansao
+exec AND OR
+export e unset de variaveis
 
+GERAL
 
+Arrumar a estrutura de dados do env que vai ser compartilhada entre exec e parsing
+Arrumar sinais
+Coletar o heredoc
+Expandir
 
-BOTH
-
-signal - FACIL?

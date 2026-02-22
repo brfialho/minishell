@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 15:50:35 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 03:14:54 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,64 @@
 
 int g_status_shell = 0;
 
-void	del_ast_node(void *content)
-{
-	t_msh_ast	*ast;
 
-	ast = content;
-	if (ast->type == NODE_EXEC)
-	{
-		free(ast->argv);
-		lst_del_all(ast->redir, free);
-		free(ast->redir);
-	}
-	free (content);
+// int main(int argc, char **argv)
+// {
+// 	(void) argc;
+// 	t_lexer lexer_data;
+
+// 	ft_printf("%s\n", argv[1]);
+// 	ft_lexer(&lexer_data, argv[1]);
+// 	t_ast **root = parser(&lexer_data);
+// 	// if (lexer_data.token_lst)
+// 	// 	lst_for_each(*(t_list **)(lexer_data.token_lst), print_node);
+// 	lexer_destroy(&lexer_data);
+// 	parser_destroy(root);
+// }
+
+void	print_node_2(void *content)
+{
+	ft_printf("Code: %d String: %s Expandable:%d\n", ((t_token *)content)->code, ((t_token *)content)->string, ((t_token *)content)->expandable);
 }
 
-void parser_destroy(t_ast **root)
+// int	main(int argc, char **argv, char **env)
+// {
+// 	t_mini	mini;
+
+// 	ft_bzero(&mini ,sizeof(t_mini));
+// 	set_prompt_signals();
+// 	while (TRUE)
+// 	{
+// 		mini.input = read_prompt_line();
+// 		if (mini.input == NULL)
+// 			continue;
+// 		ft_lexer(&mini.lexer, mini.input);
+// 		trim_quoted_tokens11(&mini.lexer);
+// 		lst_for_each(*mini.lexer.token_lst, print_node_2);
+// 	}
+// 	(void)argc;
+// 	(void)argv;
+// 	(void)env;
+// }
+
+static void	destroy_cicle(t_mini *mini);
+
+int	main(int argc, char **argv, char **env)
 {
-	ast_del_all(root, del_ast_node);
-	free(root);
+	t_mini	mini;
+
+	ft_bzero(&mini ,sizeof(t_mini));
+	mini.input = argv[1];
+	parsing(&mini);
+	executor(&mini);
+	destroy_cicle(&mini);
+	(void)argc;
+	(void)argv;
+	(void)env;
 }
 
-void	print_node(void *content)
+static void	destroy_cicle(t_mini *mini)
 {
-	ft_printf("Code: %d String: %s\n", ((t_token *)content)->code, ((t_token *)content)->string);
-}
-
-void	del(void *content)
-{
-	t_token *token = content;
-
-	if (token->code == WORD)
-		free(token->string);
-	free(token);
-}
-
-int main(int argc, char **argv)
-{
-	(void) argc;
-	t_lexer lexer_data;
-
-	ft_printf("%s\n", argv[1]);
-	ft_lexer(&lexer_data, argv[1]);
-	t_ast **root = parser(&lexer_data);
-	// if (lexer_data.token_lst)
-	// 	lst_for_each(*(t_list **)(lexer_data.token_lst), print_node);
-	lexer_destroy(&lexer_data);
-	parser_destroy(root);
+	lexer_destroy(&mini->lexer);
+	parser_destroy(mini->root);
 }

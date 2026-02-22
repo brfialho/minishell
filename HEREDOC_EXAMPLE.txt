@@ -1,0 +1,19 @@
+1. 
+cat << "end"
+> '$USER'
+> "end"
+> end
+'$USER'
+"end"
+
+
+2.
+brfialho@c1r6p4:~/Documents/CommonCore/minishell$ echo oi && echo td && echo bem && cat << end
+makehfaisdhsda
+asdhuiashdu
+> end
+oi
+td
+bem
+makehfaisdhsda
+asdhuiashdu
