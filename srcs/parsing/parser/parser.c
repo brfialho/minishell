@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/21 21:24:02 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 22:58:41 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,14 +177,11 @@ t_list	*parse_argv(t_msh_ast *content, t_list *lst)
 	while (lst)
 	{
 		arg = ft_strjoin_free(arg, ((t_token *)lst->content)->string, TRUE, FALSE);
-		ft_printf("CODIGO: %d\n", ((t_token *)lst->content)->code);
-		if (((t_token *)lst->content)->code != QUOTED_WORD
-			|| ((t_token *)lst->content)->space_next == TRUE)
+		if (((t_token *)lst->content)->space_next == TRUE)
 			break;
 		lst = lst->next;
 	}
 	content->argv[i] = arg;
-	ft_printf("OLHA AQUI: %s\n", arg);
 	return (lst);
 }
 
