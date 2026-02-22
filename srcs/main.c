@@ -6,13 +6,15 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 18:31:26 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 02:55:34 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
 int g_status_shell = 0;
+
+static void	destroy_cicle(t_mini *mini);
 
 int	main(int argc, char **argv, char **env)
 {
@@ -34,3 +36,8 @@ int	main(int argc, char **argv, char **env)
 	(void)env;
 }
 
+static void	destroy_cicle(t_mini *mini)
+{
+	lexer_destroy(&mini->lexer);
+	parser_destroy(mini->root);
+}
