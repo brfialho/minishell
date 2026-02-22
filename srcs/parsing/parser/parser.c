@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/21 18:50:03 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 21:01:44 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
 		i = 0;
 		string = ft_strdup("");
 		while (((t_msh_ast *)ast->content)->argv[i])
-			string = ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), " - ");
-			//string = ft_strjoin(ft_strjoin(ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), "-"), ft_itoa(((t_msh_ast *)ast->content)->type)), " ");
+			// string = ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), " - ");
+			string = ft_strjoin(ft_strjoin(ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), "-"), ft_itoa(((t_msh_ast *)ast->content)->type)), " ");
 		string = ft_strjoin(string, ":");
 		t_list *redir = *((t_msh_ast *)ast->content)->redir;
 		while (redir)
@@ -128,18 +128,24 @@ t_list	*parse_redir(t_list **redir, t_list *token_lst)
 	return (token_lst);
 }
 
-t_list	*parse_argv(t_list **redir, t_list *token_lst)
+t_list	*parse_argv(t_msh_ast *content, t_list *lst)
 {
-	t_redir	*redir_node;
+	int		i;
+	char	*arg;
 
-	redir_node = safe_calloc(1, sizeof(t_redir));
-	redir_node->type = (int)((t_token *)token_lst->content)->code;
-	if (token_lst->next)
-		redir_node->target = ((t_token *)token_lst->next->content)->string;
-	lst_add_end(redir, lst_new_node(redir_node));
-	if (token_lst->next)
-		return (token_lst->next);
-	return (token_lst);
+	i = 0;
+	while (content->argv[i])
+		i++;
+	arg = ft_strdup("");
+	while (lst)
+	{
+		ft_strjoin_free(arg, ((t_token *)lst->content)->string, TRUE, FALSE);
+		if (((t_token *)lst->content)->space_next == FALSE)
+			break;
+		lst = lst->next;
+	}
+	content->argv[i] = arg;
+	return (lst);
 }
 
 // DOESNT WORK WITH INFILE
@@ -160,7 +166,7 @@ t_ast	*get_exec_node(t_list *token_lst)
 		if (((t_token *)lst->content)->code < 5)
 			lst = parse_redir(content->redir, lst);
 		else
-			// index = 
+			// lst = parse_argv(content, lst);
 			content->argv[i++] = ((t_token *)lst->content)->string;
 		lst = lst->next;
 	}
