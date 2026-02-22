@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 02:53:56 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 03:20:54 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_redir
 	char			*target;
 }	t_redir;
 
-t_ast	**parser(t_lexer *lexer);
+void	parser(t_ast ***root, t_lexer *lexer);
 t_ast	*ast_builder(t_list *token_lst);
 t_ast	*get_operator_node(t_token *token);
 t_ast	*get_exec_node(t_list *token_lst);
