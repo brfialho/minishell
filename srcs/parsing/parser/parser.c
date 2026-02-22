@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 02:44:02 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 03:13:06 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ t_ast	**parser(t_lexer *lexer)
 	token_lst = lst_dup(*lexer->token_lst, NULL);
 	*root = ast_builder(token_lst);
 	// ast_for_each(*root, read_ast_content);
-	print_ast_visual(*root, 0, "", 0);
+	// print_ast_visual(*root, 0, "", 0);
 	return (root);
 }
