@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/21 00:38:45 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 03:28:34 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,5 @@
 
 // Readlines
 # define PROMPT "\033[31m\033[1mMinihell\033[0m\033[1m$ \033[0m"
-
-void	*safe_calloc(size_t nmemb, size_t size);
 
 #endif

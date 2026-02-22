@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 02:41:50 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 02:43:43 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 03:27:44 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_ast	*get_operator_node(t_token *token)
 {
 	t_msh_ast	*content;
 
-	content = safe_calloc(1, sizeof(t_msh_ast));
+	content = ft_safe_calloc(1, sizeof(t_msh_ast));
 	if (token->code == PIPE)
 		content->type = NODE_PIPE;
 	else if (token->code == LOGICAL_AND)
@@ -36,9 +36,9 @@ t_ast	*get_exec_node(t_list *token_lst)
 	t_list		*lst;
 	int			i;
 
-	content = safe_calloc(1, sizeof(t_msh_ast));
-	content->argv = safe_calloc(lst_size(token_lst) + 1, sizeof(char *));
-	content->redir = safe_calloc(1, sizeof(t_list *));
+	content = ft_safe_calloc(1, sizeof(t_msh_ast));
+	content->argv = ft_safe_calloc(lst_size(token_lst) + 1, sizeof(char *));
+	content->redir = ft_safe_calloc(1, sizeof(t_list *));
 	content->type = NODE_EXEC;
 	lst = token_lst;
 	i = 0;
@@ -57,7 +57,7 @@ static void	parse_redir(t_list **redir, t_list **token_lst)
 {
 	t_redir	*redir_node;
 
-	redir_node = safe_calloc(1, sizeof(t_redir));
+	redir_node = ft_safe_calloc(1, sizeof(t_redir));
 	redir_node->type = (int)((t_token *)(*token_lst)->content)->code;
 	*token_lst = (*token_lst)->next;
 	if (*token_lst)

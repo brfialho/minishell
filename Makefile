@@ -37,7 +37,6 @@ SRC= srcs/parsing/lexer/lexer.c \
 	srcs/parsing/parser/parser.c \
 	srcs/parsing/parser/parser_destroy.c \
 	srcs/parsing/parsing.c \
-	srcs/utils/utils.c \
 	srcs/execution/exec/exec.c \
 	srcs/execution/exec/exec_builtin_parent.c \
 	srcs/execution/pipeline/pipeline.c \

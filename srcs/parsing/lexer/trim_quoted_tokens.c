@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trim_quotes.c                                      :+:      :+:    :+:   */
+/*   trim_quoted_tokens.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 03:01:40 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 03:04:25 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 03:27:44 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ static void	trim_quotes(t_token *token)
 	if (len == 2)
 	{
 		free(token->string);
-		token->string = safe_calloc(1, sizeof(char));
+		token->string = ft_safe_calloc(1, sizeof(char));
 		return ;
 	}
-	new = safe_calloc(len - 1, sizeof(char));
+	new = ft_safe_calloc(len - 1, sizeof(char));
 	ft_memcpy(new, token->string + 1, len - 2);
 	free(token->string);
 	token->string = new;

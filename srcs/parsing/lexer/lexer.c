@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 03:07:51 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 03:27:44 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_lexer(t_lexer *lexer, const char *input)
 {
 	char	*s;
 
-	lexer->token_lst = safe_calloc(1, sizeof(t_list **));
+	lexer->token_lst = ft_safe_calloc(1, sizeof(t_list **));
 	init_operators(lexer);
 	s = (char *)input;
 	while (*s)
