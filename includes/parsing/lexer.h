@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:49 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/21 20:04:05 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 21:19:43 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef enum e_token_code
 	APPEND,
 	HEREDOC,
 	WORD,
+	QUOTED_WORD,
 	LOGICAL_AND,
 	LOGICAL_OR,
 	PIPE,

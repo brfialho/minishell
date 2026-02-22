@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/21 21:01:44 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 21:24:02 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,44 @@ t_list	*get_lower_prec(t_list *token_lst)
 	return (lower_prec_node);
 }
 
+// void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
+// {
+// 	int		i;
+// 	char	*string;
+
+//     if (ast == NULL)
+//         return ;
+//     ft_printf("%s", prefix);
+//     if (depth > 0)
+// 		ft_printf("%s", is_left ? "├── " : "└── ");
+
+// 	string = ((t_msh_ast *)ast->content)->str;
+// 	if (((t_msh_ast *)ast->content)->type == NODE_EXEC)
+// 	{
+// 		i = 0;
+// 		string = ft_strdup("");
+// 		while (((t_msh_ast *)ast->content)->argv[i])
+// 			// string = ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), " - ");
+// 			string = ft_strjoin(ft_strjoin(ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), "-"), ft_itoa(((t_msh_ast *)ast->content)->type)), " ");
+// 		string = ft_strjoin(string, ":");
+// 		t_list *redir = *((t_msh_ast *)ast->content)->redir;
+// 		while (redir)
+// 		{
+// 			string = ft_strjoin(ft_strjoin(ft_strjoin(ft_strjoin(string, ((t_redir *)redir->content)->target), "-"), ft_itoa(((t_redir *)redir->content)->type)), " ");
+// 			redir = redir->next;
+// 		}
+// 	}
+//     ft_printf("%s:%d\n", string, ((t_msh_ast *)ast->content)->type);
+//     char *new_prefix;
+//     if (depth == 0)
+//         new_prefix = ft_strdup("");
+//     else
+//         new_prefix = ft_strjoin(prefix, is_left ? "│   " : "    ");
+//     print_ast_visual(ast->left, depth + 1, new_prefix, 1);
+//     print_ast_visual(ast->right, depth + 1, new_prefix, 0);
+//     free(new_prefix);
+// }
+
 void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
 {
 	int		i;
@@ -47,8 +85,7 @@ void	print_ast_visual(t_ast *ast, int depth, char *prefix, int is_left)
 		i = 0;
 		string = ft_strdup("");
 		while (((t_msh_ast *)ast->content)->argv[i])
-			// string = ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), " - ");
-			string = ft_strjoin(ft_strjoin(ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), "-"), ft_itoa(((t_msh_ast *)ast->content)->type)), " ");
+			string = ft_strjoin(ft_strjoin(string, ((t_msh_ast *)ast->content)->argv[i++]), "; ");
 		string = ft_strjoin(string, ":");
 		t_list *redir = *((t_msh_ast *)ast->content)->redir;
 		while (redir)
@@ -139,12 +176,15 @@ t_list	*parse_argv(t_msh_ast *content, t_list *lst)
 	arg = ft_strdup("");
 	while (lst)
 	{
-		ft_strjoin_free(arg, ((t_token *)lst->content)->string, TRUE, FALSE);
-		if (((t_token *)lst->content)->space_next == FALSE)
+		arg = ft_strjoin_free(arg, ((t_token *)lst->content)->string, TRUE, FALSE);
+		ft_printf("CODIGO: %d\n", ((t_token *)lst->content)->code);
+		if (((t_token *)lst->content)->code != QUOTED_WORD
+			|| ((t_token *)lst->content)->space_next == TRUE)
 			break;
 		lst = lst->next;
 	}
 	content->argv[i] = arg;
+	ft_printf("OLHA AQUI: %s\n", arg);
 	return (lst);
 }
 
@@ -166,8 +206,10 @@ t_ast	*get_exec_node(t_list *token_lst)
 		if (((t_token *)lst->content)->code < 5)
 			lst = parse_redir(content->redir, lst);
 		else
-			// lst = parse_argv(content, lst);
-			content->argv[i++] = ((t_token *)lst->content)->string;
+			lst = parse_argv(content, lst);
+			// content->argv[i++] = ((t_token *)lst->content)->string;
+		if (!lst)
+			break;
 		lst = lst->next;
 	}
 	lst_del_all(&token_lst, NULL);
