@@ -29,10 +29,14 @@ ifeq ($(findstring exec, $(MAKECMDGOALS)), exec)
 endif
 
 SRC= srcs/parsing/lexer/lexer.c \
-	srcs/parsing/lexer/tokenize.c \
 	srcs/parsing/lexer/lexer_destroy.c \
+	srcs/parsing/lexer/tokenize.c \
+	srcs/parsing/lexer/trim_quoted_tokens.c \
+	srcs/parsing/parser/ast_builder.c \
+	srcs/parsing/parser/get_node.c \
 	srcs/parsing/parser/parser.c \
-	srcs/utils/utils.c \
+	srcs/parsing/parser/parser_destroy.c \
+	srcs/parsing/parsing.c \
 	srcs/execution/exec/exec.c \
 	srcs/execution/exec/exec_builtin_parent.c \
 	srcs/execution/pipeline/pipeline.c \
@@ -48,8 +52,6 @@ SRC= srcs/parsing/lexer/lexer.c \
 	srcs/execution/builtins/env_functions.c \
 	srcs/execution/handler/handler_basic.c \
 	srcs/signals/set_signals.c \
-	srcs/destroy/destroy.c \
-	srcs/parsing/parsing.c \
 	srcs/execution/executor.c
 
 O_DIR= obj/
@@ -121,7 +123,7 @@ fclean_nolib:
 
 re_nolib: fclean_nolib all
 
-test: fclean
+test: fclean_nolib
 	@$(MAKE) --no-print-directory $(TEST_BINARIES)
 	@echo "$(MAGENTA)$(BOLD)\nInitializing all unitary tests$(RESET)"
 	$(LOADING)

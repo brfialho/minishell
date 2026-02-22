@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:49 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 15:49:39 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 03:04:11 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "libft.h"
 # include "utils.h"
 
-
-
 typedef enum e_token_code
 {
 	INVALID,
@@ -26,6 +24,7 @@ typedef enum e_token_code
 	APPEND,
 	HEREDOC,
 	WORD,
+	QUOTED_WORD,
 	LOGICAL_AND,
 	LOGICAL_OR,
 	PIPE,
@@ -49,12 +48,14 @@ typedef struct s_token
 {
 	t_token_code	code;
 	char			*string;
-	char			precedence;
+	t_int8			precedence;
+	t_bool			expandable;
+	t_bool 			space_next;
 }	t_token;
 
 typedef struct s_operator
 {
-	char			precedence;
+	t_int8			precedence;
 	char			*str;
 	int				str_len;
 	t_token_code 	code;
@@ -70,6 +71,7 @@ typedef struct s_lexer
 
 void	ft_lexer(t_lexer *lexer, const char *input);
 char	*tokenize(t_lexer *lexer, char *input);
+void	trim_quoted_tokens(t_lexer *lexer);
 void	lexer_destroy(t_lexer *lexer);
 
 # endif

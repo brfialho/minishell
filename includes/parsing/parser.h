@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/19 14:50:16 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 03:20:54 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,18 @@ typedef enum e_redir_type
 	REDIR_HEREDOC = 4,
 }	t_redir_type;
 
+typedef struct s_expand
+{
+	char	expandable;
+	int		len;
+}	t_expand;
+
 typedef struct s_msh_ast
 {
 	t_node_type	type;
 	t_list		**redir;
 	char		**argv;
+	t_expand	expand[100];
 	char		*path;
 	char		*str;
 }	t_msh_ast;
@@ -49,6 +56,10 @@ typedef struct s_redir
 	char			*target;
 }	t_redir;
 
-t_ast	**parser(t_lexer *lexer);
+void	parser(t_ast ***root, t_lexer *lexer);
+t_ast	*ast_builder(t_list *token_lst);
+t_ast	*get_operator_node(t_token *token);
+t_ast	*get_exec_node(t_list *token_lst);
+void	parser_destroy(t_ast **root);
 
 #endif
