@@ -1,6 +1,7 @@
 BRUNO
 
 Fazer um teste unitário para o Parser
+Acertar o operador de assignment no Lexer
 Tratar Erros de input no lexer
 Tratar Erros de Syntax no parser
 Mandar o Path correto no exec?
@@ -14,6 +15,8 @@ export e unset de variaveis
 
 GERAL
 
+Arrumar exit na main
+Arrumar reling no Makefile
 Arrumar a estrutura de dados do env que vai ser compartilhada entre exec e parsing
 Arrumar sinais
 Coletar o heredoc
