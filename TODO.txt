@@ -14,8 +14,28 @@ pipeline - MEDIO
 exec expansao - MEDIO
 exec AND OR - FACIL
 
+create_cmd_from_ast(node)
+exec_pipeline_list(list, env)
+(env_print_sorted(*env), 0)
 
+declarar variaveis no shell - 
+export sem passar nada
 
 BOTH
 
 signal - FACIL?
+
+
+OBS RAFA
+
+Em apply_parent_redir():
+
+Se set_redir() falhar,
+você restaura os FDs corretamente.
+
+Muito bom.
+
+Mas se dup2() falhar na restauração (raro),
+você não trata erro.
+
+Não é obrigatório tratar, mas é algo a saber.

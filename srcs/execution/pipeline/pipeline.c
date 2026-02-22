@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:02:08 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 15:00:28 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 19:12:27 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int	exec_pipeline_ast(t_ast *node, t_env **env)
 	int		status;
 
 	list = convert_ast_pipeline(node);
-	(void)env;
-	// status = exec_pipeline_list(list, env);
+	status = exec_pipeline_list(list, env);
 	status = 0;
 	ft_cleaner_list(list);
 	return (status);

@@ -50,7 +50,8 @@ SRC= srcs/parsing/lexer/lexer.c \
 	srcs/signals/set_signals.c \
 	srcs/destroy/destroy.c \
 	srcs/parsing/parsing.c \
-	srcs/execution/executor.c
+	srcs/execution/executor.c \
+	srcs/execution/heredoc/heredoc_functions.c
 
 O_DIR= obj/
 OBJ= $(SRC:%.c=$(O_DIR)%.o)
