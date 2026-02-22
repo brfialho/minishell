@@ -31,7 +31,10 @@ endif
 SRC= srcs/parsing/lexer/lexer.c \
 	srcs/parsing/lexer/tokenize.c \
 	srcs/parsing/lexer/lexer_destroy.c \
+	srcs/parsing/parser/ast_builder.c \
+	srcs/parsing/parser/get_node.c \
 	srcs/parsing/parser/parser.c \
+	srcs/parsing/parsing.c \
 	srcs/utils/utils.c \
 	srcs/execution/exec/exec.c \
 	srcs/execution/exec/exec_builtin_parent.c \
@@ -49,7 +52,6 @@ SRC= srcs/parsing/lexer/lexer.c \
 	srcs/execution/handler/handler_basic.c \
 	srcs/signals/set_signals.c \
 	srcs/destroy/destroy.c \
-	srcs/parsing/parsing.c \
 	srcs/execution/executor.c
 
 O_DIR= obj/

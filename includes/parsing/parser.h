@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/21 18:30:35 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/22 02:45:37 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,8 @@ typedef struct s_redir
 }	t_redir;
 
 t_ast	**parser(t_lexer *lexer);
+t_ast	*ast_builder(t_list *token_lst);
+t_ast	*get_operator_node(t_token *token);
+t_ast	*get_exec_node(t_list *token_lst);
 
 #endif
