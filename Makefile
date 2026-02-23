@@ -5,13 +5,13 @@ MAGENTA=\033[95m
 RESET=\033[0m
 
 define LOADING
-    @sleep 0.7
+    @sleep 0.4
     @echo -n "$(MAGENTA)."
-    @sleep 0.2
+    @sleep 0.15
     @echo -n "."
-    @sleep 0.2
+    @sleep 0.15
     @echo ".$(RESET)"
-    @sleep 0.2
+    @sleep 0.15
 endef
 
 DEPENDENCIES= -lreadline
@@ -67,13 +67,11 @@ TEST_BIN_DIR= tests/bin/
 TEST_NAMES= lexer ast
 TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
+all: $(LIBFT) $(NAME)
+
 parse: re_nolib
 
 exec: re_nolib
-#	@rm -rf $(O_DIR)
-#	@rm -f $(NAME)
-
-all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ) $(MAIN_OBJ)
 	@$(CC) $(OBJ) $(MAIN_OBJ) $(LIBFT) $(DEPENDENCIES) -o $(NAME)
@@ -138,4 +136,4 @@ test: fclean_nolib
 		valgrind -q ./$$bin; \
 	done
 
-.PHONY: $(LIBFT) test re fclean clean
+.PHONY: $(LIBFT) all test re fclean clean parse exec re_nolib fclean_nolib
