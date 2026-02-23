@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:05:52 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/23 00:48:10 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/23 01:26:58 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,45 @@ t_bool	argv___test_parser_cmp(char **expected_argv, char **argv)
 	int i = -1;
 	while (expected_argv[++i])
 	{
-		if (!argv[i] || ft_strncmp(expected_argv[i], argv[i], ft_strlen(expected_argv[i])))
+		if (!argv[i] || ft_strncmp(expected_argv[i], argv[i], ft_strlen(argv[i])))
 			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);	
+}
+
+t_bool	redir_lst___test_parser_cmp(t_list **expected_lst, t_list **lst)
+{
+	if (!*lst)
+		return (EXIT_FAILURE);
+
+	t_list	*exp_lst_ptr;
+	t_list	*lst_ptr;
+	
+	exp_lst_ptr = *expected_lst;
+	lst_ptr = *lst;
+	while (exp_lst_ptr)
+	{
+		if (!lst_ptr)
+			return (EXIT_FAILURE);
+		if (((t_redir *)exp_lst_ptr->content)->type != ((t_redir *)lst_ptr->content)->type
+			|| ft_strncmp(((t_redir *)exp_lst_ptr->content)->target, ((t_redir *)lst_ptr->content)->target, ft_strlen(((t_redir *)lst_ptr->content)->target)))
+			return (EXIT_FAILURE);
+		lst_ptr = lst_ptr->next;
+		exp_lst_ptr = exp_lst_ptr->next;
+	}
+	lst_del_all(lst, NULL);
+	return (EXIT_SUCCESS);
 }
 
 t_bool	test_parser_cmp(t_msh_ast *expec_content, t_msh_ast *content)
 {
 	if (!content || expec_content->type != content->type)
 		return (EXIT_FAILURE);
-	if (expec_content->type != NODE_EXEC && ft_strncmp(expec_content->str, content->str, ft_strlen(expec_content->str)))
+	if (expec_content->type != NODE_EXEC && ft_strncmp(expec_content->str, content->str, ft_strlen(content->str)))
 		return (EXIT_FAILURE);
 	if (expec_content->type == NODE_EXEC && argv___test_parser_cmp(expec_content->argv, content->argv))
+		return (EXIT_FAILURE);
+	if (expec_content->redir && redir_lst___test_parser_cmp(expec_content->redir, content->redir))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -103,6 +129,37 @@ t_bool	test_parser_very_simple_input(t_ast **root)
 //
 // ##########################################
 
+t_list **expected_redir_lst_helper___test_parser_simple_input_with_redirs(void)
+{
+	static t_bool init = FALSE;
+	static int i = 0;
+
+	static t_list *lst_0 = NULL;
+	static t_redir	lst_0_redir_0 = (t_redir){REDIR_OUT, "f1"};
+
+	static t_list *lst_1 = NULL;
+	static t_redir	lst_1_redir_0 = (t_redir){REDIR_OUT, "f2"};
+	static t_redir	lst_1_redir_1 = (t_redir){REDIR_OUT, "f3"};
+
+	static t_list **redir_lst_array[3];
+
+	if (!init)
+	{
+		lst_0 = lst_new_node(&lst_0_redir_0);
+
+		lst_1 = lst_new_node(&lst_1_redir_0);
+		lst_add_end(&lst_1, lst_new_node(&lst_1_redir_1));
+
+		redir_lst_array[0] = &lst_0;
+		redir_lst_array[1] = &lst_1;
+		redir_lst_array[2] = NULL;
+		
+		init = TRUE;
+		return (NULL);
+	}
+	return (redir_lst_array[i++]);
+}
+
 char	**expected_argv_helper___test_parser_simple_input_with_redirs(void)
 {
 	static int i = 0;
@@ -125,10 +182,10 @@ t_msh_ast expected_helper___test_parser_simple_input_with_redirs(void)
 	{
 		// "ls > f1 && cat f1 | wc > f2>f3";
 		expected_content[0] = (t_msh_ast){NODE_AND, NULL, NULL, NULL, "&&"};
-		expected_content[1] = (t_msh_ast){NODE_EXEC, NULL, expected_argv_helper___test_parser_simple_input_with_redirs(), NULL, NULL};
+		expected_content[1] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_simple_input_with_redirs(), expected_argv_helper___test_parser_simple_input_with_redirs(), NULL, NULL};
 		expected_content[2] = (t_msh_ast){NODE_PIPE, NULL, NULL, NULL, "|"};
 		expected_content[3] = (t_msh_ast){NODE_EXEC, NULL, expected_argv_helper___test_parser_simple_input_with_redirs(), NULL, NULL};
-		expected_content[4] = (t_msh_ast){NODE_EXEC, NULL, expected_argv_helper___test_parser_simple_input_with_redirs(), NULL, NULL};
+		expected_content[4] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_simple_input_with_redirs(), expected_argv_helper___test_parser_simple_input_with_redirs(), NULL, NULL};
 		init = TRUE;
 		return ((t_msh_ast){0, NULL, NULL, NULL, NULL});
 	}
@@ -156,6 +213,7 @@ t_bool	test_parser_simple_input_with_redirs(t_ast **root)
 
 	// TEST DEPTH
 
+	expected_redir_lst_helper___test_parser_simple_input_with_redirs();
 	expected_helper___test_parser_simple_input_with_redirs();
 	return (recursion___test_parser_simple_input_with_redirs(*root));
 }
@@ -191,6 +249,7 @@ int main(void)
 		ft_printf(SUCCESS);
 	lexer_destroy(&lexer);
 	parser_destroy(root);
+	
 	ft_bzero(&lexer, sizeof(t_lexer));
 	ft_bzero(&root, sizeof(t_ast **));
 	}
