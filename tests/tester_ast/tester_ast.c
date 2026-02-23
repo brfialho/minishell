@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:05:52 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/23 02:27:55 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/23 02:51:24 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_bool	redir_lst___test_parser_cmp(t_list **expected_lst, t_list **lst)
 		lst_ptr = lst_ptr->next;
 		exp_lst_ptr = exp_lst_ptr->next;
 	}
-	lst_del_all(lst, NULL);
+	lst_del_all(expected_lst, NULL);
 	return (EXIT_SUCCESS);
 }
 
