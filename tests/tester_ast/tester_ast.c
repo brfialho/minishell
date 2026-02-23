@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:05:52 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/23 01:26:58 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/23 02:27:55 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,100 @@ t_bool	test_parser_simple_input_with_redirs(t_ast **root)
 	return (recursion___test_parser_simple_input_with_redirs(*root));
 }
 
+// ##########################################
+//
+// test_parser_medium_complex_argv_with_redirs START
+//
+// ##########################################
+
+t_list **expected_redir_lst_helper___test_parser_medium_complex_argv_with_redirs(void)
+{
+	static t_bool init = FALSE;
+	static int i = 0;
+
+	static t_list *lst_0 = NULL;
+	static t_redir	lst_0_redir_0 = (t_redir){REDIR_IN, "haesseAquiAindaEhONomeDoRedir"};
+	static t_redir	lst_0_redir_1 = (t_redir){REDIR_OUT, "f1"};
+
+	static t_list *lst_1 = NULL;
+	static t_redir	lst_1_redir_0 = (t_redir){REDIR_OUT, "f2"};
+	static t_redir	lst_1_redir_1 = (t_redir){REDIR_OUT, "out3"};
+
+	static t_list **redir_lst_array[3];
+
+	if (!init)
+	{
+		lst_0 = lst_new_node(&lst_0_redir_0);
+		lst_add_end(&lst_0, lst_new_node(&lst_0_redir_1));
+
+		lst_1 = lst_new_node(&lst_1_redir_0);
+		lst_add_end(&lst_1, lst_new_node(&lst_1_redir_1));
+
+		redir_lst_array[0] = &lst_0;
+		redir_lst_array[1] = &lst_1;
+		redir_lst_array[2] = NULL;
+		
+		init = TRUE;
+		return (NULL);
+	}
+	return (redir_lst_array[i++]);
+}
+
+char	**expected_argv_helper___test_parser_medium_complex_argv_with_redirs(void)
+{
+	static int i = 0;
+
+	static char *argv_0[] = {"echo", "oi", "ola", "outracoisaai", NULL};
+	static char *argv_1[] = {"echo", "oiolaoutracoisaai", NULL};
+	static char **argv[] = {argv_0, argv_1, NULL};
+	
+	return (argv[i++]);
+}
+
+t_msh_ast expected_helper___test_parser_medium_complex_argv_with_redirs(void)
+{
+	static t_msh_ast expected_content[100];
+	static t_bool init = FALSE;
+	static int i = 0;
+	
+	if (!init)
+	{
+		// "echo oi 'ola' outracoisaai>f1&& echo \"oi\"'ola'\"outracoisaai\" > f2 > out3";
+		expected_content[0] = (t_msh_ast){NODE_AND, NULL, NULL, NULL, "&&"};
+		expected_content[1] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_medium_complex_argv_with_redirs(), expected_argv_helper___test_parser_medium_complex_argv_with_redirs(), NULL, NULL};
+		expected_content[2] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_medium_complex_argv_with_redirs(), expected_argv_helper___test_parser_medium_complex_argv_with_redirs(), NULL, NULL};
+		init = TRUE;
+		return ((t_msh_ast){0, NULL, NULL, NULL, NULL});
+	}
+	return (expected_content[i++]);
+}
+
+t_bool	recursion___test_parser_medium_complex_argv_with_redirs(t_ast *root)
+{
+	if (!root)
+		return (EXIT_SUCCESS);
+
+	t_msh_ast expected_content = expected_helper___test_parser_medium_complex_argv_with_redirs();
+	
+	if(test_parser_cmp(&expected_content, root->content)
+		|| recursion___test_parser_medium_complex_argv_with_redirs(root->left)
+		|| recursion___test_parser_medium_complex_argv_with_redirs(root->right))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+t_bool	test_parser_medium_complex_argv_with_redirs(t_ast **root)
+{
+	if (!root || !*root)
+		return (EXIT_FAILURE);
+
+	// TEST DEPTH
+
+	expected_redir_lst_helper___test_parser_medium_complex_argv_with_redirs();
+	expected_helper___test_parser_medium_complex_argv_with_redirs();
+	return (recursion___test_parser_medium_complex_argv_with_redirs(*root));
+}
+
 int main(void)
 {
 	t_lexer lexer;
@@ -229,9 +323,11 @@ int main(void)
 
 	tests[0] = "ls | wc";
 	tests[1] = "ls > f1 && cat f1 | wc > f2>f3";
+	tests[2] = "echo <ha'esseAquiAindaEhONomeDoRedir' oi 'ola' outracoisaai>f1&& echo \"oi\"'ola'\"outracoisaai\" > f2 > out3";
 
 	test_functions[0] = test_parser_very_simple_input;
 	test_functions[1] = test_parser_simple_input_with_redirs;
+	test_functions[2] = test_parser_medium_complex_argv_with_redirs;
 
 	int test_len = 0;
 	while (tests[test_len])
