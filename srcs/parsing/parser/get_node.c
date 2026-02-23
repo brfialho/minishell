@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 02:41:50 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 03:27:44 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/23 02:37:09 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,16 @@ static void	parse_redir(t_list **redir, t_list **token_lst)
 
 	redir_node = ft_safe_calloc(1, sizeof(t_redir));
 	redir_node->type = (int)((t_token *)(*token_lst)->content)->code;
+	redir_node->target = ft_strdup("");
 	*token_lst = (*token_lst)->next;
-	if (*token_lst)
+	while (*token_lst && ((t_token *)(*token_lst)->content)->code == WORD)
 	{
-		redir_node->target = ((t_token *)(*token_lst)->content)->string;
+		redir_node->target = ft_strjoin_free(redir_node->target, ((t_token *)(*token_lst)->content)->string, TRUE, FALSE);
+		if (((t_token *)(*token_lst)->content)->space_next == TRUE)
+		{
+			*token_lst = (*token_lst)->next;
+			break;
+		}
 		*token_lst = (*token_lst)->next;
 	}
 	lst_add_end(redir, lst_new_node(redir_node));
