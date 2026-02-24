@@ -13,7 +13,6 @@ export e unset de variaveis
 
 GERAL
 
-Arrumar exit na main
 Arrumar a estrutura de dados do env que vai ser compartilhada entre exec e parsing
 Arrumar sinais
 Coletar o heredoc
