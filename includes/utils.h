@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 01:18:18 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 01:38:41 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define STDERR 2
 
 // Lexer
-# define OPERATOR "|&<>"
+# define OPERATOR "|<>" // && operator has to be treated specially since & is a normal char
 # define WHITESPACE " \t"
 # define OP_COUNT 7
 

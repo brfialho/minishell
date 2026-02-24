@@ -6,20 +6,20 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:31:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 03:27:44 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 01:34:29 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static t_state	get_state(char c);
+static t_state	get_state(char *s);
 static char	*tokenize_operator(t_lexer *lexer, char *input);
 static char	*tokenize_default(t_lexer *lexer, char *input);
 static char	*tokenize_quoted(t_lexer *lexer, char *input);
 
 char	*tokenize(t_lexer *lexer, char *input)
 {
-	lexer->state = get_state(*input);
+	lexer->state = get_state(input);
 	if (lexer->state == IN_NULL)
 		return (input);
 	if (lexer->state == IN_D_QUOTES 
@@ -38,7 +38,7 @@ static char	*tokenize_quoted(t_lexer *lexer, char *input)
 	int		len;
 
 	len = 1;
-	while (input[len] && get_state(input[len]) != lexer->state)
+	while (input[len] && get_state(input + len) != lexer->state)
 		len++;
 	if (!input[len])
 	{
@@ -67,7 +67,7 @@ static char	*tokenize_default(t_lexer *lexer, char *input)
 	t_token	*token;
 
 	len = 0;
-	while(get_state(input[len]) == DEFAULT)
+	while(get_state(input + len) == DEFAULT)
 		len++;
 	token_str = ft_safe_calloc(len + 1, sizeof(char));
 	ft_memcpy(token_str, input, len);
@@ -98,17 +98,18 @@ static char	*tokenize_operator(t_lexer *lexer, char *input)
 	return (input + lexer->op_lst[i].str_len);
 }
 
-static t_state	get_state(char c)
+static t_state	get_state(char *s)
 {
-	if (!c)
+	if (!*s)
 		return (IN_NULL);
-	if (c == '"')
+	if (*s == '"')
 		return (IN_D_QUOTES);
-	if (c == '\'')
+	if (*s == '\'')
 		return (IN_S_QUOTES);
-	if (c == ' ')
+	if (*s == ' ')
 		return (IN_SPACE);
-	if (ft_str_charcount(OPERATOR, c))
+	if (ft_str_charcount(OPERATOR, *s)
+		|| !ft_strncmp ("&&", s, 2))
 		return (IN_OPERATOR);
 	return (DEFAULT);
 }
