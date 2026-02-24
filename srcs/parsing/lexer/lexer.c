@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 03:27:44 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 00:48:01 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	init_operators(t_lexer *lexer)
 	lexer->op_lst[6] = (t_operator){0, "&", 1, INVALID};
 	lexer->op_lst[7] = (t_operator){1, "|", 1, PIPE};
 	lexer->op_lst[8] = (t_operator){0, ";", 1, INVALID};
-	lexer->op_lst[9] = (t_operator){0, "=", 1, ASSIGNMENT};
-	lexer->op_lst[10] = (t_operator){0, "(", 1, OPEN_PARENTHESIS};
-	lexer->op_lst[11] = (t_operator){0, ")", 1, CLOSE_PARENTHESIS};
+	lexer->op_lst[9] = (t_operator){0, "(", 1, INVALID};
+	lexer->op_lst[10] = (t_operator){0, ")", 1, INVALID};
 }

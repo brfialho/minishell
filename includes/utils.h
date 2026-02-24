@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 03:28:34 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 00:48:34 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 # define STDERR 2
 
 // Lexer
-# define OPERATOR "|&;()<>="
+# define OPERATOR "|&;()<>"
 # define WHITESPACE " \t"
-# define OP_COUNT 12
+# define OP_COUNT 11
 
 // Signal
 # define EXIT_CODE 130
