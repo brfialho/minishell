@@ -1,6 +1,5 @@
 BRUNO
 
-Tratar Erros de input no lexer
 Tratar Erros de Syntax no parser
 Mandar o Path correto no exec?
 
