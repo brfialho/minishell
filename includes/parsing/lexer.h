@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:49 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/24 05:00:41 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 05:39:10 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 
 typedef enum e_token_code
 {
-	INFILE = 5,
-	OUTFILE = 6,
-	APPEND = 7,
-	HEREDOC= 8,
-	WORD = 9,
-	LOGICAL_AND = 10,
-	LOGICAL_OR = 11,
-	PIPE = 12,
+	INFILE = 1,
+	OUTFILE = 2,
+	APPEND = 3,
+	HEREDOC= 4,
+	WORD = 5,
+	PIPE = 6,
+	LOGICAL_AND = 7,
+	LOGICAL_OR = 8,
 }	t_token_code;
 
 typedef enum e_state

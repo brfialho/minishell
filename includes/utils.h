@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 03:10:49 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 05:25:20 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@
 
 // Error Messages
 # define QUOTE_ERROR "Minishell: unexpected EOF while looking for matching"
+# define SYNTAX_ERROR "Minishell: syntax error near unexpected token"
 
 #endif
