@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 02:41:50 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/23 02:37:09 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 00:43:45 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@ t_ast	*get_exec_node(t_list *token_lst)
 {
 	t_msh_ast	*content;
 	t_list		*lst;
-	int			i;
 
 	content = ft_safe_calloc(1, sizeof(t_msh_ast));
 	content->argv = ft_safe_calloc(lst_size(token_lst) + 1, sizeof(char *));
 	content->redir = ft_safe_calloc(1, sizeof(t_list *));
 	content->type = NODE_EXEC;
 	lst = token_lst;
-	i = 0;
 	while(lst)
 	{	
 		if (((t_token *)lst->content)->code < 5)
