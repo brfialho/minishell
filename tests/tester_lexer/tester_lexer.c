@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:39:21 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 00:29:00 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 00:53:32 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,20 +120,18 @@ char	test_lexer_complex_with_exports(t_lexer *lexer)
 	t_list *lst = *lexer->token_lst;
 
 	// ft_printf("SIZE: %d\n", lst_size(lst));
-	if (!lst || lst_size(lst) != 11)
+	if (!lst || lst_size(lst) != 8)
 		return (EXIT_FAILURE);
 
+	// "export a=ech && export b=\"o EEEBA\" && $a$b";
 	expected_token[0] = (t_token){WORD, "export", 0, TRUE, TRUE};
-	expected_token[1] = (t_token){WORD, "a", 0, TRUE, FALSE};
-	expected_token[2] = (t_token){ASSIGNMENT, "=", 0, FALSE, FALSE};
-	expected_token[3] = (t_token){WORD, "ech", 0, TRUE, TRUE};
-	expected_token[4] = (t_token){LOGICAL_AND, "&&", 2, FALSE, FALSE};
-	expected_token[5] = (t_token){WORD, "export", 0, TRUE, TRUE};
-	expected_token[6] = (t_token){WORD, "b", 0, TRUE, FALSE};
-	expected_token[7] = (t_token){ASSIGNMENT, "=", 0, FALSE, FALSE};
-	expected_token[8] = (t_token){WORD, "\"o EEEBA\"", 0, TRUE, TRUE};
-	expected_token[9] = (t_token){LOGICAL_AND, "&&", 2, FALSE, FALSE};
-	expected_token[10] = (t_token){WORD, "$a$b", 0, TRUE, FALSE};
+	expected_token[1] = (t_token){WORD, "a=ech", 0, TRUE, TRUE};
+	expected_token[2] = (t_token){LOGICAL_AND, "&&", 2, FALSE, FALSE};
+	expected_token[3] = (t_token){WORD, "export", 0, TRUE, TRUE};
+	expected_token[4] = (t_token){WORD, "b=", 0, TRUE, FALSE};
+	expected_token[5] = (t_token){WORD, "\"o EEEBA\"", 0, TRUE, TRUE};
+	expected_token[6] = (t_token){LOGICAL_AND, "&&", 2, FALSE, FALSE};
+	expected_token[7] = (t_token){WORD, "$a$b", 0, TRUE, FALSE};
 
 	int i = -1;
 	while (++i < lst_size(lst))
