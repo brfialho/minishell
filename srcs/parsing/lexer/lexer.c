@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 01:17:10 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 02:46:07 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,23 @@
 
 static void	init_operators(t_lexer *lexer);
 
-void	ft_lexer(t_lexer *lexer, const char *input)
+void	lexer_quotes_error(t_lexer *lexer, const char *input)
+{
+	char	quote;
+
+	quote = '\'';
+	if (lexer->state == IN_D_QUOTES)
+		quote = '"';
+	ft_printf("Minishell: unexpected EOF while looking for matching %c\n", quote);
+	lexer_destroy(lexer);
+	(void)input;
+}
+
+t_bool	ft_lexer(t_lexer *lexer, const char *input)
 {
 	char	*s;
 
+	ft_bzero(lexer, sizeof(t_lexer));
 	lexer->token_lst = ft_safe_calloc(1, sizeof(t_list **));
 	init_operators(lexer);
 	s = (char *)input;
@@ -27,6 +40,9 @@ void	ft_lexer(t_lexer *lexer, const char *input)
 			s++;
 		s = tokenize(lexer, s);
 	}
+	if (lexer->unclosed_quotes)
+		return (lexer_quotes_error(lexer, input), EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 static void	init_operators(t_lexer *lexer)

@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:39:21 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 01:53:33 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 02:42:21 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,13 +338,6 @@ char	test_background_char(t_lexer *lexer)
 		lst = lst->next;
 	}
 	return (EXIT_SUCCESS);
-}
-
-char	test_lexer_unclosed_quotes(t_lexer *lexer)
-{
-	if (lexer->error == TRUE)
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
 }
 
 void	free_lexer(void *content)

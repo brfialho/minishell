@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:31:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 01:34:29 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 02:30:16 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ static char	*tokenize_quoted(t_lexer *lexer, char *input)
 	while (input[len] && get_state(input + len) != lexer->state)
 		len++;
 	if (!input[len])
-	{
-		lexer->error = TRUE;
-		return (input + len);
-	}
+		return (lexer->unclosed_quotes = input, input + len);
 	len++;
 	token_str = ft_safe_calloc(len + 1, sizeof(char));
 	ft_memcpy(token_str, input, len);

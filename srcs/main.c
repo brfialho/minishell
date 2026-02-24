@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 02:55:34 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 02:16:04 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	main(int argc, char **argv, char **env)
 		mini.input = read_prompt_line();
 		if (mini.input == NULL)
 			continue;
-		parsing(&mini);
+		if (parsing(&mini))
+			continue;
 		executor(&mini);
 		destroy_cicle(&mini);
 	}
