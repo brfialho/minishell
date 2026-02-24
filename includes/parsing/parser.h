@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 02:24:32 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 04:29:32 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef enum e_node_type
 	NODE_PIPE,
 	NODE_OR,
 	NODE_AND,
-	NODE_SUB
 }	t_node_type;
 
 typedef enum e_redir_type
