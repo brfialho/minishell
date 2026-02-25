@@ -51,7 +51,8 @@ SRC= srcs/parsing/lexer/lexer.c \
 	srcs/destroy/destroy.c \
 	srcs/parsing/parsing.c \
 	srcs/execution/executor.c \
-	srcs/execution/heredoc/heredoc_functions.c
+	srcs/execution/heredoc/heredoc_functions.c \
+	srcs/execution/exec/exec_pipeline.c \
 
 O_DIR= obj/
 OBJ= $(SRC:%.c=$(O_DIR)%.o)
@@ -63,7 +64,7 @@ LIBFT= libft/libft.a
 LIBPATH= libft/
 
 TEST_BIN_DIR= tests/bin/
-TEST_NAMES= lexer
+TEST_NAMES= lexer execution
 TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
 parse: re_nolib
@@ -88,6 +89,11 @@ $(LIBFT):
 	@make --no-print-directory -C $(LIBPATH)
 
 $(TEST_BIN_DIR)lexer: tests/tester_lexer/tester_lexer.c $(LIBFT) $(OBJ)
+	@mkdir -p $(TEST_BIN_DIR)
+	@echo "$(MAGENTA)Compiling test$(RESET) $(notdir $@)"
+	@$(CC) $< $(OBJ) $(LIBFT) $(DEPENDENCIES) -o $@
+
+$(TEST_BIN_DIR)execution: srcs/execution/execution_test_main.c $(LIBFT) $(OBJ)
 	@mkdir -p $(TEST_BIN_DIR)
 	@echo "$(MAGENTA)Compiling test$(RESET) $(notdir $@)"
 	@$(CC) $< $(OBJ) $(LIBFT) $(DEPENDENCIES) -o $@
