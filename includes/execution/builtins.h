@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:00:28 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 17:46:42 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/21 22:25:00 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 # include "utils.h"
 # include "parser.h"
 
+typedef struct s_n_redir t_n_redir;
+
 typedef struct s_cmd
 {
-	char	**argv;
-	char	*path;
-	t_redir	*redir;
-	int		heredoc_fd;
-	struct	s_cmd *next;
+	char			**argv;
+	char			*path;
+	t_n_redir		*redir;
+	int				heredoc_fd;
+	struct s_cmd	*next;
 }	t_cmd;
 
 typedef struct s_env
@@ -31,6 +33,13 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
+
+typedef struct s_n_redir
+{
+	int					type;
+	char				*target;
+	struct s_n_redir	*next;
+}	t_n_redir;
 
 int		builtin_echo(t_cmd *cmd);
 int		builtin_cd(t_cmd *cmd, t_env **env);

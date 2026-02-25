@@ -5,15 +5,27 @@ Mandar o Path correto no exec?
 
 RAFA
 
-pipeline
-exec expansao
-exec AND OR
-export e unset de variaveis
+pipeline - MEDIO
+exec expansao - MEDIO
+exec AND OR - FACIL
 
-GERAL
 
-Arrumar a estrutura de dados do env que vai ser compartilhada entre exec e parsing
-Arrumar sinais
-Coletar o heredoc
-Expandir
 
+BOTH
+
+signal - FACIL?
+
+
+OBS RAFA
+
+Em apply_parent_redir():
+
+Se set_redir() falhar,
+você restaura os FDs corretamente.
+
+Muito bom.
+
+Mas se dup2() falhar na restauração (raro),
+você não trata erro.
+
+Não é obrigatório tratar, mas é algo a saber.

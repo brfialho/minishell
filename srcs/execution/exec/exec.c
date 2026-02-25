@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 12:29:51 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/24 22:09:40 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	exec_child(t_cmd *cmd, t_env **env)
 		exec_builtin_child(cmd, env);
 		exit(0);
 	}
-	if (set_redir(cmd->redir, cmd) == -1)
+	if (apply_redirections(cmd->redir, cmd) == -1)
 		exit(1);
 	if (cmd->heredoc_fd != -1)
 		dup2(cmd->heredoc_fd, STDIN_FILENO);
@@ -59,16 +59,24 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env)
 
 int	ft_exec_cmd(t_cmd *cmd, t_env **env)
 {
-	if (!cmd || !cmd->argv || !cmd->argv[0]) // perguntar se ast guarda redirect
-		return (0);
-	if (cmd->argv[0][0] == '\0')
-	{
-		ft_putendl_fd("minishell: : command not found", 2);
-		return (127);
-	}
-	if (is_builtin(cmd->argv[0]))
-		return (exec_builtin_parent(cmd, env));
-	return (exec_external_cmd(cmd, env));
+    if (!cmd || !cmd->argv || !cmd->argv[0])
+        return (0);
+    if (cmd->argv[0][0] == '\0')
+    {
+        ft_putendl_fd("minishell: : command not found", 2);
+        return (127);
+    }
+    if (prepare_heredocs(cmd->redir, cmd) == -1)
+        return (130);
+    if (is_builtin(cmd->argv[0]))
+        return (exec_builtin_parent(cmd, env));
+    cmd->path = get_path_dirs(cmd, env);
+    if (!cmd->path)
+    {
+        ft_putendl_fd("minishell: command not found", 2);
+        return (127);
+    }
+    return (exec_external_cmd(cmd, env));
 }
 
 int exec_node(t_ast *node, t_env **env)
@@ -98,4 +106,31 @@ int exec_node(t_ast *node, t_env **env)
 		return status;
 	}
 	return (1);
+}
+
+int exec_single_ast(t_ast *node, t_env **env)
+{
+    t_msh_ast	*data;
+    t_cmd 		cmd;
+    int			result;
+
+    result = 0;
+    if (!node || !node->content)
+        return (0);
+    data = (t_msh_ast *)node->content;
+    if (!data->argv)
+        return (1);
+    cmd.argv = data->argv;
+    cmd.path = data->path;
+    cmd.heredoc_fd = -1;
+    cmd.next = NULL;
+    cmd.redir = NULL;
+    if (data->redir && *data->redir)
+        cmd.redir = convert_redir_list(*data->redir);
+    result = ft_exec_cmd(&cmd, env);
+    if (cmd.redir)
+        free_exec_redir_list(cmd.redir);
+    if (cmd.path && cmd.path != data->path)
+        free(cmd.path);
+    return (result);
 }

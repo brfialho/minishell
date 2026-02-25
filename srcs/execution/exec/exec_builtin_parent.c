@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/11 14:53:07 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/21 21:12:43 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	apply_parent_redir(
 	*stdout_backup = dup(STDOUT_FILENO);
 	if (*stdin_backup == -1 || *stdout_backup == -1)
 		return (-1);
-	if (set_redir(cmd->redir, cmd) == -1)
+	if (apply_redirections(cmd->redir, cmd) == -1)
 	{
 		dup2(*stdin_backup, STDIN_FILENO);
 		dup2(*stdout_backup, STDOUT_FILENO);
@@ -31,12 +31,6 @@ static int	apply_parent_redir(
 		return (-1);
 	}
 	return (0);
-}
-
-static void	apply_parent_heredoc(t_cmd *cmd)
-{
-	if (cmd->heredoc_fd != -1)
-		dup2(cmd->heredoc_fd, STDIN_FILENO);
 }
 
 static void	cleanup_parent_fds(
@@ -62,9 +56,10 @@ int	exec_builtin_parent(t_cmd *cmd, t_env **env)
 	int	stdout_backup;
 	int	ret;
 
+	if (prepare_heredocs(cmd->redir, cmd) == -1)
+		return (130);
 	if (apply_parent_redir(cmd, &stdin_backup, &stdout_backup) == -1)
 		return (1);
-	apply_parent_heredoc(cmd);
 	ret = execute_builtin(cmd, env);
 	cleanup_parent_fds(cmd, stdin_backup, stdout_backup);
 	return (ret);
@@ -72,9 +67,7 @@ int	exec_builtin_parent(t_cmd *cmd, t_env **env)
 
 void	exec_builtin_child(t_cmd *cmd, t_env **env)
 {
-	if (set_redir(cmd->redir, cmd) == -1)
+	if (apply_redirections(cmd->redir, cmd) == -1)
 		exit(1);
-	if (cmd->heredoc_fd != -1)
-		dup2(cmd->heredoc_fd, STDIN_FILENO);
 	exit(execute_builtin(cmd, env));
 }
