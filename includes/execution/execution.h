@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 20:40:07 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:58:02 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ t_cmd		*cmd_add_back(t_cmd *left, t_cmd *right);
 t_cmd	    *create_cmd_from_ast(t_ast *node);
 t_n_redir 	*new_exec_redir(t_redir *ast_redir);
 t_n_redir 	*convert_redir_list(t_list *ast_list);
+void		exec_child(t_cmd *cmd, t_env **env);
 void		exec_builtin_child(t_cmd *cmd, t_env **env);
 void		ft_cleaner_list(t_cmd *list);
+void		resolve_pipeline_paths(t_cmd *cmd, t_env **env);
 void 		free_exec_redir_list(t_n_redir *redir);
 void		ft_free_matrix(char ***matrix);
 char    	*read_prompt_line(void);

@@ -12,7 +12,7 @@
 
 #include "execution.h"
 
-static void	exec_child(t_cmd *cmd, t_env **env)
+void	exec_child(t_cmd *cmd, t_env **env)
 {
 	char	**envp_exec;
 

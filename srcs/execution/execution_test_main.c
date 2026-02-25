@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:39:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 22:42:59 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:10:29 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,35 @@ static t_ast *create_pipe_node(t_ast *left, t_ast *right)
     return (node);
 }
 
+static t_ast *create_pipeline_from_split(char **parts, int count)
+{
+    char    **argv;
+    
+    if (count == 1)
+    {
+        argv = ft_split(parts[0], ' ');
+        if (!argv || !argv[0] || argv[0][0] == '\0')
+        {
+            if (argv)
+                ft_split_free(argv);
+            return (NULL);
+        }
+        return (create_exec_node(argv));
+    }
+    argv = ft_split(parts[0], ' ');
+    if (!argv || !argv[0] || argv[0][0] == '\0')
+    {
+        if (argv)
+            ft_split_free(argv);
+        ft_putendl_fd("minishell: syntax error near unexpected token '|'", 2);
+        return (NULL);
+    }
+    return (create_pipe_node(
+        create_exec_node(argv),
+        create_pipeline_from_split(parts + 1, count - 1)
+    ));
+}
+
 int	main(int argc, char **argv, char **envp)
 {
     t_env	*env;
@@ -105,8 +134,7 @@ int	main(int argc, char **argv, char **envp)
     char	**pipe_split;
     char	**cmd_args;
     t_ast	*node;
-    t_ast	*left;
-    t_ast	*right;
+    int		pipe_count;
 
     (void)argc;
     (void)argv;
@@ -125,11 +153,10 @@ int	main(int argc, char **argv, char **envp)
         if (ft_strchr(line, '|'))
         {
             pipe_split = ft_split(line, '|');
-
-            left = create_exec_node(ft_split(pipe_split[0], ' '));
-            right = create_exec_node(ft_split(pipe_split[1], ' '));
-
-            node = create_pipe_node(left, right);
+            pipe_count = 0;
+            while (pipe_split[pipe_count])
+                pipe_count++;
+            node = create_pipeline_from_split(pipe_split, pipe_count);
             ft_split_free(pipe_split);
         }
         else
@@ -138,8 +165,11 @@ int	main(int argc, char **argv, char **envp)
             node = create_exec_node(cmd_args);
         }
 
-        exec_node(node, &env);
-        ft_free_ast(node);
+        if (node)
+        {
+            exec_node(node, &env);
+            ft_free_ast(node);
+        }
         free(line);
     }
 

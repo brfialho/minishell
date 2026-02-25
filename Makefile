@@ -52,8 +52,6 @@ SRC= srcs/parsing/lexer/lexer.c \
 	srcs/execution/builtins/env_functions.c \
 	srcs/execution/handler/handler_basic.c \
 	srcs/signals/set_signals.c \
-	srcs/destroy/destroy.c \
-	srcs/parsing/parsing.c \
 	srcs/execution/executor.c \
 	srcs/execution/heredoc/heredoc_functions.c \
 	srcs/execution/exec/exec_pipeline.c \

@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 18:07:51 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/24 20:49:45 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:07:12 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 static void	setup_and_exec_pipeline_child(t_cmd *cmd, int *pipe_fd, 
 	int prev_fd, t_env **env)
 {
-	int	status;
-
 	if (prev_fd != -1)
 	{
 		dup2(prev_fd, STDIN_FILENO);
@@ -29,10 +27,7 @@ static void	setup_and_exec_pipeline_child(t_cmd *cmd, int *pipe_fd,
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 	}
-	if (apply_redirections(cmd->redir, cmd) == -1)
-		exit(1);
-	status = ft_exec_cmd(cmd, env);
-	exit(status);
+	exec_child(cmd, env);
 }
 
 static int	*execute_pipeline_iteration(t_cmd *cmd, int *prev_fd, t_env **env)
@@ -63,7 +58,7 @@ int	exec_pipeline_list(t_cmd *cmd, t_env **env)
 
 	prev_fd = -1;
 	last_status = 0;
-	if (!cmd || !cmd->argv || !cmd->argv[0]) // verificar se tem redirect na struct cmd 
+	if (!cmd || !cmd->argv || !cmd->argv[0])
 		return (0);
 	if (cmd->argv[0][0] == '\0')
 	{
@@ -72,6 +67,7 @@ int	exec_pipeline_list(t_cmd *cmd, t_env **env)
 	}
 	if (prepare_heredocs(cmd->redir, cmd) == -1)
 		return (130);
+	resolve_pipeline_paths(cmd, env);
 	while (cmd)
 	{
 		execute_pipeline_iteration(cmd, &prev_fd, env);
