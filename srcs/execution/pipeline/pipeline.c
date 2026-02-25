@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:02:08 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/24 20:43:33 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/24 22:35:21 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ t_cmd	*create_cmd_from_ast(t_ast *node)
 		return (NULL);
 	cmd->argv = data->argv;
 	cmd->path = data->path;
-	cmd->redir = convert_redir_list(*data->redir);
 	cmd->heredoc_fd = -1;
 	cmd->next = NULL;
+	cmd->redir = NULL;
+	if (data->redir && *data->redir)
+		cmd->redir = convert_redir_list(*data->redir);
 	return (cmd);
 }

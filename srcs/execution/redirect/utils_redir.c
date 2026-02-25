@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:34 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/21 19:31:47 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/24 22:01:51 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	apply_redir_fd(int fd, t_n_redir *redir)
 		return (dup2(fd, STDOUT_FILENO));
 	return (-1);
 }
-	
 
 t_n_redir *new_exec_redir(t_redir *ast_redir)
 {

@@ -16,7 +16,7 @@ endef
 
 DEPENDENCIES= -lreadline
 INCLUDES= -Iincludes -Iincludes/execution -Iincludes/parsing -Iincludes/tests -Ilibft/headers
-CC= cc -Werror -Wextra -Wall $(INCLUDES)
+CC= cc -Werror -Wextra -Wall -g $(INCLUDES)
 
 MAIN_SRC= srcs/main.c
 
