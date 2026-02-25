@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:34 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 14:58:38 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:15:41 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	open_redir_fd(t_redir *redir)
+int	open_redir_fd(t_n_redir *redir)
 {
 	if (redir->type == REDIR_IN)
 		return (open(redir->target, O_RDONLY));
@@ -23,59 +23,70 @@ int	open_redir_fd(t_redir *redir)
 	return (0);
 }
 
-int	apply_redir_fd(int fd, t_redir *redir)
+int	apply_redir_fd(int fd, t_n_redir *redir)
 {
 	if (redir->type == REDIR_IN || redir->type == REDIR_HEREDOC)
 		return (dup2(fd, STDIN_FILENO));
 	if (redir->type == REDIR_OUT || redir->type == REDIR_APPEND)
-		return (dup2(fd, STDOUT));
+		return (dup2(fd, STDOUT_FILENO));
 	return (-1);
 }
 
-int	solve_heredoc(t_redir *redir, t_cmd *cmd)
+t_n_redir *new_exec_redir(t_redir *ast_redir)
 {
-	int	fd[2];
+	t_n_redir *new;
 
-	if (cmd->heredoc_fd != -1)
-		close(cmd->heredoc_fd);
-	cmd->heredoc_fd = -1;
-	if (pipe(fd) == -1)
-		return (-1);
-	if (read_heredoc_loop(redir, fd[1]) == -1)
+	new = ft_safe_calloc(1, sizeof(t_n_redir));
+	if (!new)
+		return (NULL);
+	new->type = ast_redir->type;
+	new->target = ft_strdup(ast_redir->target);
+	if (!new->target)
 	{
-		close(fd[0]);
-		close(fd[1]);
-		return (-1);
+		free(new);
+		return (NULL);
 	}
-	close(fd[1]);
-	cmd->heredoc_fd = fd[0];
-	return (0);
+	new->next = NULL;
+	return (new);
 }
 
-int	read_heredoc_loop(t_redir *redir, int write_fd)
+t_n_redir *convert_redir_list(t_list *ast_list)
 {
-	char	*line;
+	t_n_redir	*head;
+	t_n_redir	*last;
+	t_n_redir	*new_node;
+	t_redir		*ast_redir;
 
-	while (1)
+	head = NULL;
+	last = NULL;
+	while (ast_list)
 	{
-		line = readline("> ");
-		if (!line)
+		ast_redir = (t_redir *)ast_list->content;
+		new_node = new_exec_redir(ast_redir);
+		if (!new_node)
 		{
-			if (g_status_shell == 130)
-				return (-1);
-			printf
-			("warning: here-document delimited,by end-of-file (wanted `%s')\n",
-				redir->target);
-			break ;
+			free_exec_redir_list(head);
+			return (NULL);
 		}
-		if (strcmp(line, redir->target) == 0)
-		{		
-			free(line);
-			break ;
-		}
-		write(write_fd, line, ft_strlen(line));
-		write(write_fd, "\n", 1);
-		free(line);
+		if (!head)
+			head = new_node;
+		else
+			last->next = new_node;
+		last = new_node;
+		ast_list = ast_list->next;
 	}
-	return (0);
+	return (head);
+}
+
+void free_exec_redir_list(t_n_redir *redir)
+{
+	t_n_redir *tmp;
+
+	while (redir)
+	{
+		tmp = redir->next;
+		free(redir->target);
+		free(redir);
+		redir = tmp;
+	}
 }

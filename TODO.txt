@@ -5,10 +5,8 @@ Mandar o Path correto no exec?
 
 RAFA
 
-pipeline
 exec expansao
 exec AND OR
-export e unset de variaveis
 
 GERAL
 

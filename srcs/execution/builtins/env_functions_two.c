@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_functions_two.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 09:58:33 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 15:02:32 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:15:17 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**env_to_envp(t_env *env)
 	char	*tmp;
 	int		i;
 
-	envp = malloc(sizeof(char *) * (env_len(env) + 1));
+	envp = ft_safe_calloc(env_len(env) + 1, sizeof(char *));
 	if (!envp)
 		return (NULL);
 	i = 0;
