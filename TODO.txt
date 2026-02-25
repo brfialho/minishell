@@ -1,17 +1,17 @@
 BRUNO
 
 Checar leaks no validator e mover files
-Mandar o Path correto no exec?
+HEREDOC
+FLAG DE EXPANSAO
 
 RAFA
 
-exec expansao
 exec AND OR
+exec expansao
+VER O QUE TEM QUE EXPANDIR NO HEREDOC
+echo vazio
+
 
 GERAL
 
-Arrumar a estrutura de dados do env que vai ser compartilhada entre exec e parsing
 Arrumar sinais
-Coletar o heredoc
-Expandir
-
