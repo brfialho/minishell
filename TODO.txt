@@ -1,5 +1,6 @@
 BRUNO
 
+oi
 Tratar Erros de Syntax no parser
 Mandar o Path correto no exec?
 
