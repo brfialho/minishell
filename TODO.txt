@@ -1,6 +1,6 @@
 BRUNO
 
-Tratar Erros de Syntax no parser
+Checar leaks no validator e mover files
 Mandar o Path correto no exec?
 
 RAFA
