@@ -1,15 +1,12 @@
 BRUNO
 
-oi
-Tratar Erros de Syntax no parser
+Checar leaks no validator e mover files
 Mandar o Path correto no exec?
 
 RAFA
 
-pipeline
 exec expansao
 exec AND OR
-export e unset de variaveis
 
 GERAL
 

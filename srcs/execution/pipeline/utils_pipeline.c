@@ -36,3 +36,19 @@ t_cmd	*cmd_add_back(t_cmd *left, t_cmd *right)
     tmp->next = right;
     return left;
 }
+
+void	resolve_pipeline_paths(t_cmd *cmd, t_env **env)
+{
+	t_cmd	*current;
+
+	current = cmd;
+	while (current)
+	{
+		if (!is_builtin(current->argv[0]))
+		{
+			current->path = get_path_dirs(current, env);
+		}
+		current = current->next;
+	}
+}
+

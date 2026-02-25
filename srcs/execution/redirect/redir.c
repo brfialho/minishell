@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:05:48 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 15:00:45 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 20:30:21 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "parser.h"
 # include "execution.h"
+# include "set_signal.h"
 
-int	set_redir(t_redir *redir, t_cmd *cmd)
+int apply_redirections(t_n_redir *redir, t_cmd *cmd)
 {
-	int	fd;
+	int fd;
 
 	while (redir)
 	{
 		if (redir->type == REDIR_HEREDOC)
 		{
-			//set_heredoc_signals();
-			if (solve_heredoc(redir, cmd) == -1)
-				return (-1);
+			if (cmd->heredoc_fd != -1)
+				dup2(cmd->heredoc_fd, STDIN_FILENO);
 		}
 		else
 		{
@@ -37,7 +37,9 @@ int	set_redir(t_redir *redir, t_cmd *cmd)
 			}
 			close(fd);
 		}
-		// redir = redir->next;
+		redir = redir->next;
 	}
 	return (0);
 }
+
+

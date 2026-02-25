@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 02:41:50 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 00:43:45 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/24 05:01:28 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_ast	*get_exec_node(t_list *token_lst)
 	lst = token_lst;
 	while(lst)
 	{	
-		if (((t_token *)lst->content)->code < 5)
+		if (((t_token *)lst->content)->code <= HEREDOC)
 			parse_redir(content->redir, &lst);
 		else
 			parse_argv(content, &lst);
