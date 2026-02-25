@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:02:08 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/24 22:35:21 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:15:28 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_cmd	*create_cmd_from_ast(t_ast *node)
 	if (!node || !node->content)
 		return (NULL);
 	data = node->content;
-	cmd = safe_calloc(1, sizeof(t_cmd));
+	cmd = ft_safe_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
 	cmd->argv = data->argv;

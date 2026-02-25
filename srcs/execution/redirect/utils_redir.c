@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:34 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/24 22:01:51 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:15:41 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_n_redir *new_exec_redir(t_redir *ast_redir)
 {
 	t_n_redir *new;
 
-	new = safe_calloc(1, sizeof(t_n_redir));
+	new = ft_safe_calloc(1, sizeof(t_n_redir));
 	if (!new)
 		return (NULL);
 	new->type = ast_redir->type;
