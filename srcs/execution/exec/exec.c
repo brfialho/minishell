@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/24 22:09:40 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/02/25 21:05:47 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ int	ft_exec_cmd(t_cmd *cmd, t_env **env)
     }
     if (prepare_heredocs(cmd->redir, cmd) == -1)
         return (130);
+	// REBUILD ARGV()
+		//	EXPAND(ARGV_ANTIGO)
+		//	STRING = JUNTAR TODOS OS ARGVS EM UMA STRING
+		//	NOVO ARGV = SPLIT (STRTING)
     if (is_builtin(cmd->argv[0]))
         return (exec_builtin_parent(cmd, env));
     cmd->path = get_path_dirs(cmd, env);

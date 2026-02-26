@@ -10,12 +10,73 @@ NEW
 	LEXER
 	PARSEIA
 	HEREDOC
-	TRIM
 	FLAG -> mais facil
+	TRIM
+	... EXEC
+
+
+
+
+
 
 NA HORA DO EXEC
-	WHILE (HAS $)
-		FLAG
-		EXPANDE
+{
+	argv = rebuild_argv
+}
+
+rebuild_argv
+{
+	EXPAND()
+	CHAR *STR= JOIN_OLD_ARGV()
+	SPLIT(STR)
+}
+	EXPAND
 	BUILD NEW ARGV
 	... EXEC CODE
+
+t_redir versao HEREDOC
+[        HEREDOC           ]
+[ target = "hello\nWorld\n"]
+[next]
+
+t_redir
+[ INFILE      ]
+[ arquivo.txt ]
+
+$a$b
+
+cmd
+	argv[0] = "$a$b"
+	argv[1] = "$c"
+	argv[0] = "echo hello" - argv[0] = echo
+							 argv[1] = hello
+
+	argv[0] = "$a$b"
+	argv[1] = "$c"
+
+	argv[0] = "echo hello"
+	argv[1] = "batata"
+
+	char *stringona = echo hello batata
+	argv[0] = echo
+	argv[1] = hello
+	argv[2] = batata
+
+
+
+ARGV ["OI $Ahello$B $C", "$D", "hello", NULL]
+EXPAND_ARGV[100] [{1, A}, {1, $B}, {1, $B}, 0, null]
+
+EXPAND_REDIR[100] [1, 0, 1, NULL]
+
+[      <  	] 
+[   file 1  ]
+[   next    ]
+
+[     <	    ]
+[   "$e$f"  ]
+[   next    ]
+
+[     <	    ]
+[   "$e"    ]
+[   next    ]

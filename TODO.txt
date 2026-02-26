@@ -1,17 +1,49 @@
 BRUNO
-
-Checar leaks no validator e mover files
-HEREDOC
-FLAG DE EXPANSAO
+Mover arquivos do syntax
+trocar o error_handler do lexer de lugar
+Heredoc
+Pensar na lógica das flags de expansão
 
 RAFA
-
+echo vazio
+export com espaço dentro de aspas
 exec AND OR
 exec expansao
-VER O QUE TEM QUE EXPANDIR NO HEREDOC
-echo vazio
 
 
 GERAL
-
 Arrumar sinais
+
+QUANDO FOR MERGEAR LEMBRAR DE PRIMEIRO FAZER O MERGE NA BRANCH
+FLUXO:
+terminou de fazer o que tinha que fazer na branch?
+git switch pre main
+git pull
+git switch minha branch
+git merge pre_main
+CHECA PRA VER SE DEU CONFLITO 
+TESTA AS PARADA
+git add .
+git commit 
+git push
+git switch pre main
+git merge minha branch
+CHECA DENOVO TESTA AS PARADA
+se deu bom:
+	git add .
+	git commit
+	git push
+	git switch main
+	git pull
+	git merge pre main
+	add/commit/push
+se deu ruim:
+	ou resolve na mao
+	ou volta para um commit anterior pre_merge e fala com o amiguinho
+DEU TUDO CERTO?
+git switch -c nova branch e começa tudo denovo
+
+OBS:
+	nunca ficar comitando na main ou pre_main
+	sempre deixar main e pre_main iguais
+	sempre que entrar na pre_main ou main dar git pull - SEMPRE

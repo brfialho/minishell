@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/25 15:43:14 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/25 21:34:27 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ typedef struct s_msh_ast
 	t_node_type	type;
 	t_list		**redir;
 	char		**argv;
-	// t_expand	expand[100];
 	char		*path;
 	char		*str;
+	// t_expand	expand_expand_argv[100];
+	// t_expand	expand_redir[100];
 }	t_msh_ast;
+
+
 
 typedef struct s_redir
 {
