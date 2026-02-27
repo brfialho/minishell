@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:22:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/26 21:52:17 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:22:18 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ t_bool	check_syntax(t_mini *mini)
 
 t_bool	parsing(t_mini *mini)
 {
-	ft_lexer(&mini->lexer, mini->input);
-	if (mini->lexer.unclosed_quotes)
-		return (lexer_error_handler(&mini->lexer, mini->input), EXIT_FAILURE);
+	mini->error_code = NO_ERROR;
+	mini->error_code = ft_lexer(&mini->lexer, mini->input);
+	if (mini->error_code)
+		return (lexer_error_handler(mini), EXIT_FAILURE);
 	parser(&mini->root, &mini->lexer);
 	trim_quoted_tokens(&mini->lexer);
 	if (check_syntax(mini))
