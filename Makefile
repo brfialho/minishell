@@ -37,6 +37,8 @@ SRC= srcs/parsing/lexer/lexer.c \
 	srcs/parsing/parser/get_node.c \
 	srcs/parsing/parser/parser.c \
 	srcs/parsing/parser/parser_destroy.c \
+	srcs/parsing/parser/syntax_validator.c \
+	srcs/parsing/parser/parser_error_handler.c \
 	srcs/parsing/parsing.c \
 	srcs/execution/exec/exec.c \
 	srcs/execution/exec/exec_builtin_parent.c \
