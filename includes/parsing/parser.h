@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/26 22:36:50 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:38:12 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_redir_type
 	REDIR_OUT = 2,
 	REDIR_APPEND = 3,
 	REDIR_HEREDOC = 4,
+	REDIR_HEREDOC_NO_EXPANSION = 5,
 }	t_redir_type;
 
 typedef struct s_expand

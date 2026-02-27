@@ -6,17 +6,32 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:22:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/27 16:26:48 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:56:56 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+char	*trim_heredoc(char *s)
+{
+	char	*new;
+	
+	new = ft_safe_calloc(ft_strlen(s) - 2 + 1, sizeof(char));
+	ft_memcpy(new, s + 1, ft_strlen(s) - 2);
+	free(s);
+	return (new);
+}
 
 void	heredoc(t_redir *redir)
 {
 	char	*heredoc_string;
 	char	*line;
 
+	if (*redir->target == '\'' || *redir->target == '"')
+	{
+		redir->target = trim_heredoc(redir->target);
+		redir->type = REDIR_HEREDOC_NO_EXPANSION;
+	}
 	heredoc_string = ft_strdup("");
 	line = readline("> ");
 	while (ft_strcmp(redir->target, line))
@@ -42,11 +57,7 @@ void	collect_heredocs(t_ast *root)
 		while (lst)
 		{
 			if (((t_redir *)lst->content)->type == REDIR_HEREDOC)
-			{
-				ft_printf("END DELIMITER: %s\n", ((t_redir *)lst->content)->target);
 				heredoc(lst->content);
-				ft_printf("FULL DOC: %s\n", ((t_redir *)lst->content)->target);
-			}
 			lst = lst->next;
 		}
 	}
