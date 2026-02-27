@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   input_pipeline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:22:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/27 17:22:30 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 20:24:52 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-t_bool	parsing(t_mini *mini)
+void	trim_quoted_tokens(t_lexer *lexer);
+void	collect_heredocs(t_ast *root);
+
+t_bool	process_input_pipeline(t_mini *mini)
 {
 	mini->error_code = NO_ERROR;
 	mini->error_code = ft_lexer(&mini->lexer, mini->input);

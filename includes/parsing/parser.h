@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/27 17:23:55 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 20:24:27 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ typedef struct s_msh_ast
 	// t_expand	expand_redir[100];
 }	t_msh_ast;
 
-
-
 typedef struct s_redir
 {
 	t_redir_type	type;
@@ -68,7 +66,5 @@ t_ast	*get_exec_node(t_list *token_lst);
 t_int8	syntax_validator(t_ast *root);
 void	parser_error_handler(t_mini *mini);
 void	parser_destroy(t_ast **root);
-
-void	collect_heredocs(t_ast *root);
 
 #endif
