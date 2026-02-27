@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 04:03:18 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/26 21:08:22 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int	main(int argc, char **argv, char **env)
 	t_mini	mini;
 
 	ft_bzero(&mini ,sizeof(t_mini));
-	mini.input = argv[1];
-	if (ft_lexer(&mini.lexer, mini.input))
-		return (EXIT_FAILURE);
+	// mini.input = argv[1];
+	// if (ft_lexer(&mini.lexer, mini.input))
+	// 	return (EXIT_FAILURE);
 	trim_quoted_tokens(&mini.lexer);
 	parser(&mini.root, &mini.lexer);
 	destroy_cicle(&mini);

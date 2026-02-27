@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:22:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/25 19:39:15 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/26 21:09:36 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ t_int8	syntax_validator(t_ast *root)
 	return (left * (left != 0) + right * (left == 0 && right != 0));
 }
 
-t_bool	check_parsed_syntax(t_mini *mini)
+t_bool	check_syntax(t_mini *mini)
 {
 	t_token_code	syntax_code;
 	int				i;
 
 	syntax_code = syntax_validator(*mini->root);
-	ft_printf("CODIGO%d\n", syntax_code);
 	if (syntax_code)
 	{
 		i = 0;
@@ -64,11 +63,12 @@ t_bool	check_parsed_syntax(t_mini *mini)
 
 t_bool	parsing(t_mini *mini)
 {
-	if (ft_lexer(&mini->lexer, mini->input))
-		return (EXIT_FAILURE);
-	trim_quoted_tokens(&mini->lexer);
+	ft_lexer(&mini->lexer, mini->input);
+	if (mini->lexer.unclosed_quotes)
+		return (lexer_quotes_error(&mini->lexer, mini->input), EXIT_FAILURE);
 	parser(&mini->root, &mini->lexer);
-	if (check_parsed_syntax(mini))
+	trim_quoted_tokens(&mini->lexer);
+	if (check_syntax(mini))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
