@@ -1,6 +1,5 @@
 BRUNO
-Mover arquivos do syntax
-trocar o error_handler do lexer de lugar
+Arrumar testes da ast para trim apos parser
 Heredoc
 Pensar na lógica das flags de expansão
 
