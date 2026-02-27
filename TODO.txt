@@ -1,7 +1,6 @@
 BRUNO
 Remover dados vestigiais dos structs da arvore e lexer e refatorar teste
 Arrumar testes da ast para trim apos parser
-Heredoc
 Pensar na lógica das flags de expansão
 
 RAFA
