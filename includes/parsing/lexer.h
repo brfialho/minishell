@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:49 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/26 21:00:16 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/26 21:51:34 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	ft_lexer(t_lexer *lexer, const char *input);
 char	*tokenize(t_lexer *lexer, char *input);
 void	trim_quoted_tokens(t_lexer *lexer);
 void	lexer_destroy(t_lexer *lexer);
-void	lexer_quotes_error(t_lexer *lexer, const char *input);
+void	lexer_error_handler(t_lexer *lexer, const char *input);
+
 
 # endif

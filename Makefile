@@ -32,6 +32,7 @@ SRC= srcs/parsing/lexer/lexer.c \
 	srcs/parsing/lexer/lexer_destroy.c \
 	srcs/parsing/lexer/tokenize.c \
 	srcs/parsing/lexer/trim_quoted_tokens.c \
+	srcs/parsing/lexer/lexer_error_handler.c \
 	srcs/parsing/parser/ast_builder.c \
 	srcs/parsing/parser/get_node.c \
 	srcs/parsing/parser/parser.c \
