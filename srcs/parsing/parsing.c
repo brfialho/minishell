@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:22:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/27 16:06:05 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:26:48 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	heredoc(t_redir *redir)
 
 	heredoc_string = ft_strdup("");
 	line = readline("> ");
-	while (ft_strncmp(redir->target, line, ft_strlen(line)))
+	while (ft_strcmp(redir->target, line))
 	{
-		heredoc_string = ft_strjoin_free(heredoc_string , ft_strjoin(line, "\\n"), TRUE, TRUE);
+		heredoc_string = ft_strjoin_free(heredoc_string , ft_strjoin(line, "\n"), TRUE, TRUE);
 		free(line);
 		line = readline("> ");
 	}
