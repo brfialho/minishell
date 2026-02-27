@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/27 16:38:12 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 17:23:55 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ t_ast	*get_exec_node(t_list *token_lst);
 t_int8	syntax_validator(t_ast *root);
 void	parser_error_handler(t_mini *mini);
 void	parser_destroy(t_ast **root);
+
+void	collect_heredocs(t_ast *root);
 
 #endif
