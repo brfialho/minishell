@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 17:21:54 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/27 17:23:24 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 21:20:49 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	collect_heredocs(t_ast *root)
 		while (lst)
 		{
 			if (((t_redir *)lst->content)->type == REDIR_HEREDOC)
+			{
 				heredoc(lst->content);
+				ft_printf("HEREDOC STR: %s\n", ((t_redir *)lst->content)->target);
+			}
 			lst = lst->next;
 		}
 	}
