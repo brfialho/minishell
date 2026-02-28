@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/27 23:54:45 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/28 00:11:07 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,32 @@ char	*set_start_end(char	*s, t_exp *exp_array)
 	while (exp_array[i].start)
 		i++;
 	s++;
+	if (ft_str_charcount(EXPAND_SPECIAL, *s))
+		return (s);
 	exp_array[i].start = s;
-	// IF SPECIAL DO SOMETHING RETURN
 	int TEST = 0;
 	while (*s && !ft_str_charcount(EXPAND_DELIMITER, *s))
 		exp_array[i].end = s++, TEST++;
 	write(1, exp_array[i].start, TEST);
 	write(1, "\n", 1);
+	ft_printf("%c %c\n", *exp_array[i].start, *exp_array[i].end);
 	return (s - 1);
 }
+
+// void	set_key_value(t_exp *exp_array)
+// {
+// 	int		i;
+// 	char	*s;
+
+// 	i = -1;
+// 	while (exp_array[++i].start)
+// 	{
+// 		s = exp_array[i].start;
+// 		while (*s != *exp_array[i].end)
+// 			*exp_array[i].env_key = *s++;
+// 		// ft_printf("%s\n", exp_array);
+// 	}
+// }
 
 // size_t	get_expanded_size(char *s, t_exp *exp_array)
 // {
@@ -122,7 +139,7 @@ t_exp	*get_exp_array(char *s)
 	expand = TRUE;
 	while (*s)
 	{
-		ft_printf("%s :%d\n ", s, expand);
+		// ft_printf("%s :%d\n ", s, expand);
 		if (*s == '\'' && expand)
 			expand = FALSE;
 		else if (*s == '\'')
@@ -131,6 +148,7 @@ t_exp	*get_exp_array(char *s)
 			s = set_start_end(s, exp_array);
 		s++;
 	}
+	// set_key_value(exp_array);
 	return (exp_array);
 }
 
