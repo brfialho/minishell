@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:05:52 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/27 20:22:38 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 22:26:49 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,11 +226,13 @@ t_bool	test_parser_simple_input_with_redirs(t_ast **root)
 
 t_list **expected_redir_lst_helper___test_parser_medium_complex_argv_with_redirs(void)
 {
+	// "echo <ha'esseAquiAindaEhONomeDoRedir' oi 'ola' outracoisaai>f1&& echo \"oi\"'ola'\"outracoisaai\" > f2 > out3";
+
 	static t_bool init = FALSE;
 	static int i = 0;
 
 	static t_list *lst_0 = NULL;
-	static t_redir	lst_0_redir_0 = (t_redir){REDIR_IN, "haesseAquiAindaEhONomeDoRedir"};
+	static t_redir	lst_0_redir_0 = (t_redir){REDIR_IN, "ha'esseAquiAindaEhONomeDoRedir'"};
 	static t_redir	lst_0_redir_1 = (t_redir){REDIR_OUT, "f1"};
 
 	static t_list *lst_1 = NULL;
@@ -259,10 +261,11 @@ t_list **expected_redir_lst_helper___test_parser_medium_complex_argv_with_redirs
 
 char	**expected_argv_helper___test_parser_medium_complex_argv_with_redirs(void)
 {
+	// "echo <ha'esseAquiAindaEhONomeDoRedir' oi 'ola' outracoisaai>f1&& echo \"oi\"'ola'\"outracoisaai\" > f2 > out3";
 	static int i = 0;
 
-	static char *argv_0[] = {"echo", "oi", "ola", "outracoisaai", NULL};
-	static char *argv_1[] = {"echo", "oiolaoutracoisaai", NULL};
+	static char *argv_0[] = {"echo", "oi", "'ola'", "outracoisaai", NULL};
+	static char *argv_1[] = {"echo", "\"oi\"'ola'\"outracoisaai\"", NULL};
 	static char **argv[] = {argv_0, argv_1, NULL};
 	
 	return (argv[i++]);
@@ -320,6 +323,7 @@ t_bool	test_parser_medium_complex_argv_with_redirs(t_ast **root)
 
 t_list **expected_redir_lst_helper___test_parser_complex_argv_and_redir_no_expansion(void)
 {
+	// "echo>f1 ola'$USER'seu\" \"'pid$$''$USER''hello'''>f2 ola\"oi\"\"\"t";
 	static t_bool init = FALSE;
 	static int i = 0;
 
@@ -345,9 +349,10 @@ t_list **expected_redir_lst_helper___test_parser_complex_argv_and_redir_no_expan
 
 char	**expected_argv_helper___test_parser_complex_argv_and_redir_no_expansion(void)
 {
+	// "echo>f1 ola'$USER'seu\" \"'pid$$''$USER''hello'''>f2 ola\"oi\"\"\"t";
 	static int i = 0;
 
-	static char *argv_0[] = {"echo", "ola$USERseu pid$$$USERhello", "olaoit", NULL};
+	static char *argv_0[] = {"echo", "ola'$USER'seu\" \"'pid$$''$USER''hello'''", "ola\"oi\"\"\"t", NULL};
 	static char **argv[] = {argv_0, NULL};
 	
 	return (argv[i++]);
@@ -424,7 +429,7 @@ int main(void)
 	{
 	ft_printf(TEST, i + 1, tests[i]);
 	ft_lexer(&lexer, tests[i]);
-	trim_quoted_tokens(&lexer);
+	// trim_quoted_tokens(&lexer);
 	parser(&root, &lexer);
 	if (test_functions[i](root))
 		ft_printf(FAIL);
