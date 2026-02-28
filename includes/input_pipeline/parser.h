@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/25 21:34:27 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 20:24:27 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_redir_type
 	REDIR_OUT = 2,
 	REDIR_APPEND = 3,
 	REDIR_HEREDOC = 4,
+	REDIR_HEREDOC_NO_EXPANSION = 5,
 }	t_redir_type;
 
 typedef struct s_expand
@@ -50,18 +51,20 @@ typedef struct s_msh_ast
 	// t_expand	expand_redir[100];
 }	t_msh_ast;
 
-
-
 typedef struct s_redir
 {
 	t_redir_type	type;
 	char			*target;
 }	t_redir;
 
-void	parser(t_ast ***root, t_lexer *lexer);
+typedef struct s_mini t_mini;
+
+t_int8	parser(t_ast ***root, t_lexer *lexer);
 t_ast	*ast_builder(t_list *token_lst);
 t_ast	*get_operator_node(t_token *token);
 t_ast	*get_exec_node(t_list *token_lst);
+t_int8	syntax_validator(t_ast *root);
+void	parser_error_handler(t_mini *mini);
 void	parser_destroy(t_ast **root);
 
 #endif

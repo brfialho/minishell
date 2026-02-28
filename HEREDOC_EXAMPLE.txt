@@ -17,3 +17,30 @@ td
 bem
 makehfaisdhsda
 asdhuiashdu
+
+ cat << end
+> $USER
+> '$USER'
+> "$USER"
+> end
+brfialho
+'brfialho'
+"brfialho"
+
+ cat << 'end'
+> $USER
+> '$USER'
+> "$USER"
+> end
+> $USER
+> '$USER'
+> "$USER"
+
+ cat << "end"
+> $USER
+> '$USER'
+> "$USER"
+> end
+$USER
+'$USER'
+"$USER"

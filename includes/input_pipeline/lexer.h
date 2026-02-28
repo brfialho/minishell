@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:49 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/24 05:39:10 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 17:49:43 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ typedef struct s_lexer
 	char		*unclosed_quotes;
 }	t_lexer;
 
-t_bool	ft_lexer(t_lexer *lexer, const char *input);
+typedef struct s_mini t_mini;
+
+t_int8	ft_lexer(t_lexer *lexer, const char *input);
 char	*tokenize(t_lexer *lexer, char *input);
-void	trim_quoted_tokens(t_lexer *lexer);
 void	lexer_destroy(t_lexer *lexer);
-void	lexer_quotes_error(t_lexer *lexer, const char *input);
+void	lexer_error_handler(t_mini *mini);
+
 
 # endif
