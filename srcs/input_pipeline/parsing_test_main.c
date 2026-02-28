@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/26 21:08:22 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 21:11:13 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int g_status_shell = 0;
 
 void	print_node_2(void *content)
 {
-	ft_printf("Code: %d String: %s Expandable:%d\n", ((t_token *)content)->code, ((t_token *)content)->string, ((t_token *)content)->expandable);
+	ft_printf("String: %s Expandable:%d\n", ((t_token *)content)->string, ((t_token *)content)->expandable);
 }
 
 // int	main(int argc, char **argv, char **env)
@@ -54,26 +54,37 @@ void	print_node_2(void *content)
 // 	(void)env;
 // }
 
-static void	destroy_cicle(t_mini *mini);
+// static void	destroy_cicle(t_mini *mini);
 
-int	main(int argc, char **argv, char **env)
+// int	main(int argc, char **argv, char **env)
+// {
+// 	t_mini	mini;
+
+// 	ft_bzero(&mini ,sizeof(t_mini));
+// 	// mini.input = argv[1];
+// 	// if (ft_lexer(&mini.lexer, mini.input))
+// 	// 	return (EXIT_FAILURE);
+// 	// trim_quoted_tokens(&mini.lexer);
+// 	// parser(&mini.root, &mini.lexer);
+// 	// destroy_cicle(&mini);
+// 	(void)argc;
+// 	(void)argv;
+// 	(void)env;
+// }
+
+int main(int argc, char **argv)
 {
+	(void)argc;
 	t_mini	mini;
 
 	ft_bzero(&mini ,sizeof(t_mini));
-	// mini.input = argv[1];
-	// if (ft_lexer(&mini.lexer, mini.input))
-	// 	return (EXIT_FAILURE);
-	trim_quoted_tokens(&mini.lexer);
-	parser(&mini.root, &mini.lexer);
-	destroy_cicle(&mini);
-	(void)argc;
-	(void)argv;
-	(void)env;
+	ft_lexer(&mini.lexer, argv[1]);
+	lst_for_each(*mini.lexer.token_lst, print_node_2);
+	lexer_destroy(&mini.lexer);
 }
 
-static void	destroy_cicle(t_mini *mini)
-{
-	lexer_destroy(&mini->lexer);
-	parser_destroy(mini->root);
-}
+// static void	destroy_cicle(t_mini *mini)
+// {
+// 	lexer_destroy(&mini->lexer);
+// 	parser_destroy(mini->root);
+// }

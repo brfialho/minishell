@@ -80,3 +80,26 @@ EXPAND_REDIR[100] [1, 0, 1, NULL]
 [     <	    ]
 [   "$e"    ]
 [   next    ]
+
+
+echo OI$USER$$"$USER"'$USER$$'$USER'$$' 	OR "echo OI\$USER\$\$\"\$USER\"'\$USER\$\$'\$USER'\$\$'"
+OIbrfialho45453brfialho$USER$$brfialho$$
+1110010
+
+IN LEXER:
+OI$$USER$$ 1
+"$USER"    1
+'$USER$$'  0
+$USER      1
+'$$'       0
+
+String: OI$USER$$ Expandable:1
+String: "$USER" Expandable:1
+String: '$USER$$' Expandable:0
+String: $USER Expandable:1
+String: '$$' Expandable:0
+
+INSIDE ARGV 1:
+OI$USER$$"$USER"'$USER$$'$USER'$$'
+OR
+OI$USER$$$USER$USER$$$USER$$

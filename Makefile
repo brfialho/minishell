@@ -21,7 +21,7 @@ CC= cc -Werror -Wextra -Wall -g $(INCLUDES)
 MAIN_SRC= srcs/main.c
 
 ifeq ($(findstring parse, $(MAKECMDGOALS)), parse)
-	MAIN_SRC = srcs/parsing/parsing_test_main.c
+	MAIN_SRC = srcs/input_pipeline/parsing_test_main.c
 endif
 
 ifeq ($(findstring exec, $(MAKECMDGOALS)), exec)
@@ -75,7 +75,7 @@ TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
 all: $(LIBFT) $(NAME)
 
-parse: re_nolib
+parse: all
 
 exec: re_nolib
 
