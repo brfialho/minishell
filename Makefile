@@ -15,28 +15,32 @@ define LOADING
 endef
 
 DEPENDENCIES= -lreadline
-INCLUDES= -Iincludes -Iincludes/execution -Iincludes/parsing -Iincludes/tests -Ilibft/headers
+INCLUDES= -Iincludes -Iincludes/execution -Iincludes/input_pipeline -Ilibft/headers -Itests/
 CC= cc -Werror -Wextra -Wall -g $(INCLUDES)
 
 MAIN_SRC= srcs/main.c
 
 ifeq ($(findstring parse, $(MAKECMDGOALS)), parse)
-	MAIN_SRC = srcs/parsing/parsing_test_main.c
+	MAIN_SRC = srcs/input_pipeline/parsing_test_main.c
 endif
 
 ifeq ($(findstring exec, $(MAKECMDGOALS)), exec)
 	MAIN_SRC = srcs/execution/execution_test_main.c
 endif
 
-SRC= srcs/parsing/lexer/lexer.c \
-	srcs/parsing/lexer/lexer_destroy.c \
-	srcs/parsing/lexer/tokenize.c \
-	srcs/parsing/lexer/trim_quoted_tokens.c \
-	srcs/parsing/parser/ast_builder.c \
-	srcs/parsing/parser/get_node.c \
-	srcs/parsing/parser/parser.c \
-	srcs/parsing/parser/parser_destroy.c \
-	srcs/parsing/parsing.c \
+SRC= srcs/input_pipeline/lexer/lexer.c \
+	srcs/input_pipeline/lexer/lexer_destroy.c \
+	srcs/input_pipeline/lexer/tokenize.c \
+	srcs/input_pipeline/lexer/lexer_error_handler.c \
+	srcs/input_pipeline/parser/ast_builder.c \
+	srcs/input_pipeline/parser/get_node.c \
+	srcs/input_pipeline/parser/parser.c \
+	srcs/input_pipeline/parser/parser_destroy.c \
+	srcs/input_pipeline/parser/syntax_validator.c \
+	srcs/input_pipeline/parser/parser_error_handler.c \
+	srcs/input_pipeline/collect_heredoc.c \
+	srcs/input_pipeline/trim_quoted_tokens.c \
+	srcs/input_pipeline/input_pipeline.c \
 	srcs/execution/exec/exec.c \
 	srcs/execution/exec/exec_builtin_parent.c \
 	srcs/execution/pipeline/pipeline.c \
@@ -71,7 +75,7 @@ TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
 all: $(LIBFT) $(NAME)
 
-parse: re_nolib
+parse: all
 
 exec: re_nolib
 

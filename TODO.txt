@@ -1,7 +1,6 @@
 BRUNO
-Mover arquivos do syntax
-trocar o error_handler do lexer de lugar
-Heredoc
+Remover dados vestigiais dos structs da arvore e lexer e refatorar teste
+Arrumar testes da ast para trim apos parser
 Pensar na lógica das flags de expansão
 
 RAFA
@@ -13,6 +12,7 @@ exec expansao
 
 GERAL
 Arrumar sinais
+Arrumar ctrl shift V
 
 QUANDO FOR MERGEAR LEMBRAR DE PRIMEIRO FAZER O MERGE NA BRANCH
 FLUXO:

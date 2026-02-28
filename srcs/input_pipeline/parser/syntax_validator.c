@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   syntax_validator.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/19 18:22:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/25 19:39:15 by brfialho         ###   ########.fr       */
+/*   Created: 2026/02/26 22:27:02 by brfialho          #+#    #+#             */
+/*   Updated: 2026/02/26 22:28:13 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "parser.h"
 
-t_int8	check_redirs(t_list *lst)
-{
-	while(lst)
-	{
-		if (!ft_strlen(((t_redir *)lst->content)->target))
-			return (((t_redir *)lst->content)->type);
-		lst = lst->next;
-	}
-	return (EXIT_SUCCESS);
-}
+static t_int8	check_redirs(t_list *lst);
 
 t_int8	syntax_validator(t_ast *root)
 {
@@ -42,33 +33,13 @@ t_int8	syntax_validator(t_ast *root)
 	return (left * (left != 0) + right * (left == 0 && right != 0));
 }
 
-t_bool	check_parsed_syntax(t_mini *mini)
+static t_int8	check_redirs(t_list *lst)
 {
-	t_token_code	syntax_code;
-	int				i;
-
-	syntax_code = syntax_validator(*mini->root);
-	ft_printf("CODIGO%d\n", syntax_code);
-	if (syntax_code)
+	while(lst)
 	{
-		i = 0;
-		while (mini->lexer.op_lst[i].code != syntax_code)
-			i++;
-		ft_printf(SYNTAX_ERROR " '%s'\n", mini->lexer.op_lst[i].str);
-		lexer_destroy(&mini->lexer);
-		parser_destroy(mini->root);
-		return (EXIT_FAILURE);
+		if (!ft_strlen(((t_redir *)lst->content)->target))
+			return (((t_redir *)lst->content)->type);
+		lst = lst->next;
 	}
-	return (EXIT_SUCCESS);
-}
-
-t_bool	parsing(t_mini *mini)
-{
-	if (ft_lexer(&mini->lexer, mini->input))
-		return (EXIT_FAILURE);
-	trim_quoted_tokens(&mini->lexer);
-	parser(&mini->root, &mini->lexer);
-	if (check_parsed_syntax(mini))
-		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

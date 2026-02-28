@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 05:14:00 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:12:14 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	init_operators(t_lexer *lexer);
 
-t_bool	ft_lexer(t_lexer *lexer, const char *input)
+t_int8	ft_lexer(t_lexer *lexer, const char *input)
 {
 	char	*s;
 
@@ -29,7 +29,7 @@ t_bool	ft_lexer(t_lexer *lexer, const char *input)
 		s = tokenize(lexer, s);
 	}
 	if (lexer->unclosed_quotes)
-		return (lexer_quotes_error(lexer, input), EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 

@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_destroy.c                                    :+:      :+:    :+:   */
+/*   lexer_error_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/30 21:44:30 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 03:23:55 by brfialho         ###   ########.fr       */
+/*   Created: 2026/02/26 21:46:26 by brfialho          #+#    #+#             */
+/*   Updated: 2026/02/26 22:22:01 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "main.h"
 
-static void	del_token(void	*content);
 static char	*get_arrow_string(const char *input, const char *end);
 
-void	lexer_destroy(t_lexer *lexer)
-{
-	if (*lexer->token_lst)
-		lst_del_all(lexer->token_lst, del_token);
-	free(lexer->token_lst);
-	lexer->token_lst = NULL;
-}
-
-void	lexer_quotes_error(t_lexer *lexer, const char *input)
+void	lexer_error_handler(t_mini *mini)
 {
 	char	quote;
 	char	*arrow;
 
 	quote = '\'';
-	if (lexer->state == IN_D_QUOTES)
+	if (mini->lexer.state == IN_D_QUOTES)
 		quote = '"';
-	arrow =get_arrow_string(input, lexer->unclosed_quotes);
+	arrow =get_arrow_string(mini->input, mini->lexer.unclosed_quotes);
 	ft_printf(BOLD "-------------%s" "^\n" RESET, arrow);
 	ft_printf(QUOTE_ERROR BOLD " %c\n" RESET, quote);
 	free(arrow);
-	lexer_destroy(lexer);
+	lexer_destroy(&mini->lexer);
+	mini->error_code = UNCLOSED_QUOTES;
 }
 
 static char	*get_arrow_string(const char *input, const char *end)
@@ -51,14 +43,4 @@ static char	*get_arrow_string(const char *input, const char *end)
 		arrow[i++] = '-';
 	arrow[i] = '\0';
 	return (arrow);
-}
-
-static void	del_token(void	*content)
-{
-	t_token	*token;
-
-	token = content;
-	if (token->code == WORD)
-		free(token->string);
-	free(token);
 }

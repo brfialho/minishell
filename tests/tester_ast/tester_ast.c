@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:05:52 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/23 03:30:19 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/27 20:22:38 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -394,6 +394,8 @@ t_bool	test_parser_complex_argv_and_redir_no_expansion(t_ast **root)
 	expected_helper___test_parser_complex_argv_and_redir_no_expansion();
 	return (recursion___test_parser_complex_argv_and_redir_no_expansion(*root));
 }
+
+void	trim_quoted_tokens(t_lexer *lexer);
 
 int main(void)
 {

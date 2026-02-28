@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 17:10:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 04:07:17 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:31:58 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	read_ast_content(void *content)
 	ft_printf("%s\n", ((t_token *)content)->string);
 }
 
-void	parser(t_ast ***root, t_lexer *lexer)
+t_int8	parser(t_ast ***root, t_lexer *lexer)
 {
 	t_list	*token_lst;
 
@@ -63,4 +63,5 @@ void	parser(t_ast ***root, t_lexer *lexer)
 	**root = ast_builder(token_lst);
 	// ast_for_each(**root, read_ast_content);
 	print_ast_visual(**root, 0, "", 0);
+	return (syntax_validator(**root));
 }
