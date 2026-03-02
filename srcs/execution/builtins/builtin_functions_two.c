@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 19:03:00 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/01 22:55:00 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	builtin_echo(t_cmd *cmd)
 
 	i = 0;
 	newline = 1;
-	while (cmd->argv[i++] && cmd->argv[i][0] == '-' && cmd->argv[i][1] == 'n')
+	while (cmd->argv[++i] && cmd->argv[i][0] == '-' && cmd->argv[i][1] == 'n')
 	{
 		j = 1;
 		while (cmd->argv[i][j] == 'n')
