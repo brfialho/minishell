@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 00:59:35 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 01:23:42 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,32 @@ void	fill_expd_str(char	*old, char *new, t_list *expd_var_lst)
 	}
 }
 
+char	*trim_quotes(char *old_str)
+{
+	char	*new_str;
+	char	*new;
+	char	*old;
+	char	state;
+
+	new_str = ft_safe_calloc(ft_strlen(old_str) + 1, sizeof(char));
+	new = new_str;
+	old = old_str;
+	state = 0;
+	while (*old)
+	{
+		if (state && state == *old)
+		{
+			state = 0;
+			old++;
+		}
+		else if (state == 0 && (*old == '\'' || *old == '"'))
+			state = *old++;
+		else 
+			*new++ = *old++;
+	}
+	return (new_str);
+}
+
 char	*expand_string(char *old_str)
 {
 	t_list	**expd_var_lst;
@@ -189,10 +215,11 @@ char	*expand_string(char *old_str)
 		return (old_str);
 	expd_var_lst = get_exp_var_lst(old_str);
 
-	expd_str = NULL;
-	expd_str = ft_safe_calloc (get_expanded_len(old_str, *expd_var_lst) + 1, sizeof(char));
+	expd_str = ft_safe_calloc(get_expanded_len(old_str, *expd_var_lst) + 1, sizeof(char));
 	fill_expd_str(old_str, expd_str, *expd_var_lst);
-	ft_printf("%s\n", expd_str);
+	ft_printf("BEFORE: %s\n", expd_str);
+	expd_str = trim_quotes(expd_str);
+	ft_printf("AFTER: %s\n", expd_str);
 	
 	lst_del_all(expd_var_lst, del_exp_var);
 	free (expd_var_lst);
