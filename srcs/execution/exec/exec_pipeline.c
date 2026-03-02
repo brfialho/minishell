@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 18:07:51 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/25 14:07:12 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/01 21:23:51 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,50 +30,45 @@ static void	setup_and_exec_pipeline_child(t_cmd *cmd, int *pipe_fd,
 	exec_child(cmd, env);
 }
 
-static int	*execute_pipeline_iteration(t_cmd *cmd, int *prev_fd, t_env **env)
+static pid_t	execute_pipeline_iteration(t_cmd *cmd, int *prev_fd, t_env **env)
 {
-	static int	pipe_fd[2];
+	int		pipe_fd[2];
+	pid_t	pid;
 
-	if (cmd->next)
-		pipe(pipe_fd);
-	if (fork() == 0)
-		setup_and_exec_pipeline_child(cmd, pipe_fd, *prev_fd, env);
-	if (*prev_fd != -1)
-		close(*prev_fd);
-	if (cmd->next)
+	if (setup_pipe_if_needed(pipe_fd, cmd) == -1)
+		return (-1);
+	pid = fork();
+	if (pid == -1)
 	{
-		close(pipe_fd[1]);
-		*prev_fd = pipe_fd[0];
+		cleanup_pipe_on_fork_error(pipe_fd, cmd);
+		return (-1);
 	}
-	else
-		*prev_fd = -1;
-	return (pipe_fd);
+	if (pid == 0)
+		setup_and_exec_pipeline_child(cmd, pipe_fd, *prev_fd, env);
+	update_prev_fd(prev_fd, pipe_fd, cmd);
+	return (pid);
 }
 
 int	exec_pipeline_list(t_cmd *cmd, t_env **env)
 {
-	int	prev_fd;
-	int	status;
-	int	last_status;
+	int		prev_fd;
+	pid_t	last_pid;
+	pid_t	pid;
 
 	prev_fd = -1;
-	last_status = 0;
-	if (!cmd || !cmd->argv || !cmd->argv[0])
-		return (0);
-	if (cmd->argv[0][0] == '\0')
-	{
-		ft_putendl_fd("minishell: : command not found", 2);
-		return (127);
-	}
-	if (prepare_heredocs(cmd->redir, cmd) == -1)
-		return (130);
 	resolve_pipeline_paths(cmd, env);
 	while (cmd)
 	{
-		execute_pipeline_iteration(cmd, &prev_fd, env);
+		pid = execute_pipeline_iteration(cmd, &prev_fd, env);
+		if (pid == -1)
+		{
+			if (prev_fd != -1)
+				close(prev_fd);
+			return (1);
+		}
+		if (!cmd->next)
+			last_pid = pid;
 		cmd = cmd->next;
 	}
-	while (wait(&status) > 0)
-		last_status = status;
-	return (WEXITSTATUS(last_status));
+	return (wait_for_last_pid(last_pid));
 }

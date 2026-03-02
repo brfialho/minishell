@@ -59,6 +59,7 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/execution/executor.c \
 	srcs/execution/heredoc/heredoc_functions.c \
 	srcs/execution/exec/exec_pipeline.c \
+	srcs/execution/exec/utils_pipeline_exec.c \
 
 O_DIR= obj/
 OBJ= $(SRC:%.c=$(O_DIR)%.o)

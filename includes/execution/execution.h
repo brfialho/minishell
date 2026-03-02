@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/25 13:58:02 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/01 21:26:24 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int			exec_builtin_parent(t_cmd *cmd, t_env **env);
 int			exec_pipeline_ast(t_ast *node, t_env **env);
 int			exec_pipeline_list(t_cmd *cmd, t_env **env);
 int 		exec_node(t_ast *node, t_env **env);	
+int	        setup_pipe_if_needed(int *pipe_fd, t_cmd *cmd);
 int 		exec_single_ast(t_ast *node, t_env **env);
+int	        wait_for_last_pid(pid_t last_pid);
+int			extract_exit_status(int status);
 t_cmd		*convert_ast_pipeline(t_ast *node);
 t_cmd		*cmd_add_back(t_cmd *left, t_cmd *right);
 t_cmd	    *create_cmd_from_ast(t_ast *node);
@@ -43,6 +46,8 @@ void		ft_cleaner_list(t_cmd *list);
 void		resolve_pipeline_paths(t_cmd *cmd, t_env **env);
 void 		free_exec_redir_list(t_n_redir *redir);
 void		ft_free_matrix(char ***matrix);
+void	    cleanup_pipe_on_fork_error(int *pipe_fd, t_cmd *cmd);
+void	    update_prev_fd(int *prev_fd, int *pipe_fd, t_cmd *cmd);
 char    	*read_prompt_line(void);
 char		*get_path_dirs(t_cmd *cmd, t_env **envp);
 char 		*get_env_value(t_env *env, char *key);
