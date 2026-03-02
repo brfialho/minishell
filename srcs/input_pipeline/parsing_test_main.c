@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/28 00:11:07 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/01 23:20:56 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int g_status_shell = 0;
 
 typedef struct s_exp
 {
+	int		len;
 	char	*start;
-	char	*end;
 	char	*env_key;
 	char	*env_value;
 }	t_exp;
@@ -86,22 +86,25 @@ typedef struct s_exp
 
 char	*set_start_end(char	*s, t_exp *exp_array)
 {
+	if (ft_str_charcount(EXPAND_SPECIAL, *s))
+		return (s); // DO SOMETHING
+
 	int	i;
+	int	len;
 
 	i = 0;
+	len = 0;
 	while (exp_array[i].start)
 		i++;
-	s++;
-	if (ft_str_charcount(EXPAND_SPECIAL, *s))
-		return (s);
 	exp_array[i].start = s;
-	int TEST = 0;
-	while (*s && !ft_str_charcount(EXPAND_DELIMITER, *s))
-		exp_array[i].end = s++, TEST++;
-	write(1, exp_array[i].start, TEST);
+	while (s[len] && !ft_str_charcount(EXPAND_DELIMITER, s[len]))
+		len++;
+	s += len - 1;
+	exp_array[i].len = len;
+	write(1, exp_array[i].start, len);
 	write(1, "\n", 1);
-	ft_printf("%c %c\n", *exp_array[i].start, *exp_array[i].end);
-	return (s - 1);
+	ft_printf("LEN:  %d  \nCHAR:  %c\n\n", len, *exp_array[i].start);
+	return (s);
 }
 
 // void	set_key_value(t_exp *exp_array)
@@ -144,8 +147,8 @@ t_exp	*get_exp_array(char *s)
 			expand = FALSE;
 		else if (*s == '\'')
 			expand = TRUE;
-		if (*s == '$' && expand)
-			s = set_start_end(s, exp_array);
+		if (*s == '$' && *(s + 1) && expand)
+			s = set_start_end(s + 1, exp_array);
 		s++;
 	}
 	// set_key_value(exp_array);

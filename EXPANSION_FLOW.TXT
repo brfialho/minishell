@@ -83,7 +83,7 @@ EXPAND_REDIR[100] [1, 0, 1, NULL]
 
 
 echo OI$USER$$"$USER"'$USER$$'$USER'$$' 	OR "echo OI\$USER\$\$\"\$USER\"'\$USER\$\$'\$USER'\$\$'"
-OIbrfialho45453brfialho$USER$$brfialho$$
+OIbrfialho45453brfialho$USER$$brfialho$$		"echo OI\$USER1\$\$\"\$USER2\"'\$USER3\$\$'\$USER4'\$\$'"
 1110010
 
 IN LEXER:
