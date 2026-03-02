@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 01:36:42 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 01:40:35 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ char	*trim_quotes(char *old_str)
 		else 
 			*new++ = *old++;
 	}
+	free (old_str);
 	return (new_str);
 }
 
