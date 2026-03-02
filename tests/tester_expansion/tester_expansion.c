@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 17:45:00 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 20:51:23 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,24 @@ char	test_complex_expansion_with_spaces_in_vars(t_msh_ast *node)
 	return (exit_status);
 }
 
+char	test_impossible_expansion_with_dollarsign_inside_var_values(t_msh_ast *node)
+{
+	char	**argv = expand_argv(node->argv);
+
+	char	**expected = ft_safe_calloc(2, sizeof(char *));
+
+	// THIS TEST ASSUMES:
+	// RUN THIS LINE: export d="$" && export e="USER"
+	expected[0] = "$USER";
+	expected[1] = NULL;
+	
+
+	char exit_status = tester_argv_cmp(expected, argv);
+	// ft_printf("%s\n", expected[1]);
+	free(expected);
+	return (exit_status);
+}
+
 int main(void)
 {
 	t_mini	mini;
@@ -135,6 +153,7 @@ int main(void)
 	tests[2] = "echo \"Hello $USER\"";
 	tests[3] = "echo $USER'$NOEXPAND'\"$USER'$USER'\"algumacoisanadahaver$USER";
 	tests[4] = "$a$b$c";
+	tests[5] = "$d$e";
 	// tests[4] = "echo ola\"$USER\"seu\" \"pid$$'$USER''hello'''ola\"oi\"\"\"t";
 	// tests[5] = "echo \"'\"''\"'\"";
 	// tests[6] = "echo \"ola\"'td'\"bem\"";
@@ -148,7 +167,7 @@ int main(void)
 	test_functions[2] = test_simple_quoted_expansion;
 	test_functions[3] = test_complex_expansion;
 	test_functions[4] = test_complex_expansion_with_spaces_in_vars;
-	test_functions[5] = NULL;
+	test_functions[5] = test_impossible_expansion_with_dollarsign_inside_var_values;
 	test_functions[6] = NULL;
 	test_functions[7] = NULL;
 	test_functions[8] = NULL;
