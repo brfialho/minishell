@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 01:23:42 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 01:30:41 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int g_status_shell = 0;
 
 typedef struct s_exp
 {
-	int		len;
 	char	*start;
 	char	*env_key;
 	char	*env_value;
@@ -97,7 +96,6 @@ char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst)
 	content->start = s;
 	while (s[len] && !ft_str_charcount(EXPAND_DELIMITER, s[len]))
 		len++;
-	content->len = len;
 	content->env_key = ft_substr(s, 0, len);
 	content->env_value = getenv(content->env_key);
 	s += len - 1;
@@ -144,15 +142,12 @@ int	get_expanded_len(char *s, t_list *expd_var_lst)
 	int		len;
 
 	len = ft_strlen(s);
-	ft_printf("NORMAL LEN:%d\n", len);
 	lst = expd_var_lst;
 	while (lst)
 	{
 		len += ft_strlen(((t_exp *)lst->content)->env_value);
-		ft_printf("VALUE LEN:%d\n", ft_strlen(((t_exp *)lst->content)->env_value));
 		lst = lst->next;
 	}
-	ft_printf("LEN TOTAL: %d\n", len);
 	return (len);
 }
 
@@ -169,7 +164,7 @@ void	fill_expd_str(char	*old, char *new, t_list *expd_var_lst)
 			s = ((t_exp *)lst->content)->env_value;
 			while (s && *s)
 				*new++ = *s++;
-			old += ((t_exp *)lst->content)->len;
+			old += ft_strlen(((t_exp *)lst->content)->env_key);
 			new--;
 			lst = lst->next;
 		}
@@ -214,11 +209,11 @@ char	*expand_string(char *old_str)
 	if (!ft_str_charcount(old_str, '$'))
 		return (old_str);
 	expd_var_lst = get_exp_var_lst(old_str);
-
 	expd_str = ft_safe_calloc(get_expanded_len(old_str, *expd_var_lst) + 1, sizeof(char));
 	fill_expd_str(old_str, expd_str, *expd_var_lst);
-	ft_printf("BEFORE: %s\n", expd_str);
 	expd_str = trim_quotes(expd_str);
+
+	ft_printf("BEFORE: %s\n", old_str);
 	ft_printf("AFTER: %s\n", expd_str);
 	
 	lst_del_all(expd_var_lst, del_exp_var);
