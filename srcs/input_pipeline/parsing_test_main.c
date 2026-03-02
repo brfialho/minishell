@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/01 23:45:55 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/01 23:58:38 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,37 +84,82 @@ typedef struct s_exp
 #define EXPAND_DELIMITER "$'\""
 #define EXPAND_SPECIAL "$?"
 
-char	*set_start_end(char	*s, t_exp *exp_array)
+// char	*set_start_end(char	*s, t_exp *exp_array)
+// {
+// 	if (ft_str_charcount(EXPAND_SPECIAL, *s))
+// 		return (s); // DO SOMETHING
+
+// 	int	i;
+// 	int	len;
+
+// 	i = 0;
+// 	len = 0;
+// 	while (exp_array[i].start)
+// 		i++;
+// 	exp_array[i].start = s;
+// 	while (s[len] && !ft_str_charcount(EXPAND_DELIMITER, s[len]))
+// 		len++;
+// 	exp_array[i].len = len;
+// 	exp_array[i].env_key = ft_substr(s, 0, len);
+// 	exp_array[i].env_value = getenv(exp_array[i].env_key);
+// 	s += len - 1;
+// 	write(1, exp_array[i].start, len);
+// 	write(1, "\n", 1);
+// 	ft_printf("KEY: %s\nVAL: %s\nLEN:  %d  \nCHAR:  %c\n\n", exp_array[i].env_key, exp_array[i].env_value, len, *exp_array[i].start);
+// 	return (s);
+// }
+
+// t_exp	*get_exp_array(char *s)
+// {
+// 	t_bool	expand;
+// 	t_exp 	*exp_array;
+
+// 	exp_array = ft_safe_calloc(ft_str_charcount(s, '$') + 1, sizeof(t_exp));
+// 	expand = TRUE;
+// 	while (*s)
+// 	{
+// 		// ft_printf("%s :%d\n ", s, expand);
+// 		if (*s == '\'' && expand)
+// 			expand = FALSE;
+// 		else if (*s == '\'')
+// 			expand = TRUE;
+// 		if (*s == '$' && *(s + 1) && expand)
+// 			s = set_start_end(s + 1, exp_array);
+// 		s++;
+// 	}
+// 	return (exp_array);
+// }
+
+char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst)
 {
 	if (ft_str_charcount(EXPAND_SPECIAL, *s))
 		return (s); // DO SOMETHING
 
-	int	i;
-	int	len;
+	t_exp	*content;
+	int		len;
 
-	i = 0;
+	content = ft_safe_calloc(1, sizeof(t_exp));
 	len = 0;
-	while (exp_array[i].start)
-		i++;
-	exp_array[i].start = s;
+	content->start = s;
 	while (s[len] && !ft_str_charcount(EXPAND_DELIMITER, s[len]))
 		len++;
-	exp_array[i].len = len;
-	exp_array[i].env_key = ft_substr(s, 0, len);
-	exp_array[i].env_value = getenv(exp_array[i].env_key);
+	content->len = len;
+	content->env_key = ft_substr(s, 0, len);
+	content->env_value = getenv(content->env_key);
 	s += len - 1;
-	write(1, exp_array[i].start, len);
+	lst_add_end(expd_var_lst, lst_new_node(content));
+	write(1, content->start, len);
 	write(1, "\n", 1);
-	ft_printf("KEY: %s\nVAL: %s\nLEN:  %d  \nCHAR:  %c\n\n", exp_array[i].env_key, exp_array[i].env_value, len, *exp_array[i].start);
+	ft_printf("KEY: %s\nVAL: %s\nLEN:  %d  \nCHAR:  %c\n\n", content->env_key, content->env_value, len, *content->start);
 	return (s);
 }
 
-t_exp	*get_exp_array(char *s)
+t_list	**get_exp_var_lst(char *s)
 {
 	t_bool	expand;
-	t_exp 	*exp_array;
+	t_list 	**expd_var_lst;
 
-	exp_array = ft_safe_calloc(ft_str_charcount(s, '$') + 1, sizeof(t_exp));
+	expd_var_lst = ft_safe_calloc(1, sizeof(t_list *));
 	expand = TRUE;
 	while (*s)
 	{
@@ -124,21 +169,21 @@ t_exp	*get_exp_array(char *s)
 		else if (*s == '\'')
 			expand = TRUE;
 		if (*s == '$' && *(s + 1) && expand)
-			s = set_start_end(s + 1, exp_array);
+			s = set_new_expd_var_info(s + 1, expd_var_lst);
 		s++;
 	}
-	return (exp_array);
+	return (expd_var_lst);
 }
 
 char	*expand_string(char *s)
 {
-	t_exp 	*exp_array;
+	t_list	**expd_var_lst;
 	// char	*expanded_str;
 
 	if (!ft_str_charcount(s, '$'))
 		return (s);
-	exp_array = get_exp_array(s);
-	exp_array[0].start = NULL;
+	expd_var_lst = get_exp_var_lst(s);
+	lst_del_all(expd_var_lst, NULL);
 		
 
 	// expanded_str = ft_safe_calloc(get_expanded_size(string, exp_array) + 1, sizeof(char));
