@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 17:27:48 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 17:45:00 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	test_complex_expansion_with_spaces_in_vars(t_msh_ast *node)
 	char	**expected = ft_safe_calloc(5, sizeof(char *));
 
 	// THIS TEST ASSUMES:
-	// export a="ech" && export b="o hello" && export c=" world :)"
+	// RUN THIS LINE: export a="ech" && export b="o hello" && export c=" world :)"
 	// $a = "ech"
 	// $b = "o hello"
 	// $c = "world :)"
