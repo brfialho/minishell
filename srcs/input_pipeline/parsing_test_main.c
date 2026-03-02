@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 01:40:35 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 15:55:24 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,21 +210,63 @@ char	*expand_string(char *old_str)
 	fill_expd_str(old_str, expd_str, *expd_var_lst);
 	expd_str = trim_quotes(expd_str);
 
-	ft_printf("\nBEFORE: %s\n", old_str);
-	ft_printf("AFTER : %s\n", expd_str);
+	// ft_printf("\nBEFORE: %s\n", old_str);
+	// ft_printf("AFTER : %s\n", expd_str);
 	
 	lst_del_all(expd_var_lst, del_exp_var);
 	free (expd_var_lst);
 	return (expd_str);
 }
 
-// "echo \$EXPAND'\$NOEXPAND'\"\$EXPAND\"algumacoisanadahaver\$EXPAND";
-int main(int argc, char **argv)
+char	**expand_argv(char **old_argv)
 {
-	if (argc != 2)
-		return 1;
-	free (expand_string(argv[1]));
+	char	**argv;
+	char	*full_argv;
+	int		i;
+
+	i = -1;
+	while (old_argv[++i])
+		old_argv[i] = expand_string(old_argv[i]);
+	i = 0;
+	full_argv = ft_strdup(old_argv[i]);
+	while (old_argv[++i])
+	{
+		full_argv = ft_strjoin_free(full_argv, " ", TRUE, FALSE);
+		full_argv = ft_strjoin_free(full_argv, old_argv[i], TRUE, FALSE); 
+	}
+	argv = ft_split(full_argv, ' ');
+	free(full_argv);
+	ft_split_print(argv);
+	return (argv);
 }
+
+int main(void)
+{
+	int size = 2;
+	char **argv = ft_calloc(size, sizeof(char *));
+	// argv[0] = ft_strdup("echo");
+	// argv[1] = ft_strdup("$EXPAND'$NOEXPAND'\"$EXPAND''\"algumacoisanadahaver$EXPAND");
+	// argv[2] = ft_strdup("$EXPAND$EXPAND_SPACE$USER");
+	// argv[3] = NULL;
+
+	// argv[0] = ft_strdup("$a$b");
+	// argv[1] = ft_strdup("$EXPAND'$NOEXPAND'\"$EXPAND''\"algumacoisanadahaver$EXPAND");
+	// argv[2] = ft_strdup("$EXPAND$EXPAND_SPACE$USER");
+	// argv[3] = NULL;
+
+	argv[0] = ft_strdup("echo");
+	argv[1] = NULL;
+	expand_argv(argv);
+}
+
+
+// "echo \$EXPAND'\$NOEXPAND'\"\$EXPAND\"algumacoisanadahaver\$EXPAND";
+// int main(int argc, char **argv)
+// {
+// 	if (argc != 2)
+// 		return 1;
+// 	free (expand_string(argv[1]));
+// }
 // "echo OI\$USER\"\$VAR_VAZIA''\"'\$NAO_EXPANDE'\$VAR_VAZIA''"
 // static void	destroy_cicle(t_mini *mini)
 // {
