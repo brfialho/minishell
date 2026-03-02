@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:09:39 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 16:12:45 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 16:19:52 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*expand_string(char *old_str)
 	// ft_printf("AFTER : %s\n", expd_str);
 	
 	lst_del_all(expd_var_lst, del_exp_var);
+	free(old_str);
 	free (expd_var_lst);
 	return (expd_str);
 }

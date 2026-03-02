@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 16:16:41 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 16:20:33 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,15 @@ int main(void)
 {
 	int size = 4;
 	char **argv = ft_calloc(size, sizeof(char *));
-	argv[0] = ft_strdup("echo");
-	argv[1] = ft_strdup("$EXPAND'$NOEXPAND'\"$EXPAND''\"algumacoisanadahaver$EXPAND");
-	argv[2] = ft_strdup("$EXPAND$EXPAND_SPACE$USER");
-	argv[3] = NULL;
-
-	// argv[0] = ft_strdup("$a$b");
+	// argv[0] = ft_strdup("echo");
 	// argv[1] = ft_strdup("$EXPAND'$NOEXPAND'\"$EXPAND''\"algumacoisanadahaver$EXPAND");
 	// argv[2] = ft_strdup("$EXPAND$EXPAND_SPACE$USER");
 	// argv[3] = NULL;
+
+	argv[0] = ft_strdup("$a$b");
+	argv[1] = ft_strdup("$EXPAND'$NOEXPAND'\"$EXPAND''\"algumacoisanadahaver$EXPAND");
+	argv[2] = ft_strdup("$EXPAND$EXPAND_SPACE$USER");
+	argv[3] = NULL;
 
 	// argv[0] = ft_strdup("echo");
 	// argv[1] = NULL;
