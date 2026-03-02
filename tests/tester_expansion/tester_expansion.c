@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 16:57:26 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 17:25:01 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,86 @@ char	test_simple_expansion(t_msh_ast *node)
 	return (exit_status);
 }
 
+char	test_simple_no_expansion(t_msh_ast *node)
+{
+	char	**argv = expand_argv(node->argv);
+
+	char	**expected = ft_safe_calloc(3, sizeof(char *));
+
+	expected[0] = "echo";
+	expected[1] = "Hello";
+	expected[2] = NULL;
+
+	char exit_status = tester_argv_cmp(expected, argv);
+	free(expected);
+	return (exit_status);
+}
+
+char	test_simple_quoted_expansion(t_msh_ast *node)
+{
+	char	**argv = expand_argv(node->argv);
+
+	char	**expected = ft_safe_calloc(3, sizeof(char *));
+
+	expected[0] = "echo";
+	expected[1] = ft_strjoin("Hello ", (ft_strcmp(getenv("USER"), "(null)") ? getenv("USER") : ""));
+	expected[2] = NULL;
+
+	char exit_status = tester_argv_cmp(expected, argv);
+	free(expected[1]);
+	free(expected);
+	return (exit_status);
+}
+
+#define TEST_3_VAR_0 (ft_strcmp(getenv("USER"), "(null)") ? getenv("USER") : "")
+
+char	test_complex_expansion(t_msh_ast *node)
+{
+	char	**argv = expand_argv(node->argv);
+
+	char	**expected = ft_safe_calloc(3, sizeof(char *));
+
+	// "echo $USER'$NOEXPAND'\"$USER'$USER'\"algumacoisanadahaver$USER";
+	expected[0] = "echo";
+	expected[1] = ft_strjoin("\'algumacoisanadahaver", TEST_3_VAR_0);
+	expected[1] = ft_strjoin_free(TEST_3_VAR_0, expected[1], FALSE, TRUE);
+	expected[1] = ft_strjoin_free("'", expected[1], FALSE, TRUE);
+	expected[1] = ft_strjoin_free(TEST_3_VAR_0, expected[1], FALSE, TRUE);
+	expected[1] = ft_strjoin_free("$NOEXPAND", expected[1], FALSE, TRUE);
+	expected[1] = ft_strjoin_free(TEST_3_VAR_0, expected[1], FALSE, TRUE);
+	expected[2] = NULL;
+
+	char exit_status = tester_argv_cmp(expected, argv);
+	// ft_printf("%s\n", expected[1]);
+	free(expected[1]);
+	free(expected);
+	return (exit_status);
+}
+
+
+char	test_complex_expansion_with_spaces_in_vars(t_msh_ast *node)
+{
+	char	**argv = expand_argv(node->argv);
+
+	char	**expected = ft_safe_calloc(5, sizeof(char *));
+
+	// THIS TEST ASSUMES:
+	// $a = "ech"
+	// $b = "o hello"
+	// $c = "world :)"
+	expected[0] = "echo";
+	expected[1] = "hello";
+	expected[2] = "world";
+	expected[3] = ":)";
+	expected[4] = NULL;
+	
+
+	char exit_status = tester_argv_cmp(expected, argv);
+	// ft_printf("%s\n", expected[1]);
+	free(expected);
+	return (exit_status);
+}
+
 int main(void)
 {
 	t_mini	mini;
@@ -50,9 +130,10 @@ int main(void)
 	char	(*test_functions[100])(t_msh_ast *);
 
 	tests[0] = "echo Hello $USER";
-	// tests[1] = "ls|grep";
-	// tests[2] = "   echo \"Hello world $teste \" | wc -l > outfile.txt && cat outfile.txt && rm -rf outfile.txt";
-	// tests[3] = "export a=ech && export b=\"o EEEBA\" && $a$b";
+	tests[1] = "echo Hello $ASGYUASGUGA";
+	tests[2] = "echo \"Hello $USER\"";
+	tests[3] = "echo $USER'$NOEXPAND'\"$USER'$USER'\"algumacoisanadahaver$USER";
+	tests[4] = "$a$b$c";
 	// tests[4] = "echo ola\"$USER\"seu\" \"pid$$'$USER''hello'''ola\"oi\"\"\"t";
 	// tests[5] = "echo \"'\"''\"'\"";
 	// tests[6] = "echo \"ola\"'td'\"bem\"";
@@ -62,10 +143,10 @@ int main(void)
 	// tests[10] = "echo \"Hello World";
 
 	test_functions[0] = test_simple_expansion;
-	test_functions[1] = NULL;
-	test_functions[2] = NULL;
-	test_functions[3] = NULL;
-	test_functions[4] = NULL;
+	test_functions[1] = test_simple_no_expansion;
+	test_functions[2] = test_simple_quoted_expansion;
+	test_functions[3] = test_complex_expansion;
+	test_functions[4] = test_complex_expansion_with_spaces_in_vars;
 	test_functions[5] = NULL;
 	test_functions[6] = NULL;
 	test_functions[7] = NULL;
