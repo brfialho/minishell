@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/01 23:20:56 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/01 23:45:55 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,46 +99,22 @@ char	*set_start_end(char	*s, t_exp *exp_array)
 	exp_array[i].start = s;
 	while (s[len] && !ft_str_charcount(EXPAND_DELIMITER, s[len]))
 		len++;
-	s += len - 1;
 	exp_array[i].len = len;
+	exp_array[i].env_key = ft_substr(s, 0, len);
+	exp_array[i].env_value = getenv(exp_array[i].env_key);
+	s += len - 1;
 	write(1, exp_array[i].start, len);
 	write(1, "\n", 1);
-	ft_printf("LEN:  %d  \nCHAR:  %c\n\n", len, *exp_array[i].start);
+	ft_printf("KEY: %s\nVAL: %s\nLEN:  %d  \nCHAR:  %c\n\n", exp_array[i].env_key, exp_array[i].env_value, len, *exp_array[i].start);
 	return (s);
 }
-
-// void	set_key_value(t_exp *exp_array)
-// {
-// 	int		i;
-// 	char	*s;
-
-// 	i = -1;
-// 	while (exp_array[++i].start)
-// 	{
-// 		s = exp_array[i].start;
-// 		while (*s != *exp_array[i].end)
-// 			*exp_array[i].env_key = *s++;
-// 		// ft_printf("%s\n", exp_array);
-// 	}
-// }
-
-// size_t	get_expanded_size(char *s, t_exp *exp_array)
-// {
-// 	size_t	len;
-// 	int		i;
-
-// 	len = ft_strlen(s);
-// 	i = 0;
-// 	while (exp_array[i].start)
-// 		len += 
-// }
 
 t_exp	*get_exp_array(char *s)
 {
 	t_bool	expand;
 	t_exp 	*exp_array;
 
-	exp_array = ft_safe_calloc(ft_str_charcount(s, '$') + 1, sizeof(char));
+	exp_array = ft_safe_calloc(ft_str_charcount(s, '$') + 1, sizeof(t_exp));
 	expand = TRUE;
 	while (*s)
 	{
@@ -151,7 +127,6 @@ t_exp	*get_exp_array(char *s)
 			s = set_start_end(s + 1, exp_array);
 		s++;
 	}
-	// set_key_value(exp_array);
 	return (exp_array);
 }
 
