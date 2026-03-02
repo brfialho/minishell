@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 01:30:41 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 01:34:10 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ int g_status_shell = 0;
 // }
 
 
-typedef struct s_exp
+typedef struct s_expd
 {
 	char	*start;
 	char	*env_key;
 	char	*env_value;
-}	t_exp;
+}	t_expd;
 
 #define EXPAND_DELIMITER "$'\""
 #define EXPAND_SPECIAL "$?"
@@ -88,10 +88,10 @@ char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst)
 	if (ft_str_charcount(EXPAND_SPECIAL, *s))
 		return (s); // DO SOMETHING
 
-	t_exp	*content;
+	t_expd	*content;
 	int		len;
 
-	content = ft_safe_calloc(1, sizeof(t_exp));
+	content = ft_safe_calloc(1, sizeof(t_expd));
 	len = 0;
 	content->start = s;
 	while (s[len] && !ft_str_charcount(EXPAND_DELIMITER, s[len]))
@@ -100,9 +100,6 @@ char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst)
 	content->env_value = getenv(content->env_key);
 	s += len - 1;
 	lst_add_end(expd_var_lst, lst_new_node(content));
-	write(1, content->start, len);
-	write(1, "\n", 1);
-	ft_printf("KEY: %s\nVAL: %s\nLEN:  %d  \nCHAR:  %c\n\n", content->env_key, content->env_value, len, *content->start);
 	return (s);
 }
 
@@ -115,7 +112,6 @@ t_list	**get_exp_var_lst(char *s)
 	expand = TRUE;
 	while (*s)
 	{
-		// ft_printf("%s :%d\n ", s, expand);
 		if (*s == '\'' && expand)
 			expand = FALSE;
 		else if (*s == '\'')
@@ -129,7 +125,7 @@ t_list	**get_exp_var_lst(char *s)
 
 void	del_exp_var(void *content)
 {
-	t_exp	*exp;
+	t_expd	*exp;
 
 	exp = content;
 	free (exp->env_key);
@@ -145,7 +141,7 @@ int	get_expanded_len(char *s, t_list *expd_var_lst)
 	lst = expd_var_lst;
 	while (lst)
 	{
-		len += ft_strlen(((t_exp *)lst->content)->env_value);
+		len += ft_strlen(((t_expd *)lst->content)->env_value);
 		lst = lst->next;
 	}
 	return (len);
@@ -159,12 +155,12 @@ void	fill_expd_str(char	*old, char *new, t_list *expd_var_lst)
 	lst = expd_var_lst;
 	while (*old)
 	{
-		if (lst && old && old + 1 == ((t_exp *)lst->content)->start)
+		if (lst && old && old + 1 == ((t_expd *)lst->content)->start)
 		{
-			s = ((t_exp *)lst->content)->env_value;
+			s = ((t_expd *)lst->content)->env_value;
 			while (s && *s)
 				*new++ = *s++;
-			old += ft_strlen(((t_exp *)lst->content)->env_key);
+			old += ft_strlen(((t_expd *)lst->content)->env_key);
 			new--;
 			lst = lst->next;
 		}
@@ -213,8 +209,8 @@ char	*expand_string(char *old_str)
 	fill_expd_str(old_str, expd_str, *expd_var_lst);
 	expd_str = trim_quotes(expd_str);
 
-	ft_printf("BEFORE: %s\n", old_str);
-	ft_printf("AFTER: %s\n", expd_str);
+	ft_printf("\nBEFORE: %s\n", old_str);
+	ft_printf("AFTER : %s\n", expd_str);
 	
 	lst_del_all(expd_var_lst, del_exp_var);
 	free (expd_var_lst);
@@ -226,7 +222,6 @@ int main(int argc, char **argv)
 {
 	if (argc != 2)
 		return 1;
-	// ft_printf("%s\n", argv[1]);
 	free (expand_string(argv[1]));
 }
 
