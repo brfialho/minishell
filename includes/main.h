@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:24:10 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 16:07:53 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 16:22:02 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "handler.h"
 # include "set_signal.h"
 # include "error.h"
+# include "expansion.h"
 
 typedef enum e_error
 {
