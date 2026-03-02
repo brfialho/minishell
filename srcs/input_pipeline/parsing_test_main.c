@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 01:34:10 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 01:36:42 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ int main(int argc, char **argv)
 		return 1;
 	free (expand_string(argv[1]));
 }
-
+// "echo OI\$USER\"\$VAR_VAZIA''\"'\$NAO_EXPANDE'\$VAR_VAZIA''"
 // static void	destroy_cicle(t_mini *mini)
 // {
 // 	lexer_destroy(&mini->lexer);
