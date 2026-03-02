@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 20:51:23 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 20:58:07 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,6 @@ char	test_complex_expansion_with_spaces_in_vars(t_msh_ast *node)
 
 	char	**expected = ft_safe_calloc(5, sizeof(char *));
 
-	// THIS TEST ASSUMES:
-	// RUN THIS LINE: export a="ech" && export b="o hello" && export c=" world :)"
-	// $a = "ech"
-	// $b = "o hello"
-	// $c = "world :)"
 	expected[0] = "echo";
 	expected[1] = "hello";
 	expected[2] = "world";
@@ -129,8 +124,6 @@ char	test_impossible_expansion_with_dollarsign_inside_var_values(t_msh_ast *node
 
 	char	**expected = ft_safe_calloc(2, sizeof(char *));
 
-	// THIS TEST ASSUMES:
-	// RUN THIS LINE: export d="$" && export e="USER"
 	expected[0] = "$USER";
 	expected[1] = NULL;
 	
@@ -147,6 +140,12 @@ int main(void)
 	ft_bzero(&mini, sizeof(mini));
 	char	*tests[100] = {NULL};
 	char	(*test_functions[100])(t_msh_ast *);
+
+	setenv("a", "ech", 1);
+	setenv("b", "o hello", 1);
+	setenv("c", " world :)", 1);
+	setenv("d", "$", 1);
+	setenv("e", "USER", 1);
 
 	tests[0] = "echo Hello $USER";
 	tests[1] = "echo Hello $ASGYUASGUGA";
