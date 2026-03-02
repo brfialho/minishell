@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 00:23:03 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 00:59:35 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,18 +156,44 @@ int	get_expanded_len(char *s, t_list *expd_var_lst)
 	return (len);
 }
 
-char	*expand_string(char *s)
+void	fill_expd_str(char	*old, char *new, t_list *expd_var_lst)
+{
+	t_list *lst;
+	char	*s;
+
+	lst = expd_var_lst;
+	while (*old)
+	{
+		if (lst && old && old + 1 == ((t_exp *)lst->content)->start)
+		{
+			s = ((t_exp *)lst->content)->env_value;
+			while (s && *s)
+				*new++ = *s++;
+			old += ((t_exp *)lst->content)->len;
+			new--;
+			lst = lst->next;
+		}
+		else
+			*new = *old;
+		new++;
+		old++;
+	}
+}
+
+char	*expand_string(char *old_str)
 {
 	t_list	**expd_var_lst;
 	char	*expd_str;
 
-	if (!ft_str_charcount(s, '$'))
-		return (s);
-	expd_var_lst = get_exp_var_lst(s);
+	if (!ft_str_charcount(old_str, '$'))
+		return (old_str);
+	expd_var_lst = get_exp_var_lst(old_str);
 
 	expd_str = NULL;
-	expd_str = ft_safe_calloc (get_expanded_len(s, *expd_var_lst) + 1, sizeof(char));
-
+	expd_str = ft_safe_calloc (get_expanded_len(old_str, *expd_var_lst) + 1, sizeof(char));
+	fill_expd_str(old_str, expd_str, *expd_var_lst);
+	ft_printf("%s\n", expd_str);
+	
 	lst_del_all(expd_var_lst, del_exp_var);
 	free (expd_var_lst);
 	return (expd_str);
