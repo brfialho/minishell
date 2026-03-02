@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/01 23:58:38 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 00:03:36 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,15 @@ t_list	**get_exp_var_lst(char *s)
 	return (expd_var_lst);
 }
 
+void	del_exp_var(void *content)
+{
+	t_exp	*exp;
+
+	exp = content;
+	free (exp->env_key);
+	free(exp);
+}
+
 char	*expand_string(char *s)
 {
 	t_list	**expd_var_lst;
@@ -183,10 +192,10 @@ char	*expand_string(char *s)
 	if (!ft_str_charcount(s, '$'))
 		return (s);
 	expd_var_lst = get_exp_var_lst(s);
-	lst_del_all(expd_var_lst, NULL);
-		
 
 	// expanded_str = ft_safe_calloc(get_expanded_size(string, exp_array) + 1, sizeof(char));
+	lst_del_all(expd_var_lst, del_exp_var);
+	free (expd_var_lst);
 	return (NULL);
 }
 
