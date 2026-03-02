@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:09:39 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 16:19:52 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 20:46:22 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ char	*expand_string(char *old_str)
 
 static t_list	**get_exp_var_lst(char *s)
 {
-	t_bool	expand;
+	char	state;
 	t_list 	**expd_var_lst;
 
 	expd_var_lst = ft_safe_calloc(1, sizeof(t_list *));
-	expand = TRUE;
+	state = 0;
 	while (*s)
 	{
-		if (*s == '\'' && expand)
-			expand = FALSE;
-		else if (*s == '\'')
-			expand = TRUE;
-		if (*s == '$' && *(s + 1) && expand)
+		if (state && state == *s)
+			state = 0;
+		else if (state == 0 && (*s == '\'' || *s == '"'))
+			state = *s;
+		if (*s == '$' && *(s + 1) && state < '\'')
 			s = set_new_expd_var_info(s + 1, expd_var_lst);
 		s++;
 	}
