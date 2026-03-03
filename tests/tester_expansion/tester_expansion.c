@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 23:37:10 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/03 00:00:01 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ char	test_madness(t_msh_ast *node)
 	expected[0] = "echo";
 	expected[1] = "hello";
 	expected[2] = "doideira infinita";
-	expected[3] = "'big";
+	expected[3] = "\"big\"";
 	expected[4] = "world'";
 	expected[5] = NULL;	
 
@@ -183,7 +183,7 @@ int main(void)
 	setenv("c", " world :)", 1);
 	setenv("d", "$", 1);
 	setenv("e", "USER", 1);
-	setenv("f", " 'big world'", 1);
+	setenv("f", " \"big world\"", 1);
 	
 
 	tests[0] = "echo Hello $USER";
