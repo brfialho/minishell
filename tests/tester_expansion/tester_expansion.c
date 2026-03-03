@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 23:19:02 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 23:37:10 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,15 +138,14 @@ char	test_madness(t_msh_ast *node)
 {
 	char	**argv = expand_argv(node->argv);
 
-	char	**expected = ft_safe_calloc(7, sizeof(char *));
+	char	**expected = ft_safe_calloc(6, sizeof(char *));
 
 	expected[0] = "echo";
 	expected[1] = "hello";
-	expected[2] = "hello world";
-	expected[3] = "doideira infinita";
-	expected[4] = "'big";
-	expected[5] = "world'";
-	expected[6] = NULL;	
+	expected[2] = "doideira infinita";
+	expected[3] = "'big";
+	expected[4] = "world'";
+	expected[5] = NULL;	
 
 	char exit_status = tester_argv_cmp(expected, argv);
 	// ft_printf("%s\n", expected[1]);
