@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 21:18:56 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 22:19:27 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,49 +94,15 @@ int g_status_shell = 0;
 // 	ft_split_free(argv);
 // }
 
-int	count_words(char *s, char c)
-{
-	char	state;
-	int		count;
 
-	state = 0;
-	count = 0;
-	if (*s != c)
-		count++;
-	while (*s)
-	{
-		if (state && state == *s)
-			state = 0;
-		else if (state == 0 && (*s == '\'' || *s == '"'))
-			state = *s;
-		if (state && *s == c && *(s + 1) && *(s + 1) != c)
-			count++;
-		s++;
-	}
-	ft_printf("COUNT: %d\n", count);
-	return (count);
-}
-
-char **ft_split_no_quoted(char *s, char c)
-{
-	// char	**split;
-
-	// split = ft_calloc(count_words(s, c) + 1, sizeof(char *));
-	// if (!split)
-		// return (NULL);
-
-	count_words(s, c);
-	return (NULL);
-}
 
 int main(int argc, char **argv)
 {
 	if (argc != 2)
 		return 1;
 	char **split = ft_split_no_quoted(argv[1], ' ');
-	split++;
-	// ft_split_print(split);
-	// ft_split_free(split);
+	ft_split_print(split);
+	ft_split_free(split);
 }
 
 // "echo \$EXPAND'\$NOEXPAND'\"\$EXPAND\"algumacoisanadahaver\$EXPAND";
