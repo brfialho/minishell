@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 16:20:33 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 21:18:56 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,26 +74,70 @@ int g_status_shell = 0;
 // }
 
 
-int main(void)
+// int main(void)
+// {
+// 	int size = 4;
+// 	char **argv = ft_calloc(size, sizeof(char *));
+// 	// argv[0] = ft_strdup("echo");
+// 	// argv[1] = ft_strdup("$EXPAND'$NOEXPAND'\"$EXPAND''\"algumacoisanadahaver$EXPAND");
+// 	// argv[2] = ft_strdup("$EXPAND$EXPAND_SPACE$USER");
+// 	// argv[3] = NULL;
+
+// 	argv[0] = ft_strdup("$a$b");
+// 	argv[1] = ft_strdup("$EXPAND'$NOEXPAND'\"$EXPAND''\"algumacoisanadahaver$EXPAND");
+// 	argv[2] = ft_strdup("$EXPAND$EXPAND_SPACE$USER");
+// 	argv[3] = NULL;
+
+// 	// argv[0] = ft_strdup("echo");
+// 	// argv[1] = NULL;
+// 	ft_split_free(expand_argv(argv));
+// 	ft_split_free(argv);
+// }
+
+int	count_words(char *s, char c)
 {
-	int size = 4;
-	char **argv = ft_calloc(size, sizeof(char *));
-	// argv[0] = ft_strdup("echo");
-	// argv[1] = ft_strdup("$EXPAND'$NOEXPAND'\"$EXPAND''\"algumacoisanadahaver$EXPAND");
-	// argv[2] = ft_strdup("$EXPAND$EXPAND_SPACE$USER");
-	// argv[3] = NULL;
+	char	state;
+	int		count;
 
-	argv[0] = ft_strdup("$a$b");
-	argv[1] = ft_strdup("$EXPAND'$NOEXPAND'\"$EXPAND''\"algumacoisanadahaver$EXPAND");
-	argv[2] = ft_strdup("$EXPAND$EXPAND_SPACE$USER");
-	argv[3] = NULL;
-
-	// argv[0] = ft_strdup("echo");
-	// argv[1] = NULL;
-	ft_split_free(expand_argv(argv));
-	ft_split_free(argv);
+	state = 0;
+	count = 0;
+	if (*s != c)
+		count++;
+	while (*s)
+	{
+		if (state && state == *s)
+			state = 0;
+		else if (state == 0 && (*s == '\'' || *s == '"'))
+			state = *s;
+		if (state && *s == c && *(s + 1) && *(s + 1) != c)
+			count++;
+		s++;
+	}
+	ft_printf("COUNT: %d\n", count);
+	return (count);
 }
 
+char **ft_split_no_quoted(char *s, char c)
+{
+	// char	**split;
+
+	// split = ft_calloc(count_words(s, c) + 1, sizeof(char *));
+	// if (!split)
+		// return (NULL);
+
+	count_words(s, c);
+	return (NULL);
+}
+
+int main(int argc, char **argv)
+{
+	if (argc != 2)
+		return 1;
+	char **split = ft_split_no_quoted(argv[1], ' ');
+	split++;
+	// ft_split_print(split);
+	// ft_split_free(split);
+}
 
 // "echo \$EXPAND'\$NOEXPAND'\"\$EXPAND\"algumacoisanadahaver\$EXPAND";
 // int main(int argc, char **argv)
