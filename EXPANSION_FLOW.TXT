@@ -103,3 +103,28 @@ INSIDE ARGV 1:
 OI$USER$$"$USER"'$USER$$'$USER'$$'
 OR
 OI$USER$$$USER$USER$$$USER$$
+
+$a$b
+
+argv0 "$a$b"
+
+argv0 "echo hello"
+
+argv0 echo
+argv1 hello
+
+argv0 echo
+argv1 hello 
+argv2 'world eba'
+
+export a=ech && export b="o hello" && export c="'big world'" && $a$b$c
+
+
+brfialho@c1r2p3:~/Documents/CommonCore/minishell$ export a=ech && export b="o hello" && export c=" 'big world'" && printf "arg1: [%s]\narg2: [%s]\n
+arg3: [%s]\n" $a$b "hello world"$c
+arg1: [echo]
+arg2: [hello]
+arg3: [hello world]
+arg1: ['big]
+arg2: [world']
+arg3: []

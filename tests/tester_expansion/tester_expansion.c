@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 20:58:07 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/02 23:19:02 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,44 @@ char	test_impossible_expansion_with_dollarsign_inside_var_values(t_msh_ast *node
 	return (exit_status);
 }
 
+char	test_madness(t_msh_ast *node)
+{
+	char	**argv = expand_argv(node->argv);
+
+	char	**expected = ft_safe_calloc(7, sizeof(char *));
+
+	expected[0] = "echo";
+	expected[1] = "hello";
+	expected[2] = "hello world";
+	expected[3] = "doideira infinita";
+	expected[4] = "'big";
+	expected[5] = "world'";
+	expected[6] = NULL;	
+
+	char exit_status = tester_argv_cmp(expected, argv);
+	// ft_printf("%s\n", expected[1]);
+	free(expected);
+	return (exit_status);
+}
+
+
+char	test_quote_inside_quote(t_msh_ast *node)
+{
+	char	**argv = expand_argv(node->argv);
+
+	char	**expected = ft_safe_calloc(4, sizeof(char *));
+
+	expected[0] = "echo";
+	expected[1] = "'hello world'";
+	expected[2] = "\"hello world\"";
+	expected[3] = NULL;	
+
+	char exit_status = tester_argv_cmp(expected, argv);
+	// ft_printf("%s\n", expected[1]);
+	free(expected);
+	return (exit_status);
+}
+
 int main(void)
 {
 	t_mini	mini;
@@ -146,6 +184,8 @@ int main(void)
 	setenv("c", " world :)", 1);
 	setenv("d", "$", 1);
 	setenv("e", "USER", 1);
+	setenv("f", " 'big world'", 1);
+	
 
 	tests[0] = "echo Hello $USER";
 	tests[1] = "echo Hello $ASGYUASGUGA";
@@ -153,6 +193,8 @@ int main(void)
 	tests[3] = "echo $USER'$NOEXPAND'\"$USER'$USER'\"algumacoisanadahaver$USER";
 	tests[4] = "$a$b$c";
 	tests[5] = "$d$e";
+	tests[6] = "$a$b \"doideira infinita\"$f";
+	tests[7] = "echo \"'hello world'\" '\"hello world\"'";
 	// tests[4] = "echo ola\"$USER\"seu\" \"pid$$'$USER''hello'''ola\"oi\"\"\"t";
 	// tests[5] = "echo \"'\"''\"'\"";
 	// tests[6] = "echo \"ola\"'td'\"bem\"";
@@ -167,10 +209,11 @@ int main(void)
 	test_functions[3] = test_complex_expansion;
 	test_functions[4] = test_complex_expansion_with_spaces_in_vars;
 	test_functions[5] = test_impossible_expansion_with_dollarsign_inside_var_values;
-	test_functions[6] = NULL;
-	test_functions[7] = NULL;
+	test_functions[6] = test_madness;
+	test_functions[7] = test_quote_inside_quote;
 	test_functions[8] = NULL;
 	test_functions[9] = NULL;
+	test_functions[10] = NULL;
 	// test_functions[10] = test_lexer_unclosed_quotes;
 
 	int	test_len = 0;
