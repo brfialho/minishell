@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 09:58:33 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/25 13:15:17 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:10:04 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,18 @@ char	**env_to_envp(t_env *env)
 	}
 	envp[i] = NULL;
 	return (envp);
+}
+
+void env_clear(t_env **env)
+{
+    t_env *tmp;
+
+    while (*env)
+    {
+        tmp = (*env)->next;
+        free((*env)->key);
+        free((*env)->value);
+        free(*env);
+        *env = tmp;
+    }
 }

@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/01 21:26:24 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:04:43 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void 		free_exec_redir_list(t_n_redir *redir);
 void		ft_free_matrix(char ***matrix);
 void	    cleanup_pipe_on_fork_error(int *pipe_fd, t_cmd *cmd);
 void	    update_prev_fd(int *prev_fd, int *pipe_fd, t_cmd *cmd);
+void 		executor(t_mini *mini);
 char    	*read_prompt_line(void);
 char		*get_path_dirs(t_cmd *cmd, t_env **envp);
 char 		*get_env_value(t_env *env, char *key);

@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:42:40 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/24 22:09:16 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/04 16:40:20 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	*get_path_dirs(t_cmd *cmd, t_env **envp)
 	char	*result;
 
 	path_value = get_env_value(*envp, "PATH");
+	if (ft_strchr(cmd->argv[0], '/'))
+    	return (ft_strdup(cmd->argv[0]));
 	if (!path_value)
 		return (NULL);
 	dirs = ft_split(path_value, ':');

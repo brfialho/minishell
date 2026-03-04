@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:00:28 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/21 22:25:00 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:10:14 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ void	env_add_back(t_env **env, t_env *new);
 void	ft_set_env(t_env **env, char *key, char *value);
 void	ft_unset_env(t_env **env, char *key);
 void	free_envp(char **envp);
+void 	env_clear(t_env **env);
 
 #endif
