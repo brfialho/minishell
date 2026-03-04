@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:30:44 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 19:03:19 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/04 18:53:16 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	builtin_cd(t_cmd *cmd, t_env **env)
 	}
 	if (chdir(path) != 0)
 	{
-		perror("minishell: cd");
+		ft_printf("minishell: cd: %s: %s\n", path, strerror(errno));
 		return (1);
 	}
 	cwd = getcwd(NULL, 0);
@@ -51,7 +51,7 @@ int	builtin_export(t_cmd *cmd, t_env **env)
 
 	if (!cmd->argv[1])
 		return (0);
-		// return (env_print_sorted(*env), 0);
+		// return (env_print_sorted(*env), 0); retorno do export sem argumentos, não implementado ainda
 	i = 1;
 	while (cmd->argv[i])
 	{
