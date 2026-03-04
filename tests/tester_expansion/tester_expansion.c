@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/03 23:13:56 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 18:29:50 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,39 @@ char	test_quote_inside_quote(t_msh_ast *node)
 	return (exit_status);
 }
 
+char	test_quoted_empty_var(t_msh_ast *node)
+{
+	char	**argv = expand_argv(node->argv);
+
+	char	**expected = ft_safe_calloc(4, sizeof(char *));
+
+	expected[0] = "echo";
+	expected[1] = "";
+	expected[2] = "hello";
+	expected[3] = NULL;
+
+	char exit_status = tester_argv_cmp(expected, argv);
+	// ft_printf("%s\n", expected[1]);
+	free(expected);
+	return (exit_status);
+}
+
+char	test_empty_var(t_msh_ast *node)
+{
+	char	**argv = expand_argv(node->argv);
+
+	char	**expected = ft_safe_calloc(3, sizeof(char *));
+
+	expected[0] = "echo";
+	expected[1] = "hello";
+	expected[2] = NULL;
+
+	char exit_status = tester_argv_cmp(expected, argv);
+	// ft_printf("%s\n", expected[1]);
+	free(expected);
+	return (exit_status);
+}
+
 int main(void)
 {
 	t_mini	mini;
@@ -184,6 +217,7 @@ int main(void)
 	setenv("d", "$", 1);
 	setenv("e", "USER", 1);
 	setenv("f", " \"big world\"", 1);
+	setenv("g", "", 1);
 	
 
 	tests[0] = "echo Hello $USER";
@@ -194,6 +228,8 @@ int main(void)
 	tests[5] = "$d$e";
 	tests[6] = "$a$b \"doideira infinita\"$f";
 	tests[7] = "echo \"'hello world'\" '\"hello world\"'";
+	tests[8] = "echo \"$g\" hello";
+	tests[9] = "echo $g hello";
 	// tests[4] = "echo ola\"$USER\"seu\" \"pid$$'$USER''hello'''ola\"oi\"\"\"t";
 	// tests[5] = "echo \"'\"''\"'\"";
 	// tests[6] = "echo \"ola\"'td'\"bem\"";
@@ -210,9 +246,10 @@ int main(void)
 	test_functions[5] = test_impossible_expansion_with_dollarsign_inside_var_values;
 	test_functions[6] = test_madness;
 	test_functions[7] = test_quote_inside_quote;
-	test_functions[8] = NULL;
-	test_functions[9] = NULL;
+	test_functions[8] = test_quoted_empty_var;
+	test_functions[9] = test_empty_var;
 	test_functions[10] = NULL;
+	test_functions[11] = NULL;
 	// test_functions[10] = test_lexer_unclosed_quotes;
 
 	int	test_len = 0;
