@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/03 00:00:01 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/03 23:13:56 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ char	test_madness(t_msh_ast *node)
 	expected[0] = "echo";
 	expected[1] = "hello";
 	expected[2] = "doideira infinita";
-	expected[3] = "\"big\"";
-	expected[4] = "world'";
+	expected[3] = "\"big";
+	expected[4] = "world\"";
 	expected[5] = NULL;	
 
 	char exit_status = tester_argv_cmp(expected, argv);
