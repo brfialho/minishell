@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:05:13 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 16:13:47 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 20:10:47 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	del_exp_var(void *content);
 void	fill_expd_str(char	*old, char *new, t_list *expd_var_lst);
 char	*expand_string(char *old_str);
 char	**expand_argv(char **old_argv);
+char	**split_unprotected_spaces(char *s, char c);
 
 #endif

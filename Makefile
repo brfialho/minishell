@@ -44,6 +44,7 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/expansion/expand_argv.c \
 	srcs/expansion/expand_string_utils.c \
 	srcs/expansion/expand_string.c \
+	srcs/expansion/split_unprotected_spaces.c \
 	srcs/execution/exec/exec.c \
 	srcs/execution/exec/exec_builtin_parent.c \
 	srcs/execution/pipeline/pipeline.c \

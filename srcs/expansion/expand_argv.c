@@ -6,13 +6,14 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 19:25:01 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 20:10:11 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
 static char	*trim_quotes(char *old_str);
+static void	mark_protected_quotes(char *s);
 
 char	**expand_argv(char **old_argv)
 {
@@ -64,4 +65,25 @@ static char	*trim_quotes(char *old_str)
 	}
 	free (old_str);
 	return (new_str);
+}
+
+static void	mark_protected_quotes(char *s)
+{
+	char	state;
+
+	state = 0;
+	while (*s)
+	{
+		if (state && *s == state)
+		{
+			*s = (state == '\'') * S_QUOTE + (state == '"') * D_QUOTE;
+			state = 0;
+		}
+		else if (state == 0 && (*s == '\'' || *s == '"'))
+		{
+			state = *s;
+			*s = (state == '\'') * S_QUOTE + (state == '"') * D_QUOTE;
+		}
+		s++;
+	}
 }
