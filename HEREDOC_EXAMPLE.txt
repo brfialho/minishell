@@ -5,8 +5,23 @@ cat << "end"
 > end
 '$USER'
 "end"
-
-
+***********************************************
+> cat << a | cat << b
+> a
+> b
+> a
+> b
+> asdsa
+> a
+> 
+> 
+> a
+> c
+> a
+> b
+> ^C
+> ^Z
+*********************************************
 2.
 brfialho@c1r6p4:~/Documents/CommonCore/minishell$ echo oi && echo td && echo bem && cat << end
 makehfaisdhsda

@@ -4,9 +4,9 @@ Arrumar testes da ast para trim apos parser
 Pensar na lógica das flags de expansão
 
 RAFA
-echo vazio
-export com espaço dentro de aspas
-exec AND OR
+
+retorno do comando export
+exec string heredoc.
 exec expansao
 
 
