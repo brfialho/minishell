@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion.c                                        :+:      :+:    :+:   */
+/*   expand_argv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 16:10:23 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 19:25:01 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
+
+static char	*trim_quotes(char *old_str);
 
 char	**expand_argv(char **old_argv)
 {
 	char	**argv;
 	char	*full_argv;
 	int		i;
-
+	
 	i = -1;
 	while (old_argv[++i])
 		old_argv[i] = expand_string(old_argv[i]);
@@ -28,8 +30,38 @@ char	**expand_argv(char **old_argv)
 		full_argv = ft_strjoin_free(full_argv, " ", TRUE, FALSE);
 		full_argv = ft_strjoin_free(full_argv, old_argv[i], TRUE, FALSE); 
 	}
-	argv = ft_split(full_argv, ' ');
+	argv = ft_split_no_quoted(full_argv, ' ');
+	i = -1;
+	while (argv[++i])
+		argv[i] = trim_quotes(argv[i]);
 	free(full_argv);
 	ft_split_print(argv);
 	return (argv);
+}
+
+static char	*trim_quotes(char *old_str)
+{
+	char	*new_str;
+	char	*new;
+	char	*old;
+	char	state;
+
+	new_str = ft_safe_calloc(ft_strlen(old_str) + 1, sizeof(char));
+	new = new_str;
+	old = old_str;
+	state = 0;
+	while (*old)
+	{
+		if (state && state == *old)
+		{
+			state = 0;
+			old++;
+		}
+		else if (state == 0 && (*old == '\'' || *old == '"'))
+			state = *old++;
+		else 
+			*new++ = *old++;
+	}
+	free (old_str);
+	return (new_str);
 }

@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:09:39 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 20:46:22 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 19:22:50 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static t_list	**get_exp_var_lst(char *s);
 static char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst);
 static int	get_expanded_len(char *s, t_list *expd_var_lst);
-static char	*trim_quotes(char *old_str);
 
 char	*expand_string(char *old_str)
 {
@@ -27,7 +26,6 @@ char	*expand_string(char *old_str)
 	expd_var_lst = get_exp_var_lst(old_str);
 	expd_str = ft_safe_calloc(get_expanded_len(old_str, *expd_var_lst) + 1, sizeof(char));
 	fill_expd_str(old_str, expd_str, *expd_var_lst);
-	expd_str = trim_quotes(expd_str);
 
 	// ft_printf("\nBEFORE: %s\n", old_str);
 	// ft_printf("AFTER : %s\n", expd_str);
@@ -91,31 +89,4 @@ static int	get_expanded_len(char *s, t_list *expd_var_lst)
 		lst = lst->next;
 	}
 	return (len);
-}
-
-static char	*trim_quotes(char *old_str)
-{
-	char	*new_str;
-	char	*new;
-	char	*old;
-	char	state;
-
-	new_str = ft_safe_calloc(ft_strlen(old_str) + 1, sizeof(char));
-	new = new_str;
-	old = old_str;
-	state = 0;
-	while (*old)
-	{
-		if (state && state == *old)
-		{
-			state = 0;
-			old++;
-		}
-		else if (state == 0 && (*old == '\'' || *old == '"'))
-			state = *old++;
-		else 
-			*new++ = *old++;
-	}
-	free (old_str);
-	return (new_str);
 }

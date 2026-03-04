@@ -143,3 +143,31 @@ Quote processing (marks protected regions)
 Variable expansion (substitutes values)
 Word splitting (splits unprotected spaces)
 Quote removal (removes the original quotes)
+
+argv[$a$b]
+
+export a= "hello world"
+
+echo "ola mundo" $A
+argv [echo, ola mundo, $A]
+argv [echo, ola mundo, "hello world"]
+
+join_split ' '
+echo ola mundo "hello world"
+
+echo "ola mundo" "hello world"
+
+ESPERADO
+[0] echo
+[1] ola mundo
+[2] "hello
+[3] world"
+
+MEU
+[0] echo
+[1] ola mundo
+[2] hello world
+
+a split tem que so ignorar espaços protegidos por aspas verdadeiras
+
+e a remção de aspas só deve remover aspas verdadeiras
