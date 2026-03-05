@@ -6,11 +6,12 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/04 17:44:57 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 11:01:40 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include "main.h"
 
 int	builtin_echo(t_cmd *cmd)
 {
@@ -67,8 +68,37 @@ int	builtin_env(t_env *env)
 	return (0);
 }
 
-int	builtin_exit(void)
+static int	is_valid_number(const char *str, long long *value)
 {
-	ft_printf("exit\n");
-	exit(0);
+	char	*endptr;
+
+	errno = 0;
+	*value = strtoll(str, &endptr, 10);
+	if (errno != 0 || *endptr != '\0')
+		return (0);
+	return (1);
 }
+
+int builtin_exit(t_cmd *cmd, int is_parent)
+{
+    long long value;
+
+    if (is_parent)
+        ft_printf("exit\n");
+    if (!cmd->argv[1])
+        exit(g_status_shell);
+    if (!is_valid_number(cmd->argv[1], &value))
+    {
+        ft_putstr_fd("minishell: exit: ", 2);
+        ft_putstr_fd(cmd->argv[1], 2);
+        ft_putendl_fd(": numeric argument required", 2);
+        exit(2);
+    }
+    if (cmd->argv[2])
+    {
+        ft_putendl_fd("minishell: exit: too many arguments", 2);
+        return (1);
+    }
+    exit((unsigned char)(value));
+}
+

@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 17:04:43 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 10:59:15 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			apply_redir_fd(int fd, t_n_redir *redir);
 int			solve_heredoc(t_n_redir *redir, t_cmd *cmd);
 int			read_heredoc_loop(t_n_redir *redir, int write_fd);
 int     	is_builtin(char *cmd);
-int			execute_builtin(t_cmd *cmd, t_env **env);
+int			execute_builtin(t_cmd *cmd, t_env **env, int is_parent);
 int			exec_builtin_parent(t_cmd *cmd, t_env **env);
 int			exec_pipeline_ast(t_ast *node, t_env **env);
 int			exec_pipeline_list(t_cmd *cmd, t_env **env);

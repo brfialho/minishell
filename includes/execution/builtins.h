@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:00:28 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/04 17:10:14 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 10:12:19 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		builtin_pwd(void);
 int		builtin_export(t_cmd *cmd, t_env **env);
 int		builtin_unset(t_cmd *cmd, t_env **env);
 int		builtin_env(t_env *envp);
-int		builtin_exit(void);
+int		builtin_exit(t_cmd *cmd, int is_parent);
 int		env_len(t_env *env);
 char	*ft_get_envp(t_env *env, char *key);
 char	**env_to_envp(t_env *env);
