@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:05:13 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 17:47:53 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:35:37 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXPANSION_H
 
 #include "libft.h"
-#include "utils.h"
+#include "defines.h"
 
 typedef struct s_expd
 {

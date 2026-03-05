@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 23:05:26 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:35:37 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft.h"
 # include "lexer.h"
-# include "utils.h"
+# include "defines.h"
 
 typedef enum e_node_type
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 15:04:50 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:35:37 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXECUTION_H
 
 # include "libft.h"
-# include "utils.h"
+# include "defines.h"
 # include "builtins.h"
 # include "handler.h"
 

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 18:46:12 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:35:20 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
- #define UTILS_H
+#ifndef DEFINES_H
+ #define DEFINES_H
 
 # include "libft.h"
 # include <unistd.h>

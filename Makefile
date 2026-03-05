@@ -15,7 +15,7 @@ define LOADING
 endef
 
 DEPENDENCIES= -lreadline
-INCLUDES= -Iincludes -Iincludes/execution -Iincludes/input_pipeline -Ilibft/headers -Itests/
+INCLUDES= -Iincludes -Ilibft/headers -Itests/
 CC= cc -Werror -Wextra -Wall -g $(INCLUDES)
 
 MAIN_SRC= srcs/main.c

@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:49 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 20:27:06 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:35:37 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LEXER_H
 
 #include "libft.h"
-# include "utils.h"
+# include "defines.h"
 
 typedef enum e_token_code
 {
