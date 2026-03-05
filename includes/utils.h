@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 20:10:03 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 21:37:53 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@
 # define SYNTAX_ERROR "Minishell: syntax error near unexpected token"
 
 // Expansion
-# define EXPAND_DELIMITER "$'\""
+# define ARGV_EXPAND_DELIMITER "$'\"\x01\x02"
 # define EXPAND_SPECIAL "$?"
-# define S_QUOTE 2
-# define D_QUOTE 1
+# define S_QUOTE '\x02'
+# define D_QUOTE '\x01'
 
 #endif

@@ -42,7 +42,7 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/input_pipeline/trim_quoted_tokens.c \
 	srcs/input_pipeline/input_pipeline.c \
 	srcs/expansion/expand_argv.c \
-	srcs/expansion/expand_string_utils.c \
+	srcs/expansion/expand_utils.c \
 	srcs/expansion/expand_string.c \
 	srcs/expansion/split_unprotected_spaces.c \
 	srcs/execution/exec/exec.c \

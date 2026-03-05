@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 18:29:50 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 21:34:36 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	test_complex_expansion(t_msh_ast *node)
 	expected[2] = NULL;
 
 	char exit_status = tester_argv_cmp(expected, argv);
-	// ft_printf("%s\n", expected[1]);
+	ft_printf("%s\n", expected[1]);
 	free(expected[1]);
 	free(expected);
 	return (exit_status);
