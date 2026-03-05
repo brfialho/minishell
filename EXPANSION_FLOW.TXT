@@ -83,7 +83,7 @@ EXPAND_REDIR[100] [1, 0, 1, NULL]
 
 
 echo OI$USER$$"$USER"'$USER$$'$USER'$$' 	OR "echo OI\$USER\$\$\"\$USER\"'\$USER\$\$'\$USER'\$\$'"
-OIbrfialho45453brfialho$USER$$brfialho$$
+OIbrfialho45453brfialho$USER$$brfialho$$		"echo OI\$USER1\$\$\"\$USER2\"'\$USER3\$\$'\$USER4'\$\$'"
 1110010
 
 IN LEXER:
@@ -103,3 +103,71 @@ INSIDE ARGV 1:
 OI$USER$$"$USER"'$USER$$'$USER'$$'
 OR
 OI$USER$$$USER$USER$$$USER$$
+
+$a$b
+
+argv0 "$a$b"
+
+argv0 "echo hello"
+
+argv0 echo
+argv1 hello
+
+argv0 echo
+argv1 hello 
+argv2 'world eba'
+
+export a=ech && export b="o hello" && export c="'big world'" && $a$b$c
+
+
+brfialho@c1r2p3:~/Documents/CommonCore/minishell$ export a=ech && export b="o hello" && export c=" 'big world'" && printf "arg1: [%s]\narg2: [%s]\n
+arg3: [%s]\n" $a$b "hello world"$c
+arg1: [echo]
+arg2: [hello]
+arg3: [hello world]
+arg1: ['big]
+arg2: [world']
+arg3: []
+
+brfialho@c1r2p3:~/Documents/CommonCore/minishell$ export a=ech && export b="o hello" && export f=" 'big world'" && (set -- $a$b "doideira infinita"$f; i=1; for arg; do echo "arg$i: [$arg]"; i=$((i+1)); done)
+arg1: [echo]
+arg2: [hello]
+arg3: [doideira infinita]
+arg4: ['big]
+arg5: [world']
+brfialho@c1r2p3:~/Documents/CommonCore/minishell$ 
+
+Why? Because bash processes quotes before variable expansion:
+
+Quote processing (marks protected regions)
+Variable expansion (substitutes values)
+Word splitting (splits unprotected spaces)
+Quote removal (removes the original quotes)
+
+argv[$a$b]
+
+export a= "hello world"
+
+echo "ola mundo" $A
+argv [echo, ola mundo, $A]
+argv [echo, ola mundo, "hello world"]
+
+join_split ' '
+echo ola mundo "hello world"
+
+echo "ola mundo" "hello world"
+
+ESPERADO
+[0] echo
+[1] ola mundo
+[2] "hello
+[3] world"
+
+MEU
+[0] echo
+[1] ola mundo
+[2] hello world
+
+a split tem que so ignorar espaços protegidos por aspas verdadeiras
+
+e a remção de aspas só deve remover aspas verdadeiras

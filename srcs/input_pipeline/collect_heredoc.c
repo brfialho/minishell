@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collect_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 17:21:54 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 15:08:38 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 16:47:59 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ void	collect_heredocs(t_ast *root)
 		while (lst)
 		{
 			if (((t_redir *)lst->content)->type == REDIR_HEREDOC)
-			{
 				heredoc(lst->content);
-				// ft_printf("HEREDOC STR: %s\n", ((t_redir *)lst->content)->target);
-			}
 			lst = lst->next;
 		}
 	}

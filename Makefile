@@ -39,8 +39,11 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/input_pipeline/parser/syntax_validator.c \
 	srcs/input_pipeline/parser/parser_error_handler.c \
 	srcs/input_pipeline/collect_heredoc.c \
-	srcs/input_pipeline/trim_quoted_tokens.c \
 	srcs/input_pipeline/input_pipeline.c \
+	srcs/expansion/expansion.c \
+	srcs/expansion/expand_utils.c \
+	srcs/expansion/expand_string.c \
+	srcs/expansion/split_unprotected_spaces.c \
 	srcs/execution/exec/exec.c \
 	srcs/execution/exec/exec_builtin_parent.c \
 	srcs/execution/pipeline/pipeline.c \
@@ -72,7 +75,7 @@ LIBFT= libft/libft.a
 LIBPATH= libft/
 
 TEST_BIN_DIR= tests/bin/
-TEST_NAMES= lexer ast
+TEST_NAMES= lexer ast expansion
 TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
 VALGRIND = valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all
@@ -80,7 +83,7 @@ VALGRIND = valgrind --suppressions=readline.supp --leak-check=full --show-leak-k
 
 all: $(LIBFT) $(NAME)
 
-parse: all
+parse: re_nolib
 
 exec: re_nolib
 
@@ -103,6 +106,11 @@ $(TEST_BIN_DIR)lexer: tests/tester_lexer/tester_lexer.c $(LIBFT) $(OBJ)
 	@$(CC) $< $(OBJ) $(LIBFT) $(DEPENDENCIES) -o $@
 
 $(TEST_BIN_DIR)ast: tests/tester_ast/tester_ast.c $(LIBFT) $(OBJ)
+	@mkdir -p $(TEST_BIN_DIR)
+	@echo "$(MAGENTA)Compiling test$(RESET) $(notdir $@)"
+	@$(CC) $< $(OBJ) $(LIBFT) $(DEPENDENCIES) -o $@
+
+$(TEST_BIN_DIR)expansion: tests/tester_expansion/tester_expansion.c $(LIBFT) $(OBJ)
 	@mkdir -p $(TEST_BIN_DIR)
 	@echo "$(MAGENTA)Compiling test$(RESET) $(notdir $@)"
 	@$(CC) $< $(OBJ) $(LIBFT) $(DEPENDENCIES) -o $@

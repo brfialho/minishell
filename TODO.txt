@@ -1,17 +1,20 @@
 BRUNO
-Remover dados vestigiais dos structs da arvore e lexer e refatorar teste
-Arrumar testes da ast para trim apos parser
-Pensar na lógica das flags de expansão
+Remover dados vestigiais dos structs da arvore e lexer
+resolver questao de leaks na expansao depois que falar com rafa
 
 RAFA
 
 exec string heredoc.
 exec expansao
 consertar still reachable
+heredoc pegagndo o errado
 
 GERAL
 Arrumar sinais
 Arrumar ctrl shift V
+
+
+
 
 QUANDO FOR MERGEAR LEMBRAR DE PRIMEIRO FAZER O MERGE NA BRANCH
 FLUXO:
