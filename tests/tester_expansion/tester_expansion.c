@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 23:24:06 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 23:40:50 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,11 +224,12 @@ char	test_final_boss(t_msh_ast *node)
 
 char	test_redir_expansion(t_msh_ast *node)
 {
-	char	*str = expand_redir(((t_redir *)((t_list *)*(node->redir))->content)->target);
+	if (expand_redir(((t_list *)*(node->redir))->content))
+		return (EXIT_FAILURE);
 
 	char	*expected = ft_strdup("filename");
 
-	char exit_status = ft_strcmp(str, expected);
+	char exit_status = ft_strcmp(((t_redir *)((t_list *)*(node->redir))->content)->target, expected);
 	free(expected);
 	// ft_printf("%s\n", expected[1]);
 	return (exit_status);
@@ -236,11 +237,12 @@ char	test_redir_expansion(t_msh_ast *node)
 
 char	test_redir_no_expansion(t_msh_ast *node)
 {
-	char	*str = expand_redir(((t_redir *)((t_list *)*(node->redir))->content)->target);
+	if (expand_redir(((t_list *)*(node->redir))->content))
+		return (EXIT_FAILURE);
 
 	char	*expected = ft_strdup("$h");
 
-	char exit_status = ft_strcmp(str, expected);
+	char exit_status = ft_strcmp(((t_redir *)((t_list *)*(node->redir))->content)->target, expected);
 	free(expected);
 	// ft_printf("%s\n", expected[1]);
 	return (exit_status);
@@ -248,11 +250,12 @@ char	test_redir_no_expansion(t_msh_ast *node)
 
 char	test_redir_quoted_expansion(t_msh_ast *node)
 {
-	char	*str = expand_redir(((t_redir *)((t_list *)*(node->redir))->content)->target);
+	if (expand_redir(((t_list *)*(node->redir))->content))
+		return (EXIT_FAILURE);
 
 	char	*expected = ft_strdup("filename");
 
-	char exit_status = ft_strcmp(str, expected);
+	char exit_status = ft_strcmp(((t_redir *)((t_list *)*(node->redir))->content)->target, expected);
 	free(expected);
 	// ft_printf("%s\n", expected[1]);
 	return (exit_status);

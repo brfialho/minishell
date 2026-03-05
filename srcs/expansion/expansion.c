@@ -6,11 +6,12 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 23:17:10 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 23:38:45 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
+#include "parser.h"
 
 char	**expand_argv(char **old_argv)
 {
@@ -40,14 +41,20 @@ char	**expand_argv(char **old_argv)
 	return (argv);
 }
 
-char	*expand_redir(char	*old_str)
+t_bool	expand_redir(t_redir *redir)
 {
-	ft_printf("OLD: %s\n", old_str);
-	mark_protected_quotes(old_str);
-	ft_printf("MARK: %s\n", old_str);
-	old_str = expand_string(old_str);
-	ft_printf("EXPAND: %s\n", old_str);
-	// word_split = split_unprotected_spaces(old_str, ' ');
-	return (old_str);	
+	char	**word_split;
+
+	ft_printf("OLD: %s\n", redir->target);
+	mark_protected_quotes(redir->target);
+	ft_printf("MARK: %s\n", redir->target);
+	redir->target = expand_string(redir->target);
+	ft_printf("EXPAND: %s\n", redir->target);
+	word_split = split_unprotected_spaces(redir->target, ' ');
+	if (ft_split_len(word_split) != 1)
+		return (ft_split_free(word_split), EXIT_FAILURE);
+	redir->target = trim_quotes(word_split[0]);
+	free(word_split);
+	return (EXIT_SUCCESS);	
 }
 
