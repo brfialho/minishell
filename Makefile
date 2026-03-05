@@ -39,7 +39,6 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/input_pipeline/parser/syntax_validator.c \
 	srcs/input_pipeline/parser/parser_error_handler.c \
 	srcs/input_pipeline/collect_heredoc.c \
-	srcs/input_pipeline/trim_quoted_tokens.c \
 	srcs/input_pipeline/input_pipeline.c \
 	srcs/expansion/expand_argv.c \
 	srcs/expansion/expand_utils.c \
