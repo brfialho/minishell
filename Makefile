@@ -75,6 +75,8 @@ TEST_BIN_DIR= tests/bin/
 TEST_NAMES= lexer ast
 TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
+VALGRIND = valgrind --suppressions=readline.supp --leak-check=full
+
 all: $(LIBFT) $(NAME)
 
 parse: all
@@ -120,6 +122,9 @@ fclean:
 
 re: fclean all
 
+leaks: all $(valgrind)
+	@$(VALGRIND) ./$(NAME)
+	
 clean_nolib:
 	@echo "$(MAGENTA)Cleansing $(NAME) Objects"
 	$(LOADING)
