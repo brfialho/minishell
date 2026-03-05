@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 18:36:16 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 19:53:14 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	**expand_argv(char **old_argv, t_env **env)
 	char	*full_argv;
 	int		i;
 
-	// DUP ARGV
+	old_argv = ft_split_deep_dup(old_argv);
 	i = -1;
 	while (old_argv[++i])
 		mark_protected_quotes(old_argv[i]);
@@ -38,12 +38,12 @@ char	**expand_argv(char **old_argv, t_env **env)
 		full_argv = ft_strjoin_free(full_argv, " ", TRUE, FALSE);
 		full_argv = ft_strjoin_free(full_argv, old_argv[i], TRUE, FALSE); 
 	}
+	ft_split_free(old_argv);
 	argv = split_unprotected_spaces(full_argv, ' ');
+	free(full_argv);
 	i = -1;
 	while (argv[++i])
 		argv[i] = trim_quotes(argv[i]);
-	free(full_argv);
-	// ft_split_print(argv);
 	return (argv);
 }
 
