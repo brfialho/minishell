@@ -6,16 +6,19 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 14:58:59 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:53:06 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include "main.h"
 
 void	exec_child(t_cmd *cmd, t_env **env)
 {
 	char	**envp_exec;
 
+	if (!cmd->argv || !cmd->argv[0])
+    	exit(0);
 	if (is_builtin(cmd->argv[0]))
 	{
 		exec_builtin_child(cmd, env);
@@ -59,17 +62,13 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env)
 
 int	ft_exec_cmd(t_cmd *cmd, t_env **env)
 {
-    if (!cmd || !cmd->argv || !cmd->argv[0])
+    if (!cmd || !cmd->argv || !cmd->argv[0] || cmd->argv[0][0] == '\0')
         return (0);
     if (cmd->argv[0][0] == '\0')
     {
         ft_putendl_fd("minishell: : command not found", 2);
         return (127);
     }
-	// REBUILD ARGV()
-		//	EXPAND(ARGV_ANTIGO)
-		//	STRING = JUNTAR TODOS OS ARGVS EM UMA STRING
-		//	NOVO ARGV = SPLIT (STRTING)
     if (is_builtin(cmd->argv[0]))
         return (exec_builtin_parent(cmd, env));
     cmd->path = get_path_dirs(cmd, env);
