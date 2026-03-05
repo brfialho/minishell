@@ -6,25 +6,25 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:09:39 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 23:20:43 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 00:49:11 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-static t_list	**get_exp_var_lst(char *s);
+static t_list	**get_exp_var_lst(char *s, t_bool heredoc);
 static char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst);
 static int	get_expanded_len(char *s, t_list *expd_var_lst);
 static void	fill_expd_str(char	*old, char *new, t_list *expd_var_lst);
 
-char	*expand_string(char *old_str)
+char	*expand_string(char *old_str, t_bool heredoc)
 {
 	t_list	**expd_var_lst;
 	char	*expd_str;
 
 	if (!ft_str_charcount(old_str, '$'))
 		return (old_str);
-	expd_var_lst = get_exp_var_lst(old_str);
+	expd_var_lst = get_exp_var_lst(old_str, heredoc);
 	expd_str = ft_safe_calloc(get_expanded_len(old_str, *expd_var_lst) + 1, sizeof(char));
 	fill_expd_str(old_str, expd_str, *expd_var_lst);
 	lst_del_all(expd_var_lst, del_exp_var);
@@ -33,7 +33,7 @@ char	*expand_string(char *old_str)
 	return (expd_str);
 }
 
-static t_list	**get_exp_var_lst(char *s)
+static t_list	**get_exp_var_lst(char *s, t_bool heredoc)
 {
 	char	state;
 	t_list 	**expd_var_lst;
@@ -46,7 +46,7 @@ static t_list	**get_exp_var_lst(char *s)
 			state = 0;
 		else if (state == 0 && (*s == S_QUOTE || *s == D_QUOTE))
 			state = *s;
-		if (*s == '$' && *(s + 1) && state != S_QUOTE)
+		if (*s == '$' && *(s + 1) && ((!heredoc && state != S_QUOTE) || heredoc))
 			s = set_new_expd_var_info(s + 1, expd_var_lst);
 		s++;
 	}

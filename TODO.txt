@@ -1,10 +1,6 @@
 BRUNO
-Arrumar testes da ast sem trim
-função de expandir string
-função de expadiir argv
-função de expandir redir 
-função de expadir  heredoc
-Remover dados vestigiais dos structs da arvore e lexer e refatorar teste
+Remover dados vestigiais dos structs da arvore e lexer
+resolver questao de leaks na expansao depois que falar com rafa
 
 RAFA
 echo vazio

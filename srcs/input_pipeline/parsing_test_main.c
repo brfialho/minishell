@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/02 22:19:27 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 00:42:40 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,34 @@ int g_status_shell = 0;
 
 
 
+// int main(int argc, char **argv)
+// {
+// 	if (argc != 2)
+// 		return 1;
+// 	char **split = ft_split_no_quoted(argv[1], ' ');
+// 	ft_split_print(split);
+// 	ft_split_free(split);
+// }
+
 int main(int argc, char **argv)
 {
 	if (argc != 2)
-		return 1;
-	char **split = ft_split_no_quoted(argv[1], ' ');
-	ft_split_print(split);
-	ft_split_free(split);
+		return (1);
+
+	t_mini	mini;
+
+	ft_bzero(&mini ,sizeof(t_mini));
+	
+	mini.input = argv[1];
+	process_input_pipeline(&mini);
+	
+	t_ast *root = *mini.root;
+	t_msh_ast *content = root->content;
+	t_redir *heredoc = ((t_list *)*content->redir)->content;
+
+	expand_heredoc(heredoc);
+	// expand_redir(heredoczao);
+	// destroy_cicle(&mini);
 }
 
 // "echo \$EXPAND'\$NOEXPAND'\"\$EXPAND\"algumacoisanadahaver\$EXPAND";

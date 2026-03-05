@@ -78,7 +78,7 @@ TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
 all: $(LIBFT) $(NAME)
 
-parse: all
+parse: re_nolib
 
 exec: re_nolib
 
