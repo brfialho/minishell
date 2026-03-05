@@ -6,11 +6,12 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:09:39 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 00:49:11 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 17:08:35 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
+#include "builtins.h"
 
 static t_list	**get_exp_var_lst(char *s, t_bool heredoc);
 static char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst);
@@ -68,6 +69,7 @@ static char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst)
 		len++;
 	content->env_key = ft_substr(s, 0, len);
 	content->env_value = getenv(content->env_key);
+	// content->env_value = ft_get_envp();
 	s += len - 1;
 	lst_add_end(expd_var_lst, lst_new_node(content));
 	return (s);

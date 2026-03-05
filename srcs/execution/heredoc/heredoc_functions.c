@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:22:24 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 15:09:38 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 17:42:15 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	setup_heredoc_to_stdin(char *heredoc_string)
 {
     int pipe_fd[2];
 
+    // ft_printf("RAFA: %s\n", heredoc_string);
     if (pipe(pipe_fd) == -1)
     {
         perror("minishell: pipe error");

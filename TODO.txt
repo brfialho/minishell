@@ -1,9 +1,14 @@
 BRUNO
 Remover dados vestigiais dos structs da arvore e lexer
 resolver questao de leaks na expansao depois que falar com rafa
+dup as parada 
+funcao de destroy redir
+receber env na expansao
+$$ $?
 
 RAFA
 
+checar heredoc
 exec string heredoc.
 exec expansao
 consertar still reachable

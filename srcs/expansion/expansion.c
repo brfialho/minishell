@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 00:50:15 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 17:36:15 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	**expand_argv(char **old_argv)
 	char	*full_argv;
 	int		i;
 
+	// DUP ARGV
 	i = -1;
 	while (old_argv[++i])
 		mark_protected_quotes(old_argv[i]);
@@ -42,7 +43,7 @@ char	**expand_argv(char **old_argv)
 	while (argv[++i])
 		argv[i] = trim_quotes(argv[i]);
 	free(full_argv);
-	ft_split_print(argv);
+	// ft_split_print(argv);
 	return (argv);
 }
 
@@ -50,6 +51,7 @@ t_bool	expand_redir(t_redir *redir)
 {
 	char	**word_split;
 
+	// DUP ALL
 	if (!ft_str_charcount(redir->target, '$'))
 		return (EXIT_SUCCESS);
 	mark_protected_quotes(redir->target);
@@ -64,6 +66,7 @@ t_bool	expand_redir(t_redir *redir)
 
 void	expand_heredoc(t_redir *redir)
 {
+	// DUP ALL
 	if (redir->type != REDIR_HEREDOC)
 		return ;
 	mark_protected_quotes(redir->target);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 15:53:06 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 17:43:22 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,26 @@ int exec_node(t_ast *node, t_env **env)
 	return (1);
 }
 
+t_bool	expand_all_redir(t_list **redir_lst)
+{
+	t_list	*lst;
+	t_bool	error;
+
+	lst = *redir_lst;
+	error = FALSE;
+	while (lst)
+	{
+		if (((t_redir *)lst->content)->type == REDIR_HEREDOC)
+			expand_heredoc(lst->content);
+		else if (((t_redir *)lst->content)->type != REDIR_HEREDOC_NO_EXPANSION)
+			error = expand_redir(lst->content);
+		if (error)
+			return(ft_printf("Minishell: $%d: ambigous redirect", ((t_redir *)lst->content)->target), error);
+		lst = lst->next;
+	}
+	return (EXIT_SUCCESS);
+}
+
 int exec_single_ast(t_ast *node, t_env **env)
 {
     t_msh_ast	*data;
@@ -120,8 +140,10 @@ int exec_single_ast(t_ast *node, t_env **env)
         return (0);
     data = (t_msh_ast *)node->content;
     if (!data->argv)
-        return (1);
-    cmd.argv = data->argv;
+		return (1);
+	int erro = expand_all_redir(data->redir);
+		return erro;
+	cmd.argv = expand_argv(data->argv);
     cmd.path = data->path;
     cmd.heredoc_fd = -1;
     cmd.next = NULL;
@@ -135,3 +157,6 @@ int exec_single_ast(t_ast *node, t_env **env)
         free(cmd.path);
     return (result);
 }
+
+// free argv
+// free redir
