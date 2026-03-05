@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 21:34:36 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 22:23:05 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,24 @@ char	test_empty_var(t_msh_ast *node)
 	return (exit_status);
 }
 
+char	test_final_boss(t_msh_ast *node)
+{
+	char	**argv = expand_argv(node->argv);
+
+	char	**expected = ft_safe_calloc(4, sizeof(char *));
+
+	// "echo '$X'\"$X '$X'$X\"$X'\"$X\"$X'";
+	expected[0] = "echo";
+	expected[1] = "$X\"Hello World\" '\"Hello World\"'\"Hello World\"\"Hello";
+	expected[2] = "World\"\"$X\"$X";
+	expected[3] = NULL;
+
+	char exit_status = tester_argv_cmp(expected, argv);
+	// ft_printf("%s\n", expected[1]);
+	free(expected);
+	return (exit_status);
+}
+
 int main(void)
 {
 	t_mini	mini;
@@ -218,6 +236,7 @@ int main(void)
 	setenv("e", "USER", 1);
 	setenv("f", " \"big world\"", 1);
 	setenv("g", "", 1);
+	setenv("X", "\"Hello World\"", 1);
 	
 
 	tests[0] = "echo Hello $USER";
@@ -230,13 +249,7 @@ int main(void)
 	tests[7] = "echo \"'hello world'\" '\"hello world\"'";
 	tests[8] = "echo \"$g\" hello";
 	tests[9] = "echo $g hello";
-	// tests[4] = "echo ola\"$USER\"seu\" \"pid$$'$USER''hello'''ola\"oi\"\"\"t";
-	// tests[5] = "echo \"'\"''\"'\"";
-	// tests[6] = "echo \"ola\"'td'\"bem\"";
-	// tests[7] = "echo \"ola\" 'td'\" bem\"";
-	// tests[8] = "echo oi 'ola' outracoisaai>f1&& echo \"oi\"'ola'\"outracoisaai\" > f2 > f3";
-	// tests[9] = "echo & &&& this-should-be-a'&'-cmd-but-this '&&' \"&&\" && &";
-	// tests[10] = "echo \"Hello World";
+	tests[10] = "echo '$X'\"$X '$X'$X\"$X'\"$X\"$X'";
 
 	test_functions[0] = test_simple_expansion;
 	test_functions[1] = test_simple_no_expansion;
@@ -248,7 +261,7 @@ int main(void)
 	test_functions[7] = test_quote_inside_quote;
 	test_functions[8] = test_quoted_empty_var;
 	test_functions[9] = test_empty_var;
-	test_functions[10] = NULL;
+	test_functions[10] = test_final_boss;
 	test_functions[11] = NULL;
 	// test_functions[10] = test_lexer_unclosed_quotes;
 
