@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 17:43:22 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 18:25:59 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int exec_node(t_ast *node, t_env **env)
 	return (1);
 }
 
-t_bool	expand_all_redir(t_list **redir_lst)
+t_bool	expand_all_redir(t_list **redir_lst, t_env **env)
 {
 	t_list	*lst;
 	t_bool	error;
@@ -119,9 +119,9 @@ t_bool	expand_all_redir(t_list **redir_lst)
 	while (lst)
 	{
 		if (((t_redir *)lst->content)->type == REDIR_HEREDOC)
-			expand_heredoc(lst->content);
+			expand_heredoc(lst->content, env);
 		else if (((t_redir *)lst->content)->type != REDIR_HEREDOC_NO_EXPANSION)
-			error = expand_redir(lst->content);
+			error = expand_redir(lst->content, env);
 		if (error)
 			return(ft_printf("Minishell: $%d: ambigous redirect", ((t_redir *)lst->content)->target), error);
 		lst = lst->next;
@@ -141,9 +141,9 @@ int exec_single_ast(t_ast *node, t_env **env)
     data = (t_msh_ast *)node->content;
     if (!data->argv)
 		return (1);
-	int erro = expand_all_redir(data->redir);
-		return erro;
-	cmd.argv = expand_argv(data->argv);
+	if (expand_all_redir(data->redir, env))
+		return 1;
+	cmd.argv = expand_argv(data->argv, env);
     cmd.path = data->path;
     cmd.heredoc_fd = -1;
     cmd.next = NULL;

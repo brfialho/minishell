@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_functions_two.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 09:58:33 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 13:21:37 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 18:30:22 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 char	*ft_get_envp(t_env *env, char *key)
 {
-	while (env)
+	t_env	*lst;
+
+	lst = env;
+	while (lst)
 	{
-		if (!strcmp(env->key, key))
-			return (env->value);
-		env = env->next;
+		if (!strcmp(lst->key, key))
+			return (lst->value);
+		lst = lst->next;
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 16:44:32 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 18:29:49 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define EXIT_CODE 130
 
 // Readlines
-# define PROMPT "\001\033[31m\033[1m\002🔥Minihell\001\033[0m\033[1m🔥 \033[0m\002"
+# define PROMPT RED BOLD "🔥Minihell" RESET
 
 // Error Messages
 # define QUOTE_ERROR "Minishell: unexpected EOF while looking for matching"

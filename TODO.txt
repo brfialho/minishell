@@ -17,7 +17,7 @@ heredoc pegagndo o errado
 GERAL
 Arrumar sinais
 Arrumar ctrl shift V
-
+Arrumar readline
 
 
 

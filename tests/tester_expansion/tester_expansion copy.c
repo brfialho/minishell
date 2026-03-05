@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 18:25:21 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 00:27:09 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static char	tester_argv_cmp(char **expected, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-char	test_simple_expansion(t_msh_ast *node, t_env **env)
+char	test_simple_expansion(t_msh_ast *node)
 {
-	char	**argv = expand_argv(node->argv, env);
+	char	**argv = expand_argv(node->argv);
 
 	char	**expected = ft_safe_calloc(4, sizeof(char *));
 
@@ -42,9 +42,9 @@ char	test_simple_expansion(t_msh_ast *node, t_env **env)
 	return (exit_status);
 }
 
-char	test_simple_no_expansion(t_msh_ast *node, t_env **env)
+char	test_simple_no_expansion(t_msh_ast *node)
 {
-	char	**argv = expand_argv(node->argv, env);
+	char	**argv = expand_argv(node->argv);
 
 	char	**expected = ft_safe_calloc(3, sizeof(char *));
 
@@ -57,9 +57,9 @@ char	test_simple_no_expansion(t_msh_ast *node, t_env **env)
 	return (exit_status);
 }
 
-char	test_simple_quoted_expansion(t_msh_ast *node, t_env **env)
+char	test_simple_quoted_expansion(t_msh_ast *node)
 {
-	char	**argv = expand_argv(node->argv, env);
+	char	**argv = expand_argv(node->argv);
 
 	char	**expected = ft_safe_calloc(3, sizeof(char *));
 
@@ -75,9 +75,9 @@ char	test_simple_quoted_expansion(t_msh_ast *node, t_env **env)
 
 #define TEST_3_VAR_0 (ft_strcmp(getenv("USER"), "(null)") ? getenv("USER") : "")
 
-char	test_complex_expansion(t_msh_ast *node, t_env **env)
+char	test_complex_expansion(t_msh_ast *node)
 {
-	char	**argv = expand_argv(node->argv, env);
+	char	**argv = expand_argv(node->argv);
 
 	char	**expected = ft_safe_calloc(3, sizeof(char *));
 
@@ -99,9 +99,9 @@ char	test_complex_expansion(t_msh_ast *node, t_env **env)
 }
 
 
-char	test_complex_expansion_with_spaces_in_vars(t_msh_ast *node, t_env **env)
+char	test_complex_expansion_with_spaces_in_vars(t_msh_ast *node)
 {
-	char	**argv = expand_argv(node->argv, env);
+	char	**argv = expand_argv(node->argv);
 
 	char	**expected = ft_safe_calloc(5, sizeof(char *));
 
@@ -118,9 +118,9 @@ char	test_complex_expansion_with_spaces_in_vars(t_msh_ast *node, t_env **env)
 	return (exit_status);
 }
 
-char	test_impossible_expansion_with_dollarsign_inside_var_values(t_msh_ast *node, t_env **env)
+char	test_impossible_expansion_with_dollarsign_inside_var_values(t_msh_ast *node)
 {
-	char	**argv = expand_argv(node->argv, env);
+	char	**argv = expand_argv(node->argv);
 
 	char	**expected = ft_safe_calloc(2, sizeof(char *));
 
@@ -134,9 +134,9 @@ char	test_impossible_expansion_with_dollarsign_inside_var_values(t_msh_ast *node
 	return (exit_status);
 }
 
-char	test_madness(t_msh_ast *node, t_env **env)
+char	test_madness(t_msh_ast *node)
 {
-	char	**argv = expand_argv(node->argv, env);
+	char	**argv = expand_argv(node->argv);
 
 	char	**expected = ft_safe_calloc(6, sizeof(char *));
 
@@ -154,9 +154,9 @@ char	test_madness(t_msh_ast *node, t_env **env)
 }
 
 
-char	test_quote_inside_quote(t_msh_ast *node, t_env **env)
+char	test_quote_inside_quote(t_msh_ast *node)
 {
-	char	**argv = expand_argv(node->argv, env);
+	char	**argv = expand_argv(node->argv);
 
 	char	**expected = ft_safe_calloc(4, sizeof(char *));
 
@@ -171,9 +171,9 @@ char	test_quote_inside_quote(t_msh_ast *node, t_env **env)
 	return (exit_status);
 }
 
-char	test_quoted_empty_var(t_msh_ast *node, t_env **env)
+char	test_quoted_empty_var(t_msh_ast *node)
 {
-	char	**argv = expand_argv(node->argv, env);
+	char	**argv = expand_argv(node->argv);
 
 	char	**expected = ft_safe_calloc(4, sizeof(char *));
 
@@ -188,9 +188,9 @@ char	test_quoted_empty_var(t_msh_ast *node, t_env **env)
 	return (exit_status);
 }
 
-char	test_empty_var(t_msh_ast *node, t_env **env)
+char	test_empty_var(t_msh_ast *node)
 {
-	char	**argv = expand_argv(node->argv, env);
+	char	**argv = expand_argv(node->argv);
 
 	char	**expected = ft_safe_calloc(3, sizeof(char *));
 
@@ -204,9 +204,9 @@ char	test_empty_var(t_msh_ast *node, t_env **env)
 	return (exit_status);
 }
 
-char	test_final_boss(t_msh_ast *node, t_env **env)
+char	test_final_boss(t_msh_ast *node)
 {
-	char	**argv = expand_argv(node->argv, env);
+	char	**argv = expand_argv(node->argv);
 
 	char	**expected = ft_safe_calloc(4, sizeof(char *));
 
@@ -222,9 +222,9 @@ char	test_final_boss(t_msh_ast *node, t_env **env)
 	return (exit_status);
 }
 
-char	test_redir_expansion(t_msh_ast *node, t_env **env)
+char	test_redir_expansion(t_msh_ast *node)
 {
-	if (expand_redir(((t_list *)*(node->redir))->content, env))
+	if (expand_redir(((t_list *)*(node->redir))->content))
 		return (EXIT_FAILURE);
 
 	char	*expected = ft_strdup("filename");
@@ -235,9 +235,9 @@ char	test_redir_expansion(t_msh_ast *node, t_env **env)
 	return (exit_status);
 }
 
-char	test_redir_no_expansion(t_msh_ast *node, t_env **env)
+char	test_redir_no_expansion(t_msh_ast *node)
 {
-	if (expand_redir(((t_list *)*(node->redir))->content, env))
+	if (expand_redir(((t_list *)*(node->redir))->content))
 		return (EXIT_FAILURE);
 
 	char	*expected = ft_strdup("$h");
@@ -248,9 +248,9 @@ char	test_redir_no_expansion(t_msh_ast *node, t_env **env)
 	return (exit_status);
 }
 
-char	test_redir_quoted_expansion(t_msh_ast *node, t_env **env)
+char	test_redir_quoted_expansion(t_msh_ast *node)
 {
-	if (expand_redir(((t_list *)*(node->redir))->content, env))
+	if (expand_redir(((t_list *)*(node->redir))->content))
 		return (EXIT_FAILURE);
 
 	char	*expected = ft_strdup("filename");
@@ -261,14 +261,14 @@ char	test_redir_quoted_expansion(t_msh_ast *node, t_env **env)
 	return (exit_status);
 }
 
-char	test_redir_ambigous(t_msh_ast *node, t_env **env)
+char	test_redir_ambigous(t_msh_ast *node)
 {
-	return (!expand_redir(((t_list *)*(node->redir))->content, env));
+	return (!expand_redir(((t_list *)*(node->redir))->content));
 }
 
-char	test_complex_valid_expansion(t_msh_ast *node, t_env **env)
+char	test_complex_valid_expansion(t_msh_ast *node)
 {
-	if (expand_redir(((t_list *)*(node->redir))->content, env))
+	if (expand_redir(((t_list *)*(node->redir))->content))
 		return (EXIT_FAILURE);
 
 	// "\"Hello World\"";
@@ -281,29 +281,23 @@ char	test_complex_valid_expansion(t_msh_ast *node, t_env **env)
 	return (exit_status);
 }
 
-int main(int argc, char **argv, char **envp)
+int main(void)
 {
-	(void)argc;
-	(void)argv;
 	t_mini	mini;
 	ft_bzero(&mini, sizeof(mini));
 	char	*tests[100] = {NULL};
-	char	(*test_functions[100])(t_msh_ast *, t_env **);
-
-	mini.env = env_from_envp(envp);
-	ft_set_env(&mini.env, "a", "ech");
-	ft_set_env(&mini.env, "b", "o hello");
-	ft_set_env(&mini.env, "c", " world :)");
-	ft_set_env(&mini.env, "d", "$");
-	ft_set_env(&mini.env, "e", "USER");
-	ft_set_env(&mini.env, "f", " \"big world\"");
-	ft_set_env(&mini.env, "g", "");
-	ft_set_env(&mini.env, "X", "\"Hello World\"");
-	ft_set_env(&mini.env, "h", "filename");
-	ft_set_env(&mini.env, "i", "\"Hello World\"");
-
+	char	(*test_functions[100])(t_msh_ast *);
 
 	// ARGV EXPANSION
+	setenv("a", "ech", 1);
+	setenv("b", "o hello", 1);
+	setenv("c", " world :)", 1);
+	setenv("d", "$", 1);
+	setenv("e", "USER", 1);
+	setenv("f", " \"big world\"", 1);
+	setenv("g", "", 1);
+	setenv("X", "\"Hello World\"", 1);
+
 	tests[0] = "echo Hello $USER";
 	tests[1] = "echo Hello $ASGYUASGUGA";
 	tests[2] = "echo \"Hello $USER\"";
@@ -329,7 +323,8 @@ int main(int argc, char **argv, char **envp)
 	test_functions[10] = test_final_boss;
 
 	// REDIR EXPANSION
-
+	setenv("h", "filename", 1);
+	setenv("i", "\"Hello World\"", 1);
 
 	tests[11] = ">$h";
 	tests[12] = ">'$h'";
@@ -352,11 +347,12 @@ int main(int argc, char **argv, char **envp)
 	ft_printf(TEST, i + 1, tests[i]);
 	mini.input = tests[i];
 	process_input_pipeline(&mini);
-	if (test_functions[i]((*mini.root)->content, &mini.env))
+	if (test_functions[i]((*mini.root)->content))
 		ft_printf(FAIL);
 	else
 		ft_printf(SUCCESS);
 	lexer_destroy(&mini.lexer);
 	parser_destroy(mini.root);
+	ft_bzero(&mini, sizeof(mini));
 	}
 }
