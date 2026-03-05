@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 19:53:14 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:10:05 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_bool	expand_redir(t_redir *redir, t_env **env)
 {
 	char	**word_split;
 
-	// DUP ALL
 	if (!ft_str_charcount(redir->target, '$'))
 		return (EXIT_SUCCESS);
 	mark_protected_quotes(redir->target);
@@ -66,7 +65,6 @@ t_bool	expand_redir(t_redir *redir, t_env **env)
 
 void	expand_heredoc(t_redir *redir, t_env **env)
 {
-	// DUP ALL
 	if (redir->type != REDIR_HEREDOC)
 		return ;
 	mark_protected_quotes(redir->target);

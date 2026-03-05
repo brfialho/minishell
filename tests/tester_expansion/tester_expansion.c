@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 18:25:21 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:15:29 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,7 +356,6 @@ int main(int argc, char **argv, char **envp)
 		ft_printf(FAIL);
 	else
 		ft_printf(SUCCESS);
-	lexer_destroy(&mini.lexer);
 	parser_destroy(mini.root);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:22:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 23:24:28 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:14:18 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_bool	process_input_pipeline(t_mini *mini)
 	mini->error_code = parser(&mini->root, &mini->lexer);
 	if (mini->error_code)
 		return (parser_error_handler(mini), EXIT_FAILURE);
+	lexer_destroy(&mini->lexer);
 	collect_heredocs(*mini->root);
 	return (EXIT_SUCCESS);
 }

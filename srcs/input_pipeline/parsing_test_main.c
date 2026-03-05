@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 20:05:27 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:15:08 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ int	main(int argc, char **argv, char **envp)
 	char **new_argv = expand_argv(content->argv, &mini.env);
 	ft_split_print(new_argv);
 	ft_split_free(new_argv);
-	lexer_destroy(&mini.lexer);
 	parser_destroy(mini.root);
 	env_clear(&mini.env);
 	(void)envp;
