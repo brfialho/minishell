@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 10:59:15 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:04:50 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include "handler.h"
 
 int			ft_exec_cmd(t_cmd *cmd, t_env **envp);
-int 		prepare_heredocs(t_n_redir *redir, t_cmd *cmd);
+// int 		prepare_heredocs(t_n_redir *redir, t_cmd *cmd);
+// int		solve_heredoc(t_n_redir *redir, t_cmd *cmd);
+// int		read_heredoc_loop(t_n_redir *redir, int write_fd);
 int 		apply_redirections(t_n_redir *redir, t_cmd *cmd);
 int			open_redir_fd(t_n_redir *redir);
 int			apply_redir_fd(int fd, t_n_redir *redir);
-int			solve_heredoc(t_n_redir *redir, t_cmd *cmd);
-int			read_heredoc_loop(t_n_redir *redir, int write_fd);
 int     	is_builtin(char *cmd);
 int			execute_builtin(t_cmd *cmd, t_env **env, int is_parent);
 int			exec_builtin_parent(t_cmd *cmd, t_env **env);
@@ -35,6 +35,7 @@ int	        setup_pipe_if_needed(int *pipe_fd, t_cmd *cmd);
 int 		exec_single_ast(t_ast *node, t_env **env);
 int	        wait_for_last_pid(pid_t last_pid);
 int			extract_exit_status(int status);
+int 		setup_heredoc_to_stdin(char *heredoc_string);
 t_cmd		*convert_ast_pipeline(t_ast *node);
 t_cmd		*cmd_add_back(t_cmd *left, t_cmd *right);
 t_cmd	    *create_cmd_from_ast(t_ast *node);

@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 12:56:07 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:13:19 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	exec_builtin_parent(t_cmd *cmd, t_env **env)
 	int	is_parent_exit;
 
 	is_parent_exit = 1;
-	if (prepare_heredocs(cmd->redir, cmd) == -1)
-		return (130);
+	// if (prepare_heredocs(cmd->redir, cmd) == -1)
+	// 	return (130);
 	if (apply_parent_redir(cmd, &stdin_backup, &stdout_backup) == -1)
 		return (1);
 	ret = execute_builtin(cmd, env, is_parent_exit);

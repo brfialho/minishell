@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 17:21:54 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/01 21:29:57 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:08:38 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	collect_heredocs(t_ast *root)
 			if (((t_redir *)lst->content)->type == REDIR_HEREDOC)
 			{
 				heredoc(lst->content);
-				ft_printf("HEREDOC STR: %s\n", ((t_redir *)lst->content)->target);
+				// ft_printf("HEREDOC STR: %s\n", ((t_redir *)lst->content)->target);
 			}
 			lst = lst->next;
 		}

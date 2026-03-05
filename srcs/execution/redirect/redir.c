@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:05:48 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/24 20:30:21 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:06:52 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int apply_redirections(t_n_redir *redir, t_cmd *cmd)
 	{
 		if (redir->type == REDIR_HEREDOC)
 		{
-			if (cmd->heredoc_fd != -1)
-				dup2(cmd->heredoc_fd, STDIN_FILENO);
+			if (setup_heredoc_to_stdin(cmd->redir->target) == -1)
+           		exit(EXIT_FAILURE);
 		}
 		else
 		{

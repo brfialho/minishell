@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/24 05:25:20 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 15:38:22 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@
 # define STDERR 2
 
 // Colours
-# define RED "\033[31m"
-# define GREEN "\033[32m"
-# define BOLD "\033[1m"
-# define RESET "\033[0m"
-# define YELLOW "\033[33m"
+# define RED "\001\033[31m\002"
+# define GREEN "\001\033[32m\002"
+# define BOLD "\001\033[1m\002"
+# define RESET "\001\033[0m\002"
+# define YELLOW "\001\033[33m\002"
 
 // Lexer
 # define OPERATOR "|<>" // && operator has to be treated specially since & is a normal char
@@ -45,7 +45,7 @@
 # define EXIT_CODE 130
 
 // Readlines
-# define PROMPT "\033[31m\033[1m🔥Minihell\033[0m\033[1m🔥 \033[0m"
+# define PROMPT "\001\033[31m\033[1m\002🔥Minihell\001\033[0m\033[1m🔥 \033[0m\002"
 
 // Error Messages
 # define QUOTE_ERROR "Minishell: unexpected EOF while looking for matching"

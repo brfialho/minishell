@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/04 18:35:26 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 14:58:59 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int	ft_exec_cmd(t_cmd *cmd, t_env **env)
         ft_putendl_fd("minishell: : command not found", 2);
         return (127);
     }
-    if (prepare_heredocs(cmd->redir, cmd) == -1)
-        return (130);
 	// REBUILD ARGV()
 		//	EXPAND(ARGV_ANTIGO)
 		//	STRING = JUNTAR TODOS OS ARGVS EM UMA STRING
