@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:49 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/27 17:49:43 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:27:06 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_token
 	t_token_code	code;
 	char			*string;
 	t_int8			precedence;
-	t_bool			expandable;
 	t_bool 			space_next;
 }	t_token;
 
