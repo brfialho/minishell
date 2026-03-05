@@ -6,12 +6,17 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 23:38:45 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 23:54:29 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "parser.h"
+
+
+// 	CHECK FREE IN EXPAND STR
+// 	CHECK FREE IN TRIM QUOTES
+//	CHECK IF FREE ORIGINAL STR
 
 char	**expand_argv(char **old_argv)
 {
@@ -45,11 +50,8 @@ t_bool	expand_redir(t_redir *redir)
 {
 	char	**word_split;
 
-	ft_printf("OLD: %s\n", redir->target);
 	mark_protected_quotes(redir->target);
-	ft_printf("MARK: %s\n", redir->target);
 	redir->target = expand_string(redir->target);
-	ft_printf("EXPAND: %s\n", redir->target);
 	word_split = split_unprotected_spaces(redir->target, ' ');
 	if (ft_split_len(word_split) != 1)
 		return (ft_split_free(word_split), EXIT_FAILURE);

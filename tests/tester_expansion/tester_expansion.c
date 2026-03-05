@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 23:40:50 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 23:53:45 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,26 @@ char	test_redir_quoted_expansion(t_msh_ast *node)
 	return (exit_status);
 }
 
+char	test_redir_ambigous(t_msh_ast *node)
+{
+	return (!expand_redir(((t_list *)*(node->redir))->content));
+}
+
+char	test_complex_valid_expansion(t_msh_ast *node)
+{
+	if (expand_redir(((t_list *)*(node->redir))->content))
+		return (EXIT_FAILURE);
+
+	// "\"Hello World\"";
+	// "olha\"$i$i $i'$i'\"'$i'haha";
+	char	*expected = ft_strdup("olha\"Hello World\"\"Hello World\" \"Hello World\"'\"Hello World\"'$ihaha");
+
+	char exit_status = ft_strcmp(((t_redir *)((t_list *)*(node->redir))->content)->target, expected);
+	free(expected);
+	// ft_printf("%s\n", expected[1]);
+	return (exit_status);
+}
+
 int main(void)
 {
 	t_mini	mini;
@@ -304,14 +324,19 @@ int main(void)
 
 	// REDIR EXPANSION
 	setenv("h", "filename", 1);
+	setenv("i", "\"Hello World\"", 1);
 
 	tests[11] = ">$h";
 	tests[12] = ">'$h'";
 	tests[13] = ">\"$h\"";
+	tests[14] = ">$i";
+	tests[15] = ">olha\"$i$i $i'$i'\"'$i'haha";
 
 	test_functions[11] = test_redir_expansion;
 	test_functions[12] = test_redir_no_expansion;
 	test_functions[13] = test_redir_quoted_expansion;
+	test_functions[14] = test_redir_ambigous;
+	test_functions[15] = test_complex_valid_expansion;
 
 	int	test_len = 0;
 	while (tests[test_len])
