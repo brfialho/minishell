@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 18:29:49 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 18:46:12 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@
 # define EXIT_CODE 130
 
 // Readlines
-# define PROMPT RED BOLD "🔥Minihell" RESET
+# define PROMPT RED BOLD "🔥Minihell🔥 " RESET
 
 // Error Messages
 # define QUOTE_ERROR "Minishell: unexpected EOF while looking for matching"
 # define SYNTAX_ERROR "Minishell: syntax error near unexpected token"
 
 // Expansion
-# define ARGV_EXPAND_DELIMITER " $'\"\x01\x02\n"
+# define ARGV_EXPAND_DELIMITER " $-'\"\x01\x02\n"
 # define EXPAND_SPECIAL "$?"
 # define S_QUOTE '\x02'
 # define D_QUOTE '\x01'
