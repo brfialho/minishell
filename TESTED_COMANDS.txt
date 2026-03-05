@@ -21,3 +21,4 @@ echo "abc" | grep z || echo fallback
 echo "a b c" | tr " " "\n" | grep b && echo PASSOU
 
 echo "abc" | grep a || echo ERRO
+

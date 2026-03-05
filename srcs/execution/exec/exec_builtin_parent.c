@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 11:03:24 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 12:56:07 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	exec_builtin_parent(t_cmd *cmd, t_env **env)
 		return (1);
 	ret = execute_builtin(cmd, env, is_parent_exit);
 	cleanup_parent_fds(cmd, stdin_backup, stdout_backup);
+	if (ft_strcmp(cmd->argv[0], "exit") == 0)	
+		exit(ret);
 	return (ret);
 }
 

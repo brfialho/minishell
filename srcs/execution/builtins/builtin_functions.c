@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:30:44 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/04 18:53:16 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 11:14:19 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,36 @@ int	builtin_cd(t_cmd *cmd, t_env **env)
 	return (0);
 }
 
+static void env_print_sorted(t_env *env)
+{
+	t_env	*current;
+	t_env	*min;
+
+	while (env)
+	{
+		current = env;
+		min = env;
+		while (current)
+		{
+			if (strcmp(current->key, min->key) < 0)
+				min = current;
+			current = current->next;
+		}
+		if (min->value)
+			ft_printf("declare -x %s=\"%s\"\n", min->key, min->value);
+		else
+			ft_printf("declare -x %s\n", min->key);
+		ft_unset_env(&env, min->key);
+	}
+}
+
 int	builtin_export(t_cmd *cmd, t_env **env)
 {
 	int		i;
 	char	*eq;
 
 	if (!cmd->argv[1])
-		return (0);
-		// return (env_print_sorted(*env), 0); retorno do export sem argumentos, não implementado ainda
+		return (env_print_sorted(*env), 0);
 	i = 1;
 	while (cmd->argv[i])
 	{

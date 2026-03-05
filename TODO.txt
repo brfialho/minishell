@@ -5,7 +5,6 @@ Pensar na lógica das flags de expansão
 
 RAFA
 
-retorno do comando export
 exec string heredoc.
 exec expansao
 
