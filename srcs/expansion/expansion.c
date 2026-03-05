@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_argv.c                                      :+:      :+:    :+:   */
+/*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 22:24:11 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 23:17:10 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
-
-static void	mark_protected_quotes(char *s);
-static char	*trim_quotes(char *old_str);
 
 char	**expand_argv(char **old_argv)
 {
@@ -43,50 +40,14 @@ char	**expand_argv(char **old_argv)
 	return (argv);
 }
 
-static void	mark_protected_quotes(char *s)
+char	*expand_redir(char	*old_str)
 {
-	char	state;
-
-	state = 0;
-	while (*s)
-	{
-		if (state && *s == state)
-		{
-			*s = (state == '\'') * S_QUOTE + (state == '"') * D_QUOTE;
-			state = 0;
-		}
-		else if (state == 0 && (*s == '\'' || *s == '"'))
-		{
-			state = *s;
-			*s = (state == '\'') * S_QUOTE + (state == '"') * D_QUOTE;
-		}
-		s++;
-	}
+	ft_printf("OLD: %s\n", old_str);
+	mark_protected_quotes(old_str);
+	ft_printf("MARK: %s\n", old_str);
+	old_str = expand_string(old_str);
+	ft_printf("EXPAND: %s\n", old_str);
+	// word_split = split_unprotected_spaces(old_str, ' ');
+	return (old_str);	
 }
 
-static char	*trim_quotes(char *old_str)
-{
-	char	*new_str;
-	char	*new;
-	char	*old;
-	char	state;
-
-	new_str = ft_safe_calloc(ft_strlen(old_str) + 1, sizeof(char));
-	new = new_str;
-	old = old_str;
-	state = 0;
-	while (*old)
-	{
-		if (state && state == *old)
-		{
-			state = 0;
-			old++;
-		}
-		else if (state == 0 && (*old == S_QUOTE || *old == D_QUOTE))
-			state = *old++;
-		else 
-			*new++ = *old++;
-	}
-	free (old_str);
-	return (new_str);
-}

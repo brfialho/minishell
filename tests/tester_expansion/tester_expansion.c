@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:02:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 22:23:05 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/04 23:24:06 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,42 @@ char	test_final_boss(t_msh_ast *node)
 	return (exit_status);
 }
 
+char	test_redir_expansion(t_msh_ast *node)
+{
+	char	*str = expand_redir(((t_redir *)((t_list *)*(node->redir))->content)->target);
+
+	char	*expected = ft_strdup("filename");
+
+	char exit_status = ft_strcmp(str, expected);
+	free(expected);
+	// ft_printf("%s\n", expected[1]);
+	return (exit_status);
+}
+
+char	test_redir_no_expansion(t_msh_ast *node)
+{
+	char	*str = expand_redir(((t_redir *)((t_list *)*(node->redir))->content)->target);
+
+	char	*expected = ft_strdup("$h");
+
+	char exit_status = ft_strcmp(str, expected);
+	free(expected);
+	// ft_printf("%s\n", expected[1]);
+	return (exit_status);
+}
+
+char	test_redir_quoted_expansion(t_msh_ast *node)
+{
+	char	*str = expand_redir(((t_redir *)((t_list *)*(node->redir))->content)->target);
+
+	char	*expected = ft_strdup("filename");
+
+	char exit_status = ft_strcmp(str, expected);
+	free(expected);
+	// ft_printf("%s\n", expected[1]);
+	return (exit_status);
+}
+
 int main(void)
 {
 	t_mini	mini;
@@ -229,6 +265,7 @@ int main(void)
 	char	*tests[100] = {NULL};
 	char	(*test_functions[100])(t_msh_ast *);
 
+	// ARGV EXPANSION
 	setenv("a", "ech", 1);
 	setenv("b", "o hello", 1);
 	setenv("c", " world :)", 1);
@@ -237,7 +274,6 @@ int main(void)
 	setenv("f", " \"big world\"", 1);
 	setenv("g", "", 1);
 	setenv("X", "\"Hello World\"", 1);
-	
 
 	tests[0] = "echo Hello $USER";
 	tests[1] = "echo Hello $ASGYUASGUGA";
@@ -262,8 +298,17 @@ int main(void)
 	test_functions[8] = test_quoted_empty_var;
 	test_functions[9] = test_empty_var;
 	test_functions[10] = test_final_boss;
-	test_functions[11] = NULL;
-	// test_functions[10] = test_lexer_unclosed_quotes;
+
+	// REDIR EXPANSION
+	setenv("h", "filename", 1);
+
+	tests[11] = ">$h";
+	tests[12] = ">'$h'";
+	tests[13] = ">\"$h\"";
+
+	test_functions[11] = test_redir_expansion;
+	test_functions[12] = test_redir_no_expansion;
+	test_functions[13] = test_redir_quoted_expansion;
 
 	int	test_len = 0;
 	while (tests[test_len])
