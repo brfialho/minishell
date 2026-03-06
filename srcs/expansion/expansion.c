@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 18:36:29 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/06 15:22:22 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	**expand_argv(char **old_argv, t_env **env)
 	char	*full_argv;
 	int		i;
 
-	// DUP ARGV
+	old_argv = ft_split_deep_dup(old_argv);
 	i = -1;
 	while (old_argv[++i])
 		mark_protected_quotes(old_argv[i]);
@@ -38,12 +38,14 @@ char	**expand_argv(char **old_argv, t_env **env)
 		full_argv = ft_strjoin_free(full_argv, " ", TRUE, FALSE);
 		full_argv = ft_strjoin_free(full_argv, old_argv[i], TRUE, FALSE); 
 	}
+	ft_split_free(old_argv);
 	argv = split_unprotected_spaces(full_argv, ' ');
+	free(full_argv);
 	i = -1;
 	while (argv[++i])
 		argv[i] = trim_quotes(argv[i]);
 	free(full_argv);
-	// ft_split_print(argv);
+	ft_split_print(argv);
 	return (argv);
 }
 
@@ -51,7 +53,6 @@ t_bool	expand_redir(t_redir *redir, t_env **env)
 {
 	char	**word_split;
 
-	// DUP ALL
 	if (!ft_str_charcount(redir->target, '$'))
 		return (EXIT_SUCCESS);
 	mark_protected_quotes(redir->target);
@@ -66,7 +67,6 @@ t_bool	expand_redir(t_redir *redir, t_env **env)
 
 void	expand_heredoc(t_redir *redir, t_env **env)
 {
-	// DUP ALL
 	if (redir->type != REDIR_HEREDOC)
 		return ;
 	mark_protected_quotes(redir->target);

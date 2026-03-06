@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 00:42:40 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:20:43 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,25 +105,50 @@ int g_status_shell = 0;
 // 	ft_split_free(split);
 // }
 
-int main(int argc, char **argv)
+// int main(int argc, char **argv)
+// {
+// 	if (argc != 2)
+// 		return (1);
+
+// 	t_mini	mini;
+
+// 	ft_bzero(&mini ,sizeof(t_mini));
+	
+// 	mini.input = argv[1];
+// 	process_input_pipeline(&mini);
+	
+// 	t_ast *root = *mini.root;
+// 	t_msh_ast *content = root->content;
+// 	t_redir *heredoc = ((t_list *)*content->redir)->content;
+
+// 	expand_heredoc(heredoc);
+// 	// expand_redir(heredoczao);
+// 	// destroy_cicle(&mini);
+// }
+
+int	main(int argc, char **argv, char **envp)
 {
 	if (argc != 2)
-		return (1);
+		return 1;
 
 	t_mini	mini;
-
-	ft_bzero(&mini ,sizeof(t_mini));
-	
+	ft_bzero(&mini, sizeof(t_mini));
+	mini.env = env_from_envp(envp);
 	mini.input = argv[1];
 	process_input_pipeline(&mini);
-	
+
 	t_ast *root = *mini.root;
 	t_msh_ast *content = root->content;
-	t_redir *heredoc = ((t_list *)*content->redir)->content;
-
-	expand_heredoc(heredoc);
-	// expand_redir(heredoczao);
-	// destroy_cicle(&mini);
+	char **new_argv = expand_argv(content->argv, &mini.env);
+	// expand_redir(((t_list *)*content->redir)->content, &mini.env);
+	// ft_printf("TARGET: %s\n", ((t_redir *)(((t_list *)*content->redir)->content))->target);
+	expand_heredoc(((t_list *)*content->redir)->content, &mini.env);
+	ft_printf("TARGET: %s\n", ((t_redir *)(((t_list *)*content->redir)->content))->target);
+	ft_split_print(new_argv);
+	ft_split_free(new_argv);
+	parser_destroy(mini.root);
+	env_clear(&mini.env);
+	(void)envp;
 }
 
 // "echo \$EXPAND'\$NOEXPAND'\"\$EXPAND\"algumacoisanadahaver\$EXPAND";

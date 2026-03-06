@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:00:28 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 13:26:56 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:35:37 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include "utils.h"
+# include "defines.h"
 # include "parser.h"
 
 typedef struct s_n_redir t_n_redir;

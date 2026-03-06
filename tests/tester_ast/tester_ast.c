@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:05:52 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/27 22:26:49 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:15:21 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,7 +435,6 @@ int main(void)
 		ft_printf(FAIL);
 	else
 		ft_printf(SUCCESS);
-	lexer_destroy(&lexer);
 	parser_destroy(root);
 	
 	ft_bzero(&lexer, sizeof(t_lexer));

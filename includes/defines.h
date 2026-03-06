@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 18:37:35 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/06 15:22:37 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
- #define UTILS_H
+#ifndef DEFINES_H
+ #define DEFINES_H
 
 # include "libft.h"
 # include <unistd.h>
@@ -52,7 +52,7 @@
 # define SYNTAX_ERROR "Minishell: syntax error near unexpected token"
 
 // Expansion
-# define ARGV_EXPAND_DELIMITER " $'\"\x01\x02\n"
+# define ARGV_EXPAND_DELIMITER " $-'\"\x01\x02\n"
 # define EXPAND_SPECIAL "$?"
 # define S_QUOTE '\x02'
 # define D_QUOTE '\x01'

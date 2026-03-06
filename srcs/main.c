@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 18:26:23 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/05 20:14:50 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	main(int argc, char **argv, char **envp)
 		if (process_input_pipeline(&mini) == EXIT_FAILURE)
 			continue;
 		executor(&mini);
-		lexer_destroy(&mini.lexer);
 		parser_destroy(mini.root);
 	}
 	env_clear(&mini.env);
