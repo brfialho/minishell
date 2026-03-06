@@ -6,13 +6,12 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 02:48:34 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 18:48:34 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/06 19:16:23 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static void	del_ast_content(void *content);
 static void	del_redir_content(void *content);
 
 void	parser_destroy(t_ast **root)
@@ -21,7 +20,7 @@ void	parser_destroy(t_ast **root)
 	free(root);
 }
 
-static void	del_ast_content(void *content)
+void	del_ast_content(void *content)
 {
 	t_msh_ast	*ast;
 	int			i;

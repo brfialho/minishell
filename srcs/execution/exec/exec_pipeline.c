@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 18:07:51 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/01 21:23:51 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/06 19:38:23 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parser.h"
 
 static void	setup_and_exec_pipeline_child(t_cmd *cmd, int *pipe_fd, 
-	int prev_fd, t_env **env)
+	int prev_fd, t_env **env, t_mini *mini) 
 {
 	if (prev_fd != -1)
 	{
@@ -27,10 +27,10 @@ static void	setup_and_exec_pipeline_child(t_cmd *cmd, int *pipe_fd,
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 	}
-	exec_child(cmd, env);
+	exec_child(cmd, env, mini);
 }
 
-static pid_t	execute_pipeline_iteration(t_cmd *cmd, int *prev_fd, t_env **env)
+static pid_t	execute_pipeline_iteration(t_cmd *cmd, int *prev_fd, t_env **env, t_mini *mini)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
@@ -44,12 +44,12 @@ static pid_t	execute_pipeline_iteration(t_cmd *cmd, int *prev_fd, t_env **env)
 		return (-1);
 	}
 	if (pid == 0)
-		setup_and_exec_pipeline_child(cmd, pipe_fd, *prev_fd, env);
+		setup_and_exec_pipeline_child(cmd, pipe_fd, *prev_fd, env, mini);
 	update_prev_fd(prev_fd, pipe_fd, cmd);
 	return (pid);
 }
 
-int	exec_pipeline_list(t_cmd *cmd, t_env **env)
+int	exec_pipeline_list(t_cmd *cmd, t_env **env, t_mini *mini)
 {
 	int		prev_fd;
 	pid_t	last_pid;
@@ -59,7 +59,7 @@ int	exec_pipeline_list(t_cmd *cmd, t_env **env)
 	resolve_pipeline_paths(cmd, env);
 	while (cmd)
 	{
-		pid = execute_pipeline_iteration(cmd, &prev_fd, env);
+		pid = execute_pipeline_iteration(cmd, &prev_fd, env, mini);
 		if (pid == -1)
 		{
 			if (prev_fd != -1)

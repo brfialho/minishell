@@ -6,13 +6,13 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:21 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 10:14:09 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/06 20:00:23 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	execute_builtin(t_cmd *cmd, t_env **env, int is_parent)
+int	execute_builtin(t_cmd *cmd, t_env **env, int is_parent, t_mini *mini)
 {
 	char	*builtin;
 
@@ -32,6 +32,6 @@ int	execute_builtin(t_cmd *cmd, t_env **env, int is_parent)
 	if (!strcmp(builtin, "env"))
 		return (builtin_env(*env));
 	if (!strcmp(builtin, "exit"))
-		return (builtin_exit(cmd, is_parent));
+		return (builtin_exit(cmd, is_parent, mini));
 	return (1);
 }

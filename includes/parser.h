@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:29:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 20:35:37 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/06 19:16:46 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_ast	*ast_builder(t_list *token_lst);
 t_ast	*get_operator_node(t_token *token);
 t_ast	*get_exec_node(t_list *token_lst);
 t_int8	syntax_validator(t_ast *root);
+void	del_ast_content(void *content);
 void	parser_error_handler(t_mini *mini);
 void	parser_destroy(t_ast **root);
 

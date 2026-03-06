@@ -6,11 +6,12 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 15:13:19 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/06 20:05:30 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include "main.h"
 
 static int	apply_parent_redir(
 	t_cmd *cmd,
@@ -50,7 +51,7 @@ static void	cleanup_parent_fds(
 	}
 }
 
-int	exec_builtin_parent(t_cmd *cmd, t_env **env)
+int	exec_builtin_parent(t_cmd *cmd, t_env **env, t_mini *mini)
 {
 	int	stdin_backup;
 	int	stdout_backup;
@@ -58,20 +59,21 @@ int	exec_builtin_parent(t_cmd *cmd, t_env **env)
 	int	is_parent_exit;
 
 	is_parent_exit = 1;
-	// if (prepare_heredocs(cmd->redir, cmd) == -1)
-	// 	return (130);
 	if (apply_parent_redir(cmd, &stdin_backup, &stdout_backup) == -1)
 		return (1);
-	ret = execute_builtin(cmd, env, is_parent_exit);
+	ret = execute_builtin(cmd, env, is_parent_exit, mini);
 	cleanup_parent_fds(cmd, stdin_backup, stdout_backup);
-	if (ft_strcmp(cmd->argv[0], "exit") == 0)	
+	if (ft_strcmp(cmd->argv[0], "exit") == 0)
 		exit(ret);
 	return (ret);
 }
 
-void	exec_builtin_child(t_cmd *cmd, t_env **env)
+void	exec_builtin_child(t_cmd *cmd, t_env **env, t_mini *mini)
 {
 	if (apply_redirections(cmd->redir, cmd) == -1)
 		exit(1);
-	exit(execute_builtin(cmd, env, 0));
+	execute_builtin(cmd, env, 0, mini);
+	ft_split_free(cmd->argv);
+	parser_destroy(mini->root);
+	exit(0);
 }

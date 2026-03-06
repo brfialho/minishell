@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 20:07:36 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/06 19:58:45 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "main.h"
 
-void	exec_child(t_cmd *cmd, t_env **env)
+void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 {
 	char	**envp_exec;
 
@@ -21,7 +21,7 @@ void	exec_child(t_cmd *cmd, t_env **env)
     	exit(0);
 	if (is_builtin(cmd->argv[0]))
 	{
-		exec_builtin_child(cmd, env);
+		exec_builtin_child(cmd, env, mini);
 		exit(0);
 	}
 	if (apply_redirections(cmd->redir, cmd) == -1)
@@ -34,12 +34,14 @@ void	exec_child(t_cmd *cmd, t_env **env)
 	execve(cmd->path, cmd->argv, envp_exec);
 	perror(cmd->argv[0]);
 	free_envp(envp_exec);
+	ft_split_free(cmd->argv);
+	parser_destroy(mini->root);
 	if (errno == EACCES)
 		exit(126);
 	exit(127);
 }
 
-static int	exec_external_cmd(t_cmd *cmd, t_env **env)
+static int	exec_external_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 {
 	pid_t	pid;
 	int		status;
@@ -51,7 +53,7 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env)
 		return (1);
 	}
 	if (pid == 0)
-		exec_child(cmd, env);
+		exec_child(cmd, env, mini);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
@@ -60,7 +62,7 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env)
 	return (status);
 }
 
-int	ft_exec_cmd(t_cmd *cmd, t_env **env)
+int	ft_exec_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 {
     if (!cmd || !cmd->argv || !cmd->argv[0] || cmd->argv[0][0] == '\0')
         return (0);
@@ -70,17 +72,17 @@ int	ft_exec_cmd(t_cmd *cmd, t_env **env)
         return (127);
     }
     if (is_builtin(cmd->argv[0]))
-        return (exec_builtin_parent(cmd, env));
+        return (exec_builtin_parent(cmd, env, mini));
     cmd->path = get_path_dirs(cmd, env);
     if (!cmd->path)
     {
         ft_putendl_fd("minishell: command not found", 2);
         return (127);
     }
-    return (exec_external_cmd(cmd, env));
+    return (exec_external_cmd(cmd, env, mini));
 }
 
-int exec_node(t_ast *node, t_env **env)
+int exec_node(t_ast *node, t_env **env, t_mini *mini)
 {
 	int			status;
 	t_msh_ast	*data;
@@ -89,21 +91,21 @@ int exec_node(t_ast *node, t_env **env)
 		return (0);
 	data = (t_msh_ast *)node->content;
 	if (data->type == NODE_EXEC)
-		return (exec_single_ast(node, env));
+		return (exec_single_ast(node, env, mini));
 	if (data->type == NODE_PIPE)
-		return (exec_pipeline_ast(node, env));
+		return (exec_pipeline_ast(node, env, mini));
 	if (data->type == NODE_AND)
 	{
-		status = exec_node(node->left, env);
+		status = exec_node(node->left, env, mini);
 		if (status == 0)
-			return (exec_node(node->right, env));
+			return (exec_node(node->right, env, mini));
 		return status;
 	}
 	if (data->type == NODE_OR)
 	{
-		status = exec_node(node->left, env);
+		status = exec_node(node->left, env, mini);
 		if (status != 0)
-			return (exec_node(node->right, env));
+			return (exec_node(node->right, env, mini));
 		return status;
 	}
 	return (1);
@@ -129,7 +131,7 @@ t_bool	expand_all_redir(t_list **redir_lst, t_env **env)
 	return (EXIT_SUCCESS);
 }
 
-int exec_single_ast(t_ast *node, t_env **env)
+int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
 {
     t_msh_ast	*data;
     t_cmd 		cmd;
@@ -150,7 +152,7 @@ int exec_single_ast(t_ast *node, t_env **env)
     cmd.redir = NULL;
     if (data->redir && *data->redir)
         cmd.redir = convert_redir_list(*data->redir);
-    result = ft_exec_cmd(&cmd, env);
+    result = ft_exec_cmd(&cmd, env, mini);
     if (cmd.redir)
         free_exec_redir_list(cmd.redir);
     if (cmd.path && cmd.path != data->path)

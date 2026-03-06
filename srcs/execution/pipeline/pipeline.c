@@ -6,14 +6,15 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:02:08 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/25 13:15:28 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/06 19:38:08 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "parser.h"
+#include "expansion.h"
 
-t_cmd	*convert_ast_pipeline(t_ast *node)
+t_cmd	*convert_ast_pipeline(t_ast *node, t_env **env)
 {
 	t_msh_ast	*data;
 
@@ -25,28 +26,28 @@ t_cmd	*convert_ast_pipeline(t_ast *node)
 		t_cmd	*left;
 		t_cmd	*right;
 
-		left = convert_ast_pipeline(node->left);
-		right = convert_ast_pipeline(node->right);
+		left = convert_ast_pipeline(node->left, env);
+		right = convert_ast_pipeline(node->right, env);
 		left = cmd_add_back(left, right);
 		return (left);
 	}
 	else
-		return (create_cmd_from_ast(node));
+		return (create_cmd_from_ast(node, env));
 }
 
-int	exec_pipeline_ast(t_ast *node, t_env **env)
+int	exec_pipeline_ast(t_ast *node, t_env **env, t_mini *mini)
 {
 	t_cmd	*list;
 	int		status;
 
 	status = 0;
-	list = convert_ast_pipeline(node);
-	status = exec_pipeline_list(list, env);
+	list = convert_ast_pipeline(node, env);
+	status = exec_pipeline_list(list, env, mini);
 	ft_cleaner_list(list);
 	return (status);
 }
 
-t_cmd	*create_cmd_from_ast(t_ast *node)
+t_cmd	*create_cmd_from_ast(t_ast *node, t_env **env)
 {
 	t_msh_ast	*data;
 	t_cmd		*cmd;
@@ -57,7 +58,7 @@ t_cmd	*create_cmd_from_ast(t_ast *node)
 	cmd = ft_safe_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->argv = data->argv;
+	cmd->argv = expand_argv(data->argv, env);
 	cmd->path = data->path;
 	cmd->heredoc_fd = -1;
 	cmd->next = NULL;
