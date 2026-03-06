@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/06 19:58:45 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/06 20:25:04 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
     if (!data->argv)
 		return (1);
 	if (expand_all_redir(data->redir, env))
-		return 1;
+		return (1);
 	cmd.argv = expand_argv(data->argv, env);
     cmd.path = data->path;
     cmd.heredoc_fd = -1;
