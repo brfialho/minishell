@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 17:58:07 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/05 18:36:29 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**expand_argv(char **old_argv, t_env **env)
 	while (argv[++i])
 		argv[i] = trim_quotes(argv[i]);
 	free(full_argv);
-	ft_split_print(argv);
+	// ft_split_print(argv);
 	return (argv);
 }
 
