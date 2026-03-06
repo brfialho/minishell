@@ -6,38 +6,40 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 23:27:07 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/06 19:33:12 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-// void	colorize_path(char *prompt)
-// {
-// 	char	*new;
-// 	char	*left;
-// 	char	*right;
-// 	int		i;
+char	*colorize_helper(char *prompt, char c)
+{
+	char	*color;
 
-// 	i = -1;
-// 	new = ft_strdup("");
-// 	while (prompt[++i])
-// 	{
-// 		if (ft_str_charcount("/", prompt[i]))
-// 		{
-// 			left = ft_substr(prompt + ft_strlen(new), 0, i);
-// 			right = ft_strjoin(COLORIZE_AUX_1, prompt + i + 1);
-// 			new = ft_strjoin_free(new, ft_strjoin_free(left, right, TRUE, TRUE), TRUE, TRUE);
-// 		}
-// 	}
-// 	ft_memcpy(prompt, new, ft_strlen(new));
-// 	free(new);
-// }
+	if (c == '/')
+		color = COLORIZE_AUX_1;
+	if (c == '$')
+		color = COLORIZE_AUX_2;
+	while (*color)
+		*prompt++ = *color++;
+	return (prompt);
+}
 
-// oi/mundo
+void	colorize_path(char *prompt)
+{
+	char	copy[1024];
+	int		i;
 
-// rest = reset mundo;
-// prompt = red + prompt
+	ft_memcpy(copy, prompt, 1024);
+	i = -1;
+	while (copy[++i])
+	{
+		if (ft_str_charcount("/$", copy[i]))
+			prompt = colorize_helper(prompt, copy[i]);
+		else
+			*prompt++ = copy[i];
+	}
+}
 
 void	get_prompt(char *prompt)
 {
@@ -62,7 +64,7 @@ void	get_prompt(char *prompt)
 	ft_memcpy(prompt, aux_str, ft_strlen(aux_str));
 	free(aux_str);
 	ft_memcpy(prompt + ft_strlen(prompt), PROMPT_END, ft_strlen(PROMPT_END));
-	// colorize_path(prompt);
+	colorize_path(prompt);
 }
 
 char	*read_prompt_line(void)
