@@ -23,3 +23,5 @@ echo "a b c" | tr " " "\n" | grep b && echo PASSOU
 echo "abc" | grep a || echo ERRO
 
 ls>fls>f1>f2>f3>f4>$USER -la | cat<Makefile>>$USER&&export OI=bruno&&echo $OI>>$USER
+
+ls -la | cat<Makefile>>$USER&&export OI=bruno&&echo $OI>>$USER
