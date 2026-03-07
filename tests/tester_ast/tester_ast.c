@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:05:52 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 20:15:21 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/06 23:59:49 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ t_msh_ast expected_helper___test_parser_very_simple_input(void)
 	
 	if (!init)
 	{
-		expected_content[0] = (t_msh_ast){NODE_PIPE, NULL, NULL, NULL, "|"};
-		expected_content[1] = (t_msh_ast){NODE_EXEC, NULL, expected_argv_helper___test_parser_very_simple_input(), NULL, NULL};
-		expected_content[2] = (t_msh_ast){NODE_EXEC, NULL, expected_argv_helper___test_parser_very_simple_input(), NULL, NULL};
+		expected_content[0] = (t_msh_ast){NODE_PIPE, NULL, NULL,"|"};
+		expected_content[1] = (t_msh_ast){NODE_EXEC, NULL, expected_argv_helper___test_parser_very_simple_input(),NULL};
+		expected_content[2] = (t_msh_ast){NODE_EXEC, NULL, expected_argv_helper___test_parser_very_simple_input(),NULL};
 		init = TRUE;
-		return ((t_msh_ast){0, NULL, NULL, NULL, NULL});
+		return ((t_msh_ast){0, NULL, NULL, NULL});
 	}
 	return (expected_content[i++]);
 }
@@ -181,13 +181,13 @@ t_msh_ast expected_helper___test_parser_simple_input_with_redirs(void)
 	if (!init)
 	{
 		// "ls > f1 && cat f1 | wc > f2>f3";
-		expected_content[0] = (t_msh_ast){NODE_AND, NULL, NULL, NULL, "&&"};
-		expected_content[1] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_simple_input_with_redirs(), expected_argv_helper___test_parser_simple_input_with_redirs(), NULL, NULL};
-		expected_content[2] = (t_msh_ast){NODE_PIPE, NULL, NULL, NULL, "|"};
-		expected_content[3] = (t_msh_ast){NODE_EXEC, NULL, expected_argv_helper___test_parser_simple_input_with_redirs(), NULL, NULL};
-		expected_content[4] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_simple_input_with_redirs(), expected_argv_helper___test_parser_simple_input_with_redirs(), NULL, NULL};
+		expected_content[0] = (t_msh_ast){NODE_AND, NULL, NULL, "&&"};
+		expected_content[1] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_simple_input_with_redirs(), expected_argv_helper___test_parser_simple_input_with_redirs(), NULL};
+		expected_content[2] = (t_msh_ast){NODE_PIPE, NULL, NULL, "|"};
+		expected_content[3] = (t_msh_ast){NODE_EXEC, NULL, expected_argv_helper___test_parser_simple_input_with_redirs(), NULL};
+		expected_content[4] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_simple_input_with_redirs(), expected_argv_helper___test_parser_simple_input_with_redirs(), NULL};
 		init = TRUE;
-		return ((t_msh_ast){0, NULL, NULL, NULL, NULL});
+		return ((t_msh_ast){0, NULL, NULL, NULL});
 	}
 	return (expected_content[i++]);
 }
@@ -280,11 +280,11 @@ t_msh_ast expected_helper___test_parser_medium_complex_argv_with_redirs(void)
 	if (!init)
 	{
 		// "echo oi 'ola' outracoisaai>f1&& echo \"oi\"'ola'\"outracoisaai\" > f2 > out3";
-		expected_content[0] = (t_msh_ast){NODE_AND, NULL, NULL, NULL, "&&"};
-		expected_content[1] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_medium_complex_argv_with_redirs(), expected_argv_helper___test_parser_medium_complex_argv_with_redirs(), NULL, NULL};
-		expected_content[2] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_medium_complex_argv_with_redirs(), expected_argv_helper___test_parser_medium_complex_argv_with_redirs(), NULL, NULL};
+		expected_content[0] = (t_msh_ast){NODE_AND, NULL, NULL, "&&"};
+		expected_content[1] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_medium_complex_argv_with_redirs(), expected_argv_helper___test_parser_medium_complex_argv_with_redirs(), NULL};
+		expected_content[2] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_medium_complex_argv_with_redirs(), expected_argv_helper___test_parser_medium_complex_argv_with_redirs(), NULL};
 		init = TRUE;
-		return ((t_msh_ast){0, NULL, NULL, NULL, NULL});
+		return ((t_msh_ast){0, NULL, NULL, NULL});
 	}
 	return (expected_content[i++]);
 }
@@ -367,9 +367,9 @@ t_msh_ast expected_helper___test_parser_complex_argv_and_redir_no_expansion(void
 	if (!init)
 	{
 		// "echo oi 'ola' outracoisaai>f1&& echo \"oi\"'ola'\"outracoisaai\" > f2 > out3";
-		expected_content[0] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_complex_argv_and_redir_no_expansion(), expected_argv_helper___test_parser_complex_argv_and_redir_no_expansion(), NULL, NULL};
+		expected_content[0] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_parser_complex_argv_and_redir_no_expansion(), expected_argv_helper___test_parser_complex_argv_and_redir_no_expansion(), NULL};
 		init = TRUE;
-		return ((t_msh_ast){0, NULL, NULL, NULL, NULL});
+		return ((t_msh_ast){0, NULL, NULL, NULL});
 	}
 	return (expected_content[i++]);
 }
