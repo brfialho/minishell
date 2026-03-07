@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:02:08 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/06 23:53:16 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/07 00:09:49 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_cmd	*create_cmd_from_ast(t_ast *node, t_env **env)
 	cmd->heredoc_fd = -1;
 	cmd->next = NULL;
 	cmd->redir = NULL;
+	cmd->path = NULL;
 	if (data->redir && *data->redir)
 		cmd->redir = convert_redir_list(*data->redir);
 	return (cmd);

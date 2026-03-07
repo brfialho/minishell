@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/06 23:53:07 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/07 00:09:28 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
     cmd.heredoc_fd = -1;
     cmd.next = NULL;
     cmd.redir = NULL;
+	cmd.path = NULL;
     if (data->redir && *data->redir)
         cmd.redir = convert_redir_list(*data->redir);
     result = ft_exec_cmd(&cmd, env, mini);
