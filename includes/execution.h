@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/07 02:00:30 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:44:39 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "libft.h"
 # include "defines.h"
 # include "builtins.h"
-# include "handler.h"
 
 int			ft_exec_cmd(t_cmd *cmd, t_env **envp, t_mini *mini);
 int 		apply_redirections(t_n_redir *redir, t_cmd *cmd);

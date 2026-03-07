@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/06 20:02:04 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/07 04:20:54 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ int builtin_exit(t_cmd *cmd, int is_parent, t_mini *mini)
 	else
 		status = (unsigned char)value;
 	rl_clear_history();
-	if (is_parent)
-		return (status);
+	ft_split_free(cmd->argv);
 	parser_destroy(mini->root);
+	env_clear(&mini->env);
 	exit(status);
 }
