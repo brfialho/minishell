@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/07 04:12:52 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/07 04:49:31 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**expand_argv(char **old_argv, t_env **env)
 	while (old_argv[++i])
 	{
 		full_argv = ft_strjoin_free(full_argv, " ", TRUE, FALSE);
-		full_argv = ft_strjoin_free(full_argv, old_argv[i], TRUE, FALSE); 
+		full_argv = ft_strjoin_free(full_argv, old_argv[i], TRUE, FALSE);
 	}
 	ft_split_free(old_argv);
 	argv = split_unprotected_spaces(full_argv, ' ');
@@ -60,7 +60,8 @@ t_bool	expand_all_redir(t_list **redir_lst, t_env **env)
 		else if (((t_redir *)lst->content)->type != REDIR_HEREDOC_NO_EXPANSION)
 			error = expand_redir(lst->content, env);
 		if (error)
-			return(ft_printf("Minishell: $%d: ambigous redirect", ((t_redir *)lst->content)->target), error);
+			return (ft_printf("Minishell: $%d: ambigous redirect",
+					((t_redir *)lst->content)->target), error);
 		lst = lst->next;
 	}
 	return (EXIT_SUCCESS);
@@ -80,7 +81,7 @@ t_bool	expand_redir(t_redir *redir, t_env **env)
 	free(redir->target);
 	redir->target = trim_quotes(word_split[0]);
 	free(word_split);
-	return (EXIT_SUCCESS);	
+	return (EXIT_SUCCESS);
 }
 
 void	expand_heredoc(t_redir *redir, t_env **env)
@@ -90,4 +91,3 @@ void	expand_heredoc(t_redir *redir, t_env **env)
 	mark_protected_quotes(redir->target);
 	redir->target = expand_string(redir->target, TRUE, env);
 }
-

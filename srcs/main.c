@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/07 03:44:44 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/07 05:00:10 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.env = env_from_envp(envp);
-    mini.should_exit = 0;
+	mini.should_exit = 0;
 	set_signals();
 	while (!mini.should_exit)
 	{
@@ -30,10 +30,10 @@ int	main(int argc, char **argv, char **envp)
 		if (mini.input == NULL)
 		{
 			ft_printf("exit\n");
-			break;
+			break ;
 		}
 		if (process_input_pipeline(&mini) == EXIT_FAILURE)
-			continue;
+			continue ;
 		executor(&mini);
 		parser_destroy(mini.root);
 		mini.root = NULL;
@@ -41,4 +41,3 @@ int	main(int argc, char **argv, char **envp)
 	env_clear(&mini.env);
 	return (mini.exit_status);
 }
-

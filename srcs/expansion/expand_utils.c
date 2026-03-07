@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:10:06 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 20:05:03 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/07 04:49:52 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*trim_quotes(char *old_str)
 		}
 		else if (state == 0 && (*old == S_QUOTE || *old == D_QUOTE))
 			state = *old++;
-		else 
+		else
 			*new++ = *old++;
 	}
 	free (old_str);
