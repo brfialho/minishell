@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:17:31 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 20:35:37 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/07 00:48:58 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <signal.h>
 # include "defines.h"
 
-
-void	set_prompt_signals(void);
-void	set_heredoc_signals(void);
+void	set_signals(void);
 
 #endif

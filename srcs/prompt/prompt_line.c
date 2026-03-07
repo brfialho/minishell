@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/06 20:05:58 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:24:22 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ char	*read_prompt_line(void)
 	line = readline(prompt);
 	if (!line)
     	return (NULL);
-	if (!*line || ft_str_allinset(line, WHITESPACE))
-	{
-    	free(line);
-    	return (NULL);
-	}
+	if (ft_str_allinset(line, WHITESPACE))
+    	return (WHITESPACE);
 	add_history(line);
 	return (line);
 }

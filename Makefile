@@ -57,7 +57,6 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/execution/builtins/builtin.c \
 	srcs/execution/builtins/env_functions_two.c \
 	srcs/execution/builtins/env_functions.c \
-	srcs/execution/handler/handler_basic.c \
 	srcs/signals/set_signals.c \
 	srcs/execution/executor.c \
 	srcs/execution/heredoc/heredoc_functions.c \
