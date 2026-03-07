@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/07 00:09:28 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:00:57 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,7 @@ int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
     int			result;
 
     result = 0;
-    if (!node || !node->content)
-        return (0);
     data = (t_msh_ast *)node->content;
-    if (!data->argv)
-		return (1);
 	if (expand_all_redir(data->redir, env))
 		return (1);
 	cmd.argv = expand_argv(data->argv, env);
@@ -134,12 +130,6 @@ int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
     if (data->redir && *data->redir)
         cmd.redir = convert_redir_list(*data->redir);
     result = ft_exec_cmd(&cmd, env, mini);
-    if (cmd.redir)
-        free_exec_redir_list(cmd.redir);
-    if (cmd.path)
-        free(cmd.path);
+	destroy_exec_cmd(&cmd);
     return (result);
 }
-
-// free argv
-// free redir

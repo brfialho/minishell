@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/06 23:49:11 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:00:30 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		ft_free_matrix(char ***matrix);
 void		cleanup_pipe_on_fork_error(int *pipe_fd, t_cmd *cmd);
 void		update_prev_fd(int *prev_fd, int *pipe_fd, t_cmd *cmd);
 void 		executor(t_mini *mini);
+void 		destroy_exec_cmd(t_cmd *cmd);
 char		*read_prompt_line(void);
 char		*get_path_dirs(t_cmd *cmd, t_env **envp);
 char		*get_env_value(t_env *env, char *key);

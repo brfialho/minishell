@@ -6,33 +6,13 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:42:40 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 15:20:14 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:00:06 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 static char *search_in_dirs(char **dirs, char *cmd_name);
 
-int	is_builtin(char *cmd)
-{
-	if (!cmd)
-		return (0);
-	if (strcmp(cmd, "echo") == 0)
-		return (1);
-	if (strcmp(cmd, "cd") == 0)
-		return (1);
-	if (strcmp(cmd, "pwd") == 0)
-		return (1);
-	if (strcmp(cmd, "export") == 0)
-		return (1);
-	if (strcmp(cmd, "unset") == 0)
-		return (1);
-	if (strcmp(cmd, "env") == 0)
-		return (1);
-	if (strcmp(cmd, "exit") == 0)
-		return (1);
-	return (0);
-}
 static char *search_in_dirs(char **dirs, char *cmd_name)
 {
 	char	*tmp;
@@ -99,4 +79,16 @@ void	ft_free_matrix(char ***matrix)
 	}
 	free(*matrix);
 	*matrix = NULL;
+}
+
+void destroy_exec_cmd(t_cmd *cmd)
+{
+	if (!cmd)
+		return;
+	if (cmd->argv)
+		ft_split_free(cmd->argv);
+	if (cmd->path)
+		free(cmd->path);
+	if (cmd->redir)
+		free_exec_redir_list(cmd->redir);
 }
