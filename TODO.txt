@@ -1,22 +1,21 @@
 BRUNO
 Remover dados vestigiais dos structs da arvore (path)
 $$ $?
+SIGNAL C / D
+SIGNAL HEREDOC
 
 RAFA
 
-checar heredoc
-exec string heredoc.
-exec expansao
 consertar still reachable
-heredoc pegagndo o errado
 free no caso de erro na expansao do redir
 
 GERAL
-Arrumar sinais
-Arrumar ctrl shift V
 Arrumar readline
 README
 refotorar pastas
+
+TALVEZ
+
 
 
 

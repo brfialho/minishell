@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/06 20:30:27 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/06 23:49:03 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,26 @@ char	**expand_argv(char **old_argv, t_env **env)
 	while (argv[++i])
 		argv[i] = trim_quotes(argv[i]);
 	return (argv);
+}
+
+t_bool	expand_all_redir(t_list **redir_lst, t_env **env)
+{
+	t_list	*lst;
+	t_bool	error;
+
+	lst = *redir_lst;
+	error = FALSE;
+	while (lst)
+	{
+		if (((t_redir *)lst->content)->type == REDIR_HEREDOC)
+			expand_heredoc(lst->content, env);
+		else if (((t_redir *)lst->content)->type != REDIR_HEREDOC_NO_EXPANSION)
+			error = expand_redir(lst->content, env);
+		if (error)
+			return(ft_printf("Minishell: $%d: ambigous redirect", ((t_redir *)lst->content)->target), error);
+		lst = lst->next;
+	}
+	return (EXIT_SUCCESS);
 }
 
 t_bool	expand_redir(t_redir *redir, t_env **env)

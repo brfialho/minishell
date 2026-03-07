@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/06 20:25:04 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/06 23:48:56 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "main.h"
+#include "expansion.h"
 
 void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 {
@@ -109,26 +110,6 @@ int exec_node(t_ast *node, t_env **env, t_mini *mini)
 		return status;
 	}
 	return (1);
-}
-
-t_bool	expand_all_redir(t_list **redir_lst, t_env **env)
-{
-	t_list	*lst;
-	t_bool	error;
-
-	lst = *redir_lst;
-	error = FALSE;
-	while (lst)
-	{
-		if (((t_redir *)lst->content)->type == REDIR_HEREDOC)
-			expand_heredoc(lst->content, env);
-		else if (((t_redir *)lst->content)->type != REDIR_HEREDOC_NO_EXPANSION)
-			error = expand_redir(lst->content, env);
-		if (error)
-			return(ft_printf("Minishell: $%d: ambigous redirect", ((t_redir *)lst->content)->target), error);
-		lst = lst->next;
-	}
-	return (EXIT_SUCCESS);
 }
 
 int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)

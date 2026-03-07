@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/06 20:30:07 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/06 23:49:11 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_cmd		*cmd_add_back(t_cmd *left, t_cmd *right);
 t_cmd		*create_cmd_from_ast(t_ast *node, t_env **env);
 t_n_redir 	*new_exec_redir(t_redir *ast_redir);
 t_n_redir 	*convert_redir_list(t_list *ast_list);
-t_bool		expand_all_redir(t_list **redir_lst, t_env **env);
 void		exec_child(t_cmd *cmd, t_env **env, t_mini *mini);
 void		exec_builtin_child(t_cmd *cmd, t_env **env, t_mini *mini);
 void		ft_cleaner_list(t_cmd *list);
