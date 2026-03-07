@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/07 03:44:39 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/07 04:27:48 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		cleanup_pipe_on_fork_error(int *pipe_fd, t_cmd *cmd);
 void		update_prev_fd(int *prev_fd, int *pipe_fd, t_cmd *cmd);
 void 		executor(t_mini *mini);
 void 		destroy_exec_cmd(t_cmd *cmd);
+void		cleanup_exit(t_cmd *cmd, t_mini *mini);
 char		*read_prompt_line(void);
 char		*get_path_dirs(t_cmd *cmd, t_env **envp);
 char		*get_env_value(t_env *env, char *key);

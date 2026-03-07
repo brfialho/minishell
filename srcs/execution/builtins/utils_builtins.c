@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 01:58:03 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/07 01:58:40 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/07 04:27:31 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,14 @@ int	is_builtin(char *cmd)
 	if (strcmp(cmd, "exit") == 0)
 		return (1);
 	return (0);
+}
+
+void	cleanup_exit(t_cmd *cmd, t_mini *mini)
+{
+	if (cmd && cmd->argv)
+		ft_split_free(cmd->argv);
+	if (mini && mini->root)
+		parser_destroy(mini->root);
+	if (mini)
+		env_clear(&mini->env);
 }
