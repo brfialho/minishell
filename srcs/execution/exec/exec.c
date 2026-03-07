@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/06 23:48:56 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/06 23:53:07 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
 	if (expand_all_redir(data->redir, env))
 		return (1);
 	cmd.argv = expand_argv(data->argv, env);
-    cmd.path = data->path;
     cmd.heredoc_fd = -1;
     cmd.next = NULL;
     cmd.redir = NULL;
@@ -136,7 +135,7 @@ int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
     result = ft_exec_cmd(&cmd, env, mini);
     if (cmd.redir)
         free_exec_redir_list(cmd.redir);
-    if (cmd.path && cmd.path != data->path)
+    if (cmd.path)
         free(cmd.path);
     return (result);
 }

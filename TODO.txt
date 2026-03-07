@@ -1,5 +1,4 @@
 BRUNO
-Remover dados vestigiais dos structs da arvore (path)
 $$ $?
 SIGNAL C / D
 SIGNAL HEREDOC
