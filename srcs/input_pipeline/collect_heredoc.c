@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collect_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 17:21:54 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 20:21:54 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/07 05:44:42 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	heredoc(t_redir *redir)
 	}
 	heredoc_string = ft_strdup("");
 	line = readline("> ");
-	while (ft_strcmp(redir->target, line))
+	while (line && ft_strcmp(redir->target, line))
 	{
 		heredoc_string = ft_strjoin_free(heredoc_string , ft_strjoin(line, "\n"), TRUE, TRUE);
 		free(line);
