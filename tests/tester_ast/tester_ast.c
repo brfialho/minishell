@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:05:52 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/06 23:59:49 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/09 17:29:08 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,7 +400,89 @@ t_bool	test_parser_complex_argv_and_redir_no_expansion(t_ast **root)
 	return (recursion___test_parser_complex_argv_and_redir_no_expansion(*root));
 }
 
-void	trim_quoted_tokens(t_lexer *lexer);
+// ##########################################
+//
+// test_simple_only_redir START
+//
+// ##########################################
+
+char	**expected_argv_helper___test_simple_only_redir(void)
+{
+	// "echo>f1 ola'$USER'seu\" \"'pid$$''$USER''hello'''>f2 ola\"oi\"\"\"t";
+	static int i = 0;
+
+	static char *argv_0[] = {NULL};
+	static char **argv[] = {argv_0, NULL};
+	
+	return (argv[i++]);
+}
+
+t_list **expected_redir_lst_helper___test_simple_only_redir(void)
+{
+	static t_bool init = FALSE;
+	static int i = 0;
+
+	static t_list *lst_0 = NULL;
+	static t_redir	lst_0_redir_0 = (t_redir){REDIR_OUT, "f1"};
+	static t_redir	lst_0_redir_1 = (t_redir){REDIR_OUT, "f2"};
+
+	static t_list **redir_lst_array[2];
+
+	if (!init)
+	{
+		lst_0 = lst_new_node(&lst_0_redir_0);
+		lst_add_end(&lst_0, lst_new_node(&lst_0_redir_1));
+
+		redir_lst_array[0] = &lst_0;
+		redir_lst_array[1] = NULL;
+		
+		init = TRUE;
+		return (NULL);
+	}
+	return (redir_lst_array[i++]);
+}
+
+t_msh_ast expected_helper___test_simple_only_redir(void)
+{
+	static t_msh_ast expected_content[100];
+	static t_bool init = FALSE;
+	static int i = 0;
+	
+	if (!init)
+	{
+		expected_content[0] = (t_msh_ast){NODE_EXEC, expected_redir_lst_helper___test_simple_only_redir(), expected_argv_helper___test_simple_only_redir(), NULL};
+		init = TRUE;
+		return ((t_msh_ast){0, NULL, NULL, NULL});
+	}
+	return (expected_content[i++]);
+}
+
+t_bool	recursion___test_simple_only_redir(t_ast *root)
+{
+	if (!root)
+		return (EXIT_SUCCESS);
+
+	t_msh_ast expected_content = expected_helper___test_simple_only_redir();
+	
+	if(test_parser_cmp(&expected_content, root->content)
+		|| recursion___test_simple_only_redir(root->left)
+		|| recursion___test_simple_only_redir(root->right))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+t_bool	test_simple_only_redir(t_ast **root)
+{
+	if (!root || !*root)
+		return (EXIT_FAILURE);
+
+	// TEST DEPTH
+
+	expected_redir_lst_helper___test_simple_only_redir();
+	expected_helper___test_simple_only_redir();
+	return (recursion___test_simple_only_redir(*root));
+}
+
 
 int main(void)
 {
@@ -415,11 +497,13 @@ int main(void)
 	tests[1] = "ls > f1 && cat f1 | wc > f2>f3";
 	tests[2] = "echo <ha'esseAquiAindaEhONomeDoRedir' oi 'ola' outracoisaai>f1&& echo \"oi\"'ola'\"outracoisaai\" > f2 > out3";
 	tests[3] = "echo>f1 ola'$USER'seu\" \"'pid$$''$USER''hello'''>f2 ola\"oi\"\"\"t";
+	tests[4] = ">f1>f2";
 
 	test_functions[0] = test_parser_very_simple_input;
 	test_functions[1] = test_parser_simple_input_with_redirs;
 	test_functions[2] = test_parser_medium_complex_argv_with_redirs;
 	test_functions[3] = test_parser_complex_argv_and_redir_no_expansion;
+	test_functions[4] = test_simple_only_redir;
 
 	int test_len = 0;
 	while (tests[test_len])
@@ -429,7 +513,6 @@ int main(void)
 	{
 	ft_printf(TEST, i + 1, tests[i]);
 	ft_lexer(&lexer, tests[i]);
-	// trim_quoted_tokens(&lexer);
 	parser(&root, &lexer);
 	if (test_functions[i](root))
 		ft_printf(FAIL);
