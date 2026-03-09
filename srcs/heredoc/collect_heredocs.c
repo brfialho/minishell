@@ -1,21 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collect_heredoc.c                                  :+:      :+:    :+:   */
+/*   collect_heredocs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 17:21:54 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/07 05:44:42 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/09 19:30:53 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "main.h"
 
+static void	heredoc_recursion(t_ast *root);
 static void	heredoc(t_redir *redir);
 static char	*trim_heredoc(char *s);
 
-void	collect_heredocs(t_ast *root)
+t_error	collect_heredocs(t_mini *mini)
+{
+	t_error error;
+
+	error = NO_ERROR;
+	g_status_shell = 0;
+	rl_event_hook = shell_signal_hook;
+	heredoc_recursion(*mini->root);
+	if (g_status_shell == SIGINT)
+		error = HEREDOC_SIGINT;
+	rl_event_hook = NULL;
+	g_status_shell = 0;
+	return (error);
+}
+
+static void	heredoc_recursion(t_ast *root)
 {
 	t_list	*lst;
 
@@ -26,13 +42,15 @@ void	collect_heredocs(t_ast *root)
 		lst = *((t_msh_ast *)root->content)->redir;
 		while (lst)
 		{
+			if (g_status_shell == SIGINT)
+				return ;
 			if (((t_redir *)lst->content)->type == REDIR_HEREDOC)
 				heredoc(lst->content);
 			lst = lst->next;
 		}
 	}
-	collect_heredocs(root->left);
-	collect_heredocs(root->right);
+	heredoc_recursion(root->left);
+	heredoc_recursion(root->right);
 }
 
 static void	heredoc(t_redir *redir)
@@ -50,10 +68,10 @@ static void	heredoc(t_redir *redir)
 	while (line && ft_strcmp(redir->target, line))
 	{
 		heredoc_string = ft_strjoin_free(heredoc_string , ft_strjoin(line, "\n"), TRUE, TRUE);
-		free(line);
+		if (g_status_shell == SIGINT)
+			break;
 		line = readline("> ");
 	}
-	free(line);
 	free(redir->target);
 	redir->target = heredoc_string;
 }

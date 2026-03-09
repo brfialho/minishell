@@ -1,21 +1,15 @@
 BRUNO
-$$ $?
-SIGNAL C / D
-SIGNAL HEREDOC
+README
 
 RAFA
-
-consertar still reachable
-free no caso de erro na expansao do redir
+$?
+arumar segfault quando >f1
+arrumar pegar o primeiro heredoc ao inves do ultimo no caso de varios
 
 GERAL
-Arrumar readline
-README
-refotorar pastas
-
-TALVEZ
-
-
+sinais no durante exec \C
+refatorar pastas
+Apagar arquivos nada haver
 
 
 QUANDO FOR MERGEAR LEMBRAR DE PRIMEIRO FAZER O MERGE NA BRANCH

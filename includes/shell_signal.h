@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal.h                                       :+:      :+:    :+:   */
+/*   shell_signal.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:17:31 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/07 00:48:58 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/09 17:44:57 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_SIGNAL_H
-# define SET_SIGNAL_H
+#ifndef SHELL_SIGNAL_H
+# define SHELL_SIGNAL_H
 
 # include <signal.h>
 # include "defines.h"
 
 void	set_signals(void);
+void	sighandler_heredoc(int sig);
+int		shell_signal_hook(void);
 
 #endif

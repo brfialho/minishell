@@ -38,8 +38,10 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/input_pipeline/parser/parser_destroy.c \
 	srcs/input_pipeline/parser/syntax_validator.c \
 	srcs/input_pipeline/parser/parser_error_handler.c \
-	srcs/input_pipeline/collect_heredoc.c \
 	srcs/input_pipeline/input_pipeline.c \
+	srcs/prompt/prompt_line.c \
+	srcs/heredoc/collect_heredocs.c \
+	srcs/heredoc/heredoc_fd_handler.c \
 	srcs/expansion/expansion.c \
 	srcs/expansion/expand_utils.c \
 	srcs/expansion/expand_string.c \
@@ -47,7 +49,6 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/execution/exec/exec.c \
 	srcs/execution/exec/exec_builtin_parent.c \
 	srcs/execution/pipeline/pipeline.c \
-	srcs/prompt/prompt_line.c \
 	srcs/execution/redirect/redir.c \
 	srcs/execution/exec/utils_exec.c \
 	srcs/execution/pipeline/utils_pipeline.c \
@@ -57,9 +58,8 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/execution/builtins/builtin.c \
 	srcs/execution/builtins/env_functions_two.c \
 	srcs/execution/builtins/env_functions.c \
-	srcs/signals/set_signals.c \
+	srcs/signals/shell_signals.c \
 	srcs/execution/executor.c \
-	srcs/execution/heredoc/heredoc_functions.c \
 	srcs/execution/exec/exec_pipeline.c \
 	srcs/execution/exec/utils_pipeline_exec.c \
 	srcs/execution/builtins/env_utils.c \

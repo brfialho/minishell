@@ -6,13 +6,13 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:22:05 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/07 03:27:28 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/09 18:08:09 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	collect_heredocs(t_ast *root);
+t_error	collect_heredocs(t_mini *mini);
 
 t_bool	process_input_pipeline(t_mini *mini)
 {
@@ -26,6 +26,8 @@ t_bool	process_input_pipeline(t_mini *mini)
 	if (mini->error_code)
 		return (parser_error_handler(mini), EXIT_FAILURE);
 	lexer_destroy(&mini->lexer);
-	collect_heredocs(*mini->root);
+	mini->error_code = collect_heredocs(mini);
+	if (mini->error_code)
+		return (parser_destroy(mini->root), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
