@@ -6,11 +6,12 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 17:21:54 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 20:21:54 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/09 17:52:20 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "main.h"
 
 static void	heredoc(t_redir *redir);
 static char	*trim_heredoc(char *s);
@@ -26,6 +27,8 @@ void	collect_heredocs(t_ast *root)
 		lst = *((t_msh_ast *)root->content)->redir;
 		while (lst)
 		{
+			if (g_status_shell == SIGINT)
+				return ;
 			if (((t_redir *)lst->content)->type == REDIR_HEREDOC)
 				heredoc(lst->content);
 			lst = lst->next;
@@ -50,10 +53,10 @@ static void	heredoc(t_redir *redir)
 	while (ft_strcmp(redir->target, line))
 	{
 		heredoc_string = ft_strjoin_free(heredoc_string , ft_strjoin(line, "\n"), TRUE, TRUE);
-		free(line);
+		if (g_status_shell == SIGINT)
+			break;
 		line = readline("> ");
 	}
-	free(line);
 	free(redir->target);
 	redir->target = heredoc_string;
 }
