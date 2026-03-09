@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:13:50 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/09 17:45:24 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/09 18:02:14 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 #include "shell_signal.h"
 
 static void	sighandler(int sig);
-
-void	sighandler_heredoc(int sig)
-{
-	g_status_shell = sig;
-
-	// if (sig == SIGINT)
-	// 	rl_done = 1;
-}
 
 void	set_signals(void)
 {

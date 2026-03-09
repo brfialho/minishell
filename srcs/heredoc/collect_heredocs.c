@@ -1,22 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collect_heredoc.c                                  :+:      :+:    :+:   */
+/*   collect_heredocs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/27 17:21:54 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/09 17:52:20 by brfialho         ###   ########.fr       */
+/*   Created: 2026/03/09 18:06:48 by brfialho          #+#    #+#             */
+/*   Updated: 2026/03/09 18:07:40 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
 #include "main.h"
 
+static void	heredoc_recursion(t_ast *root);
 static void	heredoc(t_redir *redir);
 static char	*trim_heredoc(char *s);
 
-void	collect_heredocs(t_ast *root)
+t_error	collect_heredocs(t_mini *mini)
+{
+	t_error error;
+
+	error = NO_ERROR;
+	g_status_shell = 0;
+	rl_event_hook = shell_signal_hook;
+	heredoc_recursion(*mini->root);
+	if (g_status_shell == SIGINT)
+		error = HEREDOC_SIGINT;
+	rl_event_hook = NULL;
+	g_status_shell = 0;
+	return (error);
+}
+
+static void	heredoc_recursion(t_ast *root)
 {
 	t_list	*lst;
 
@@ -34,8 +49,8 @@ void	collect_heredocs(t_ast *root)
 			lst = lst->next;
 		}
 	}
-	collect_heredocs(root->left);
-	collect_heredocs(root->right);
+	heredoc_recursion(root->left);
+	heredoc_recursion(root->right);
 }
 
 static void	heredoc(t_redir *redir)
