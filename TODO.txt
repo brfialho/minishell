@@ -1,18 +1,14 @@
 BRUNO
-sinais no cat \C
-SIGNAL HEREDOC
+README
 
 RAFA
-$$ $?
+$?
+arumar segfault quando >f1
+arrumar pegar o primeiro heredoc ao inves do ultimo no caso de varios
 
 GERAL
-Arrumar readline
-README
-refotorar pastas
-
-TALVEZ
-
-
+sinais no durante exec \C
+refatorar pastas
 
 
 QUANDO FOR MERGEAR LEMBRAR DE PRIMEIRO FAZER O MERGE NA BRANCH
