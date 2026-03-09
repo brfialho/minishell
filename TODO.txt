@@ -1,12 +1,9 @@
 BRUNO
-$$ $?
-SIGNAL C / D
+sinais no cat \C
 SIGNAL HEREDOC
 
 RAFA
-
-consertar still reachable
-free no caso de erro na expansao do redir
+$$ $?
 
 GERAL
 Arrumar readline

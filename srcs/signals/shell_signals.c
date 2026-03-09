@@ -1,19 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signals.c                                      :+:      :+:    :+:   */
+/*   shell_signals.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:13:50 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/07 03:02:48 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/09 17:02:41 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include "set_signal.h"
+#include "shell_signal.h"
 
-void	sighandler(int sig)
+static int shell_signal_hook(void);
+static void	sighandler(int sig);
+
+void	sighandler_heredoc(int sig)
+{
+	g_status_shell = sig;
+
+	if (sig == SIGINT)
+		rl_done = 1;
+}
+
+void	set_signals(void)
+{
+	rl_event_hook = shell_signal_hook;
+	signal(SIGINT, sighandler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+static void	sighandler(int sig)
 {
 	g_status_shell = sig;
 
@@ -26,35 +44,7 @@ void	sighandler(int sig)
 	}
 }
 
-void	set_signals(void)
+static int shell_signal_hook(void)
 {
-	signal(SIGINT, sighandler);
+	return (0);
 }
-
-// void	set_heredoc_signals(void)
-// {
-// 	signal(SIGINT, sigint_heredoc);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
-
-// void	sigint_handler(int sig)
-// {
-// 	g_status_shell = sig;
-// }
-
-// void	sigint_prompt(int sig)
-// {
-// 	(void)sig;
-// 	g_status_shell = sig;
-// 	write(1, "\n", 1);
-// 	rl_on_new_line();
-// 	rl_replace_line("", 0);
-// 	rl_redisplay();
-// }
-
-// void	sigint_heredoc(int sig)
-// {
-// 	(void)sig;
-// 	g_status_shell = 130;
-// 	write(1, "\n", 1);
-// }

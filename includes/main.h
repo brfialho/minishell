@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:24:10 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/07 00:17:34 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/09 16:40:43 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "parser.h"
 # include "execution.h"
-# include "set_signal.h"
+# include "shell_signal.h"
 # include "error.h"
 # include "expansion.h"
 
@@ -25,6 +25,7 @@ typedef enum e_error
 	NO_ERROR = 0,
 	UNCLOSED_QUOTES = 1,
 	SYNTAX = 2,
+	HEREDOC_SIGINT = 3,
 	OTHER = 10,
 }	t_error;
 
