@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 19:36:10 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:50:02 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 {
 	char	**envp_exec;
 
+	signal(SIGINT, SIG_DFL);
 	if (!cmd->argv || !cmd->argv[0])
     	exit(0);
 	if (is_builtin(cmd->argv[0]))
