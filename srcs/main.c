@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 18:32:04 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:14:54 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	set_shell_status(t_env *env)
 
 	if (!g_shell_signal)
 		return ;
-	value = ft_itoa(g_shell_signal);
+	value = ft_itoa(g_shell_signal + 128);
 	ft_set_env(&env, "?", value);
 	free(value);
 }
