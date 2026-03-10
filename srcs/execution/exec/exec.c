@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 18:56:19 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:12:33 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 {
 	pid_t	pid;
 	int		status;
+	char	*value;
 
 	pid = fork();
 	if (pid == -1)
@@ -57,6 +58,9 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 		exec_child(cmd, env, mini);
 	ft_split_free(cmd->argv);
 	waitpid(pid, &status, 0);
+	value = ft_itoa(status / 256);
+	ft_set_env(env, "?", value);
+	free(value);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	if (WIFSIGNALED(status))
