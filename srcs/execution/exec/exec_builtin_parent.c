@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 18:41:53 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:17:24 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,15 @@ int	exec_builtin_parent(t_cmd *cmd, t_env **env, t_mini *mini)
 	int	stdout_backup;
 	int	ret;
 	int	is_parent_exit;
+	char *value;
 
 	is_parent_exit = 1;
 	if (apply_parent_redir(cmd, &stdin_backup, &stdout_backup) == -1)
 		return (1);
 	ret = execute_builtin(cmd, env, is_parent_exit, mini);
+	value = ft_itoa(ret);
+	ft_set_env(env, "?", value);
+	free(value);
 	cleanup_parent_fds(cmd, stdin_backup, stdout_backup);
 	if (ft_strcmp(cmd->argv[0], "exit") == 0)
 		exit(ret);
