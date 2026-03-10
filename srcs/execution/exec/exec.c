@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/07 00:14:24 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:56:19 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 	}
 	if (pid == 0)
 		exec_child(cmd, env, mini);
+	ft_split_free(cmd->argv);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
@@ -65,8 +66,8 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 
 int	ft_exec_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 {
-    if (!cmd || !cmd->argv || !cmd->argv[0] || cmd->argv[0][0] == '\0')
-        return (0);
+    if (!cmd->argv[0])
+        return (ft_split_free(cmd->argv), 0);
     if (cmd->argv[0][0] == '\0')
     {
         ft_putendl_fd("minishell: : command not found", 2);
