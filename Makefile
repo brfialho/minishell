@@ -63,6 +63,7 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/execution/exec/exec_pipeline.c \
 	srcs/execution/exec/utils_pipeline_exec.c \
 	srcs/execution/builtins/env_utils.c \
+	srcs/execution/builtins/utils_builtin.c \
 
 O_DIR= obj/
 OBJ= $(SRC:%.c=$(O_DIR)%.o)

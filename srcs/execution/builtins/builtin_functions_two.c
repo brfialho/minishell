@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions_two.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 18:28:28 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:07:25 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ int builtin_exit(t_cmd *cmd, int is_parent, t_mini *mini)
 	else
 		status = (unsigned char)value;
 	rl_clear_history();
-	if (is_parent)
-		return (status);
-	parser_destroy(mini->root);
+	cleanup_exit(cmd, mini);
 	exit(status);
 }

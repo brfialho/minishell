@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 18:56:19 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:21:43 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 	}
 	if (pid == 0)
 		exec_child(cmd, env, mini);
-	ft_split_free(cmd->argv);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
@@ -135,12 +134,6 @@ int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
     if (data->redir && *data->redir)
         cmd.redir = convert_redir_list(*data->redir);
     result = ft_exec_cmd(&cmd, env, mini);
-    if (cmd.redir)
-        free_exec_redir_list(cmd.redir);
-    if (cmd.path)
-        free(cmd.path);
+	destroy_exec_cmd(&cmd);
     return (result);
 }
-
-// free argv
-// free redir

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 18:32:04 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:16:26 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.env = env_from_envp(envp);
-    mini.should_exit = 0;
 	set_signals();
-	while (!mini.should_exit)
+	while (TRUE)
 	{
 		set_shell_status(mini.env);
 		mini.input = read_prompt_line();
@@ -48,6 +47,7 @@ int	main(int argc, char **argv, char **envp)
 			continue;
 		executor(&mini);
 		parser_destroy(mini.root);
+		mini.root = NULL;
 	}
 	env_clear(&mini.env);
 	return (mini.exit_status);
