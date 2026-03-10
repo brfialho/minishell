@@ -9,7 +9,6 @@ pegar o valor $? e colocar na env
 arrumar pegar o primeiro heredoc ao inves do ultimo no caso de varios
 
 GERAL
-sinais no durante exec \C
 refatorar pastas
 Apagar arquivos nada haver
 

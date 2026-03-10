@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 19:50:02 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:57:59 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,7 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 
 int	ft_exec_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 {
-    if (!cmd->argv[0])
-        return (ft_split_free(cmd->argv), 0);
-    if (cmd->argv[0][0] == '\0')
-    {
-        ft_putendl_fd("minishell: : command not found", 2);
-        return (127);
-    }
-    if (is_builtin(cmd->argv[0]))
+    if (!cmd->argv[0] || is_builtin(cmd->argv[0]))
         return (exec_builtin_parent(cmd, env, mini));
     cmd->path = get_path_dirs(cmd, env);
     if (!cmd->path)

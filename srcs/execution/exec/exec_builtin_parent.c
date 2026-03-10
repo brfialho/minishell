@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 19:17:24 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:58:50 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	exec_builtin_parent(t_cmd *cmd, t_env **env, t_mini *mini)
 	ft_set_env(env, "?", value);
 	free(value);
 	cleanup_parent_fds(cmd, stdin_backup, stdout_backup);
-	if (ft_strcmp(cmd->argv[0], "exit") == 0)
+	if (cmd->argv[0] && ft_strcmp(cmd->argv[0], "exit") == 0)
 		exit(ret);
 	return (ret);
 }
