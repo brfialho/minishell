@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/06 20:05:30 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 09:18:58 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	apply_parent_redir(
 	*stdout_backup = dup(STDOUT_FILENO);
 	if (*stdin_backup == -1 || *stdout_backup == -1)
 		return (-1);
-	if (apply_redirections(cmd->redir, cmd) == -1)
+	if (apply_redirections(cmd->redir) == -1)
 	{
 		dup2(*stdin_backup, STDIN_FILENO);
 		dup2(*stdout_backup, STDOUT_FILENO);
@@ -70,10 +70,12 @@ int	exec_builtin_parent(t_cmd *cmd, t_env **env, t_mini *mini)
 
 void	exec_builtin_child(t_cmd *cmd, t_env **env, t_mini *mini)
 {
-	if (apply_redirections(cmd->redir, cmd) == -1)
+	int	ret;
+
+	if (apply_redirections(cmd->redir) == -1)
 		exit(1);
-	execute_builtin(cmd, env, 0, mini);
+	ret = execute_builtin(cmd, env, 0, mini);
 	ft_split_free(cmd->argv);
 	parser_destroy(mini->root);
-	exit(0);
+	exit(ret);
 }

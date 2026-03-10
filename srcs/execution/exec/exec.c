@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/07 03:44:50 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 09:38:30 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 		exec_builtin_child(cmd, env, mini);
 		exit(0);
 	}
-	if (apply_redirections(cmd->redir, cmd) == -1)
+	if (apply_redirections(cmd->redir) == -1)
 		exit(1);
 	if (cmd->heredoc_fd != -1)
 		dup2(cmd->heredoc_fd, STDIN_FILENO);
@@ -117,6 +117,7 @@ int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
     t_msh_ast	*data;
     t_cmd 		cmd;
     int			result;
+	extern int	g_shell_state;
 
     result = 0;
     data = (t_msh_ast *)node->content;
@@ -130,6 +131,8 @@ int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
     if (data->redir && *data->redir)
         cmd.redir = convert_redir_list(*data->redir);
     result = ft_exec_cmd(&cmd, env, mini);
+	mini->exit_status = result;
+	g_shell_state = result;
 	destroy_exec_cmd(&cmd);
     return (result);
 }

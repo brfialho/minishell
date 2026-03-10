@@ -6,13 +6,13 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/09 19:30:48 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 08:53:48 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int g_status_shell = 0;
+int g_shell_state = 0;
 
 int	main(int argc, char **argv, char **envp)
 {

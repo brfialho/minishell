@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/07 04:49:31 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 08:33:24 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ char	**expand_argv(char **old_argv, t_env **env)
 	int		i;
 
 	old_argv = ft_split_deep_dup(old_argv);
+	if (!old_argv || !old_argv[0])
+	{
+		ft_split_free(old_argv);
+		argv = ft_safe_calloc(1, sizeof(char *));
+		argv[0] = NULL;
+		return (argv);
+	}
 	i = -1;
 	while (old_argv[++i])
 		mark_protected_quotes(old_argv[i]);

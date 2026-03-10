@@ -6,12 +6,15 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:09:39 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/07 05:11:36 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 09:43:18 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "builtins.h"
+#include "main.h"
+
+extern int g_shell_state;
 
 static t_list	**get_exp_var_lst(char *s, t_bool heredoc, t_env **env);
 static char		*set_new_expd_var_info(char	*s, t_list **expd_var_lst, t_env **env);
@@ -56,18 +59,25 @@ static t_list	**get_exp_var_lst(char *s, t_bool heredoc, t_env **env)
 
 static char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst, t_env **env)
 {
-	if (ft_str_charcount(EXPAND_SPECIAL, *s))
-		return (s); // ajeitar $?
 	t_expd	*content;
+	char	*env_val;
 	int		len;
 
 	content = ft_safe_calloc(1, sizeof(t_expd));
 	len = 0;
 	content->start = s;
+	if (*s == '?')
+	{
+		content->env_key = ft_strdup("?");
+		content->env_value = ft_itoa(g_shell_state);
+		lst_add_end(expd_var_lst, lst_new_node(content));
+		return (s);
+	}	
 	while (s[len] && !ft_str_charcount(ARGV_EXPAND_DELIMITER, s[len]))
 		len++;
 	content->env_key = ft_substr(s, 0, len);
-	content->env_value = ft_get_envp(*env, content->env_key);
+	env_val = ft_get_envp(*env, content->env_key);
+	content->env_value = (env_val) ? ft_strdup(env_val) : ft_strdup("");
 	s += len - 1;
 	lst_add_end(expd_var_lst, lst_new_node(content));
 	return (s);
@@ -92,6 +102,7 @@ static void	fill_expd_str(char	*old, char *new, t_list *expd_var_lst)
 {
 	t_list *lst;
 	char	*s;
+	int		key_len;
 
 	lst = expd_var_lst;
 	while (*old)
@@ -101,9 +112,10 @@ static void	fill_expd_str(char	*old, char *new, t_list *expd_var_lst)
 			s = ((t_expd *)lst->content)->env_value;
 			while (s && *s)
 				*new++ = *s++;
-			old += ft_strlen(((t_expd *)lst->content)->env_key);
-			new--;
+			key_len = ft_strlen(((t_expd *)lst->content)->env_key);
+			old += key_len;
 			lst = lst->next;
+			new--;
 		}
 		else
 			*new = *old;

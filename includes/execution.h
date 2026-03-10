@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/07 04:27:48 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 08:30:47 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "builtins.h"
 
 int			ft_exec_cmd(t_cmd *cmd, t_env **envp, t_mini *mini);
-int 		apply_redirections(t_n_redir *redir, t_cmd *cmd);
+int 		apply_redirections(t_n_redir *redir);
 int			open_redir_fd(t_n_redir *redir);
 int			apply_redir_fd(int fd, t_n_redir *redir);
 int			is_builtin(char *cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_signals.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:13:50 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/09 18:02:14 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 08:53:48 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ void	set_signals(void)
 
 static void	sighandler(int sig)
 {
-	g_status_shell = sig;
+	if (sig == SIGINT)
+		g_shell_state = 128 + SIGINT;
 }
 
 int shell_signal_hook(void)
 {
-	if (g_status_shell == SIGINT)
+	if (g_shell_state == 128 + SIGINT)
 	{
 		rl_done = 1;
 		rl_on_new_line();

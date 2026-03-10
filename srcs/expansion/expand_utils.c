@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:10:06 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/07 04:49:52 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 08:45:00 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	del_exp_var(void *content)
 
 	exp = content;
 	free (exp->env_key);
+	free(exp->env_value);
 	free(exp);
 }
 
