@@ -6,12 +6,13 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:09:39 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 19:54:16 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:34:45 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "builtins.h"
+#include "main.h"
 
 static t_list	**get_exp_var_lst(char *s, t_bool heredoc, t_env **env);
 static char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst, t_env **env);
@@ -56,12 +57,11 @@ static t_list	**get_exp_var_lst(char *s, t_bool heredoc, t_env **env)
 
 static char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst, t_env **env)
 {
-	if (ft_str_charcount(EXPAND_SPECIAL, *s))
-		return (s); // DO SOMETHING
-
 	t_expd	*content;
 	int		len;
 
+	if (*s == '$')
+		return (s);
 	content = ft_safe_calloc(1, sizeof(t_expd));
 	len = 0;
 	content->start = s;

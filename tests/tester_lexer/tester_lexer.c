@@ -6,13 +6,13 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:39:21 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 20:29:44 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:28:28 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
 
-int g_status_shell = 0;
+int g_shell_signal = 0;
 
 char	test_helper(t_token expec_token, t_token token)
 {

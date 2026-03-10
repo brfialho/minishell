@@ -6,13 +6,24 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/09 18:11:16 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:32:04 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int g_status_shell = 0;
+int g_shell_signal = 0;
+
+void	set_shell_status(t_env *env)
+{
+	char	*value;
+
+	if (!g_shell_signal)
+		return ;
+	value = ft_itoa(g_shell_signal);
+	ft_set_env(&env, "?", value);
+	free(value);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -26,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 	set_signals();
 	while (!mini.should_exit)
 	{
+		set_shell_status(mini.env);
 		mini.input = read_prompt_line();
 		if (mini.input == NULL)
 		{

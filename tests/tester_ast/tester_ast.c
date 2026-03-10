@@ -6,13 +6,13 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:05:52 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/09 17:29:08 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:28:28 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
 
-int g_status_shell = 0;
+int g_shell_signal = 0;
 
 t_bool	argv___test_parser_cmp(char **expected_argv, char **argv)
 {

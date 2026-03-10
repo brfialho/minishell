@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:13:50 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/09 18:02:14 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:28:28 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	set_signals(void)
 
 static void	sighandler(int sig)
 {
-	g_status_shell = sig;
+	g_shell_signal = sig;
 }
 
 int shell_signal_hook(void)
 {
-	if (g_status_shell == SIGINT)
+	if (g_shell_signal == SIGINT)
 	{
 		rl_done = 1;
 		rl_on_new_line();

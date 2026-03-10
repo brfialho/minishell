@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:06:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 18:03:40 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:28:28 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_error	collect_heredocs(t_mini *mini)
 	error = NO_ERROR;
 	rl_event_hook = shell_signal_hook;
 	heredoc_recursion(*mini->root);
-	if (g_status_shell == SIGINT)
+	if (g_shell_signal == SIGINT)
 		error = HEREDOC_SIGINT;
 	rl_event_hook = NULL;
 	return (error);
@@ -40,7 +40,7 @@ static void	heredoc_recursion(t_ast *root)
 		lst = *((t_msh_ast *)root->content)->redir;
 		while (lst)
 		{
-			if (g_status_shell == SIGINT)
+			if (g_shell_signal == SIGINT)
 				return ;
 			if (((t_redir *)lst->content)->type == REDIR_HEREDOC)
 				heredoc(lst->content);
@@ -66,7 +66,7 @@ static void	heredoc(t_redir *redir)
 	while (ft_strcmp(redir->target, line))
 	{
 		heredoc_string = ft_strjoin_free(heredoc_string , ft_strjoin(line, "\n"), TRUE, TRUE);
-		if (g_status_shell == SIGINT)
+		if (g_shell_signal == SIGINT)
 			break;
 		line = readline("> ");
 	}

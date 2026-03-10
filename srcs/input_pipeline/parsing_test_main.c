@@ -6,14 +6,14 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:51:35 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 21:21:10 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:28:28 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 #include "expansion.h"
 
-int g_status_shell = 0;
+int g_shell_signal = 0;
 
 
 // int main(int argc, char **argv)

@@ -1,7 +1,5 @@
 BRUNO
 $? no expand
-segfault no >
-remover g_status shell
 
 README
 

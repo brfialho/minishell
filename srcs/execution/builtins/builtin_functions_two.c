@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions_two.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/06 20:02:04 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:28:28 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int builtin_exit(t_cmd *cmd, int is_parent, t_mini *mini)
 	if (is_parent)
 		ft_printf("exit\n");
 	if (!cmd->argv[1])
-		status = g_status_shell;
+		status = g_shell_signal;
 	else if (!is_valid_number(cmd->argv[1], &value))
 	{
 		ft_putstr_fd("minishell: exit: ", 2);

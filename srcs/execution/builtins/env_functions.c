@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 10:26:24 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/25 13:15:24 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:32:18 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_env	*env_from_envp(char **envp)
 		}
 		i++;
 	}
+	ft_set_env(&env, "?", "0");
 	return (env);
 }
 
