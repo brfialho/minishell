@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipeline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 12:43:39 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/19 15:01:11 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:30:32 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_cleaner_list(t_cmd *list)
 	while(list)
 	{
 		next = list->next;
+		destroy_exec_cmd(list);
 		free(list);
 		list = next;
 	}
