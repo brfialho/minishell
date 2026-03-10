@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:05:48 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 20:10:56 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 20:26:07 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ int apply_redirections(t_n_redir *redir, t_cmd *cmd)
 {
 	int fd;
 
+	(void)cmd;
 	while (redir)
 	{
 		if (redir->type >= REDIR_HEREDOC)
 		{
-			if (setup_heredoc_to_stdin(cmd->redir->target) == -1)
+			if (setup_heredoc_to_stdin(redir->target) == -1)
            		exit(EXIT_FAILURE);
 		}
 		else
