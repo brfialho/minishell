@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:09:39 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 09:43:18 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 12:35:19 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ static char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst, t_env **env)
 		len++;
 	content->env_key = ft_substr(s, 0, len);
 	env_val = ft_get_envp(*env, content->env_key);
-	content->env_value = (env_val) ? ft_strdup(env_val) : ft_strdup("");
+	if(env_val)
+		content->env_value = ft_strdup(env_val);
+	else
+		content->env_value = ft_strdup("");
 	s += len - 1;
 	lst_add_end(expd_var_lst, lst_new_node(content));
 	return (s);
