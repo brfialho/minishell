@@ -1,9 +1,12 @@
 BRUNO
+$? no expand
+segfault no >
+remover g_status shell
+
 README
 
 RAFA
-$?
-arumar segfault quando >f1
+pegar o valor $? e colocar na env
 arrumar pegar o primeiro heredoc ao inves do ultimo no caso de varios
 
 GERAL
