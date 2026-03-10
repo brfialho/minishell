@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:21 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 19:55:00 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 20:03:16 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	execute_builtin(t_cmd *cmd, t_env **env, int is_parent, t_mini *mini)
 {
 	char	*builtin;
 
-	if (!cmd || !cmd->argv || !cmd->argv[0])
+	if (!cmd->argv[0])
 		return (0);
 	builtin = cmd->argv[0];
 	if (!strcmp(builtin, "echo"))
