@@ -6,7 +6,7 @@
 /*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 19:07:25 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:35:54 by rafreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	builtin_env(t_env *env)
 {
 	while (env)
 	{
-		if (env->value)
+		if (env->value && ft_strcmp(env->key, "?"))
 			ft_printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}

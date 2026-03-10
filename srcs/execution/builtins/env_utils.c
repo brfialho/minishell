@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 13:21:18 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 13:40:42 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:25:33 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static	t_env *env_dup(t_env *env)
 
 static void only_print(t_env *env)
 {
+	if (!ft_strcmp(env->key, "?"))
+		return ;
 	if (env->value)
 		ft_printf("declare -x %s=\"%s\"\n", env->key, env->value);
 	else
