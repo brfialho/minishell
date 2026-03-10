@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 18:28:28 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:23:22 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	builtin_env(t_env *env)
 {
 	while (env)
 	{
-		if (env->value)
+		if (env->value && ft_strcmp(env->key, "?"))
 			ft_printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
