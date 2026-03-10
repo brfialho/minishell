@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/09 18:01:30 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:03:32 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ char	*read_prompt_line(void)
 
 	ft_bzero(prompt, sizeof(prompt));
 	get_prompt(prompt);
+	g_status_shell = 0;
 	rl_event_hook = shell_signal_hook;
-	g_status_shell = 0;
 	line = readline(prompt);
-	g_status_shell = 0;
 	rl_event_hook = NULL;
 	if (!line)
     	return (NULL);

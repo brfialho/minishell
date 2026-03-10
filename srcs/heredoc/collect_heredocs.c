@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:06:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/09 18:07:40 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:03:40 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ t_error	collect_heredocs(t_mini *mini)
 	t_error error;
 
 	error = NO_ERROR;
-	g_status_shell = 0;
 	rl_event_hook = shell_signal_hook;
 	heredoc_recursion(*mini->root);
 	if (g_status_shell == SIGINT)
 		error = HEREDOC_SIGINT;
 	rl_event_hook = NULL;
-	g_status_shell = 0;
 	return (error);
 }
 
