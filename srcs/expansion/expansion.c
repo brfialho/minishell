@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/06 23:49:03 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:07:25 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	**expand_argv(char **old_argv, t_env **env)
 	int		i;
 
 	old_argv = ft_split_deep_dup(old_argv);
+	if (*old_argv == NULL)
+		return (old_argv);
 	i = -1;
 	while (old_argv[++i])
 		mark_protected_quotes(old_argv[i]);
