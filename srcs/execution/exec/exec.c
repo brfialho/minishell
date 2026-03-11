@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 22:32:48 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 22:34:58 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 	if (!envp_exec)
 		exit(1);
 	execve(cmd->path, cmd->argv, envp_exec);
-	set_signals();
 	perror(cmd->argv[0]);
 	free_envp(envp_exec);
 	ft_split_free(cmd->argv);
