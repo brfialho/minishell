@@ -6,15 +6,15 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:05:13 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/06 23:49:16 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:45:12 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
-#include "libft.h"
-#include "defines.h"
+# include "libft.h"
+# include "defines.h"
 
 typedef struct s_expd
 {
@@ -23,8 +23,8 @@ typedef struct s_expd
 	char	*env_value;
 }	t_expd;
 
-typedef struct s_redir t_redir;
-typedef struct s_env t_env;
+typedef struct s_redir	t_redir;
+typedef struct s_env	t_env;
 
 void	del_exp_var(void *content);
 char	*expand_string(char *old_str, t_bool heredoc, t_env **env);

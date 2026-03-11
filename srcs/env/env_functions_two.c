@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 09:58:33 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 18:30:22 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:32:54 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,3 @@ char	**env_to_envp(t_env *env)
 	envp[i] = NULL;
 	return (envp);
 }
-

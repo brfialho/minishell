@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 18:28:28 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:43:32 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ char	*read_prompt_line(void)
 	line = readline(prompt);
 	rl_event_hook = NULL;
 	if (!line)
-    	return (NULL);
+		return (NULL);
 	if (ft_str_allinset(line, WHITESPACE))
-    	return (WHITESPACE);
+		return (WHITESPACE);
 	add_history(line);
 	return (line);
 }
@@ -39,7 +39,7 @@ char	*read_prompt_line(void)
 static void	get_prompt(char *prompt)
 {
 	static char	username[1024] = {0};
-	char 		cwd_buffer[1024];
+	char		cwd_buffer[1024];
 	char		*aux_str;
 
 	if (!*username)
@@ -50,12 +50,13 @@ static void	get_prompt(char *prompt)
 	if (!ft_strncmp(cwd_buffer, aux_str, ft_strlen(aux_str)))
 	{
 		*prompt = '~';
-		ft_memcpy(prompt + 1, cwd_buffer + ft_strlen(aux_str), 1024 - 1 - ft_strlen(aux_str));
+		ft_memcpy(prompt + 1, cwd_buffer + ft_strlen(aux_str),
+			1024 - 1 - ft_strlen(aux_str));
 	}
 	else
 		ft_memcpy(prompt, cwd_buffer, 1024);
 	free(aux_str);
-	aux_str = ft_strjoin(PROMPT_START, prompt);
+	aux_str = ft_strjoin(PRMPT_STRT, prompt);
 	ft_memcpy(prompt, aux_str, ft_strlen(aux_str));
 	free(aux_str);
 	ft_memcpy(prompt + ft_strlen(prompt), PROMPT_END, ft_strlen(PROMPT_END));
@@ -96,16 +97,10 @@ static char	*colorize_helper(char *prompt, char c)
 	char	*color;
 
 	if (c == '/')
-		color = COLORIZE_AUX_1;
+		color = "\001\033[38;5;214m\002/\001\033[0m\002";
 	if (c == '$')
-		color = COLORIZE_AUX_2;
+		color = "\001\033[38;5;214m\002$\001\033[0m\002";
 	while (*color)
 		*prompt++ = *color++;
 	return (prompt);
 }
-
-
-
-
-
-

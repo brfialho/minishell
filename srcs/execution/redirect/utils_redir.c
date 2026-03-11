@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:34 by rafreire          #+#    #+#             */
-/*   Updated: 2026/02/25 13:15:41 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:15:52 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	apply_redir_fd(int fd, t_n_redir *redir)
 	return (-1);
 }
 
-t_n_redir *new_exec_redir(t_redir *ast_redir)
+t_n_redir	*new_exec_redir(t_redir *ast_redir)
 {
-	t_n_redir *new;
+	t_n_redir	*new;
 
 	new = ft_safe_calloc(1, sizeof(t_n_redir));
 	if (!new)
@@ -50,7 +50,7 @@ t_n_redir *new_exec_redir(t_redir *ast_redir)
 	return (new);
 }
 
-t_n_redir *convert_redir_list(t_list *ast_list)
+t_n_redir	*convert_redir_list(t_list *ast_list)
 {
 	t_n_redir	*head;
 	t_n_redir	*last;
@@ -78,9 +78,9 @@ t_n_redir *convert_redir_list(t_list *ast_list)
 	return (head);
 }
 
-void free_exec_redir_list(t_n_redir *redir)
+void	free_exec_redir_list(t_n_redir *redir)
 {
-	t_n_redir *tmp;
+	t_n_redir	*tmp;
 
 	while (redir)
 	{

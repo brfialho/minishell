@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 21:29:04 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:03:13 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 static int	is_valid_number(const char *str, long long *value);
 
-int builtin_exit(t_cmd *cmd, int is_parent, t_mini *mini)
+int	builtin_exit(t_cmd *cmd, int is_parent, t_mini *mini)
 {
-	long long value;
-	int status;
+	long long	value;
+	int			status;
 
 	if (is_parent)
 		ft_printf("exit\n");

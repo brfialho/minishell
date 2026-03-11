@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/16 14:43:15 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 19:57:59 by brfialho         ###   ########.fr       */
+/*   Created: 2026/03/10 23:10:09 by brfialho          #+#    #+#             */
+/*   Updated: 2026/03/10 23:32:02 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 	char	**envp_exec;
 
 	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (!cmd->argv || !cmd->argv[0])
-    	exit(0);
+		exit(0);
 	if (is_builtin(cmd->argv[0]))
 	{
 		exec_builtin_child(cmd, env, mini);
@@ -38,8 +39,6 @@ void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 	free_envp(envp_exec);
 	ft_split_free(cmd->argv);
 	parser_destroy(mini->root);
-	if (errno == EACCES)
-		exit(126);
 	exit(127);
 }
 
@@ -70,18 +69,18 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 
 int	ft_exec_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 {
-    if (!cmd->argv[0] || is_builtin(cmd->argv[0]))
-        return (exec_builtin_parent(cmd, env, mini));
-    cmd->path = get_path_dirs(cmd, env);
-    if (!cmd->path)
-    {
-        ft_putendl_fd("minishell: command not found", 2);
-        return (127);
-    }
-    return (exec_external_cmd(cmd, env, mini));
+	if (!cmd->argv[0] || is_builtin(cmd->argv[0]))
+		return (exec_builtin_parent(cmd, env, mini));
+	cmd->path = get_path_dirs(cmd, env);
+	if (!cmd->path)
+	{
+		ft_putendl_fd("minishell: command not found", 2);
+		return (127);
+	}
+	return (exec_external_cmd(cmd, env, mini));
 }
 
-int exec_node(t_ast *node, t_env **env, t_mini *mini)
+int	exec_node(t_ast *node, t_env **env, t_mini *mini)
 {
 	int			status;
 	t_msh_ast	*data;
@@ -98,40 +97,40 @@ int exec_node(t_ast *node, t_env **env, t_mini *mini)
 		status = exec_node(node->left, env, mini);
 		if (status == 0)
 			return (exec_node(node->right, env, mini));
-		return status;
+		return (status);
 	}
 	if (data->type == NODE_OR)
 	{
 		status = exec_node(node->left, env, mini);
 		if (status != 0)
 			return (exec_node(node->right, env, mini));
-		return status;
+		return (status);
 	}
 	return (1);
 }
 
-int exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
+int	exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
 {
-    t_msh_ast	*data;
-    t_cmd 		cmd;
-    int			result;
+	t_msh_ast	*data;
+	t_cmd		cmd;
+	int			result;
 
-    result = 0;
-    if (!node || !node->content)
-        return (0);
-    data = (t_msh_ast *)node->content;
-    if (!data->argv)
+	result = 0;
+	if (!node || !node->content)
+		return (0);
+	data = (t_msh_ast *)node->content;
+	if (!data->argv)
 		return (1);
 	if (expand_all_redir(data->redir, env))
 		return (1);
 	cmd.argv = expand_argv(data->argv, env);
-    cmd.heredoc_fd = -1;
-    cmd.next = NULL;
-    cmd.redir = NULL;
+	cmd.heredoc_fd = -1;
+	cmd.next = NULL;
+	cmd.redir = NULL;
 	cmd.path = NULL;
-    if (data->redir && *data->redir)
-        cmd.redir = convert_redir_list(*data->redir);
-    result = ft_exec_cmd(&cmd, env, mini);
+	if (data->redir && *data->redir)
+	cmd.redir = convert_redir_list(*data->redir);
+	result = ft_exec_cmd(&cmd, env, mini);
 	destroy_exec_cmd(&cmd);
-    return (result);
+	return (result);
 }

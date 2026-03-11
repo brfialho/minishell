@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/06 22:14:22 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:44:13 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINES_H
- #define DEFINES_H
+# define DEFINES_H
 
 # include "libft.h"
 # include <unistd.h>
@@ -43,11 +43,10 @@
 # define BOLD "\001\033[1m\002"
 # define RESET "\001\033[0m\002"
 # define YELLOW "\001\033[33m\002"
-# define COLORIZE_AUX_1 LIGHT_ORANGE  "/" RESET
-# define COLORIZE_AUX_2 LIGHT_ORANGE  "$" RESET
 
 // Lexer
-# define OPERATOR "|<>" // && operator has to be treated specially since & is a normal char
+// && operator has to be treated specially since & is a normal char
+# define OPERATOR "|<>" 
 # define WHITESPACE " \t"
 # define OP_COUNT 7
 
@@ -55,8 +54,10 @@
 # define EXIT_CODE 130
 
 // Readlines
-# define PROMPT_START RED BOLD "🔥Minihell🔥 " RESET
-# define PROMPT_END "$ " RESET
+// # define PROMPT_START RED BOLD "🔥Minihell🔥 " RESET
+// # define PROMPT_END "$ " RESET
+# define PRMPT_STRT "\001\033[31m\002\001\033[1m\002🔥Minihell🔥 \001\033[0m\002"
+# define PROMPT_END "$ \001\033[0m\002"
 
 // Error Messages
 # define QUOTE_ERROR "Minishell: unexpected EOF while looking for matching"

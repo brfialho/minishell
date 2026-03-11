@@ -1,17 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_builtin_parent.c                              :+:      :+:    :+:   */
+/*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 20:04:57 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:16:08 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "main.h"
+
+int	execute_builtin(t_cmd *cmd, t_env **env, int is_parent, t_mini *mini)
+{
+	char	*builtin;
+
+	if (!cmd->argv[0])
+		return (0);
+	builtin = cmd->argv[0];
+	if (!strcmp(builtin, "echo"))
+		return (builtin_echo(cmd));
+	if (!strcmp(builtin, "cd"))
+		return (builtin_cd(cmd, env));
+	if (!strcmp(builtin, "pwd"))
+		return (builtin_pwd());
+	if (!strcmp(builtin, "export"))
+		return (builtin_export(cmd, env));
+	if (!strcmp(builtin, "unset"))
+		return (builtin_unset(cmd, env));
+	if (!strcmp(builtin, "env"))
+		return (builtin_env(*env));
+	if (!strcmp(builtin, "exit"))
+		return (builtin_exit(cmd, is_parent, mini));
+	return (1);
+}
 
 static int	apply_parent_redir(
 	t_cmd *cmd,
@@ -53,11 +77,11 @@ static void	cleanup_parent_fds(
 
 int	exec_builtin_parent(t_cmd *cmd, t_env **env, t_mini *mini)
 {
-	int	stdin_backup;
-	int	stdout_backup;
-	int	ret;
-	int	is_parent_exit;
-	char *value;
+	int		stdin_backup;
+	int		stdout_backup;
+	int		ret;
+	int		is_parent_exit;
+	char	*value;
 
 	is_parent_exit = 1;
 	if (apply_parent_redir(cmd, &stdin_backup, &stdout_backup) == -1)

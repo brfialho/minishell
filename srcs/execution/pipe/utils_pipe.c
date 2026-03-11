@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_pipeline.c                                   :+:      :+:    :+:   */
+/*   utils_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 12:43:39 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 19:30:32 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:12:45 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_cleaner_list(t_cmd *list)
 {
-	t_cmd *next;
+	t_cmd	*next;
 
-	while(list)
+	while (list)
 	{
 		next = list->next;
 		destroy_exec_cmd(list);
@@ -27,15 +27,15 @@ void	ft_cleaner_list(t_cmd *list)
 
 t_cmd	*cmd_add_back(t_cmd *left, t_cmd *right)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 
-    if (!left)
-        return right;
-    tmp = left;
-    while (tmp->next)
-        tmp = tmp->next;
-    tmp->next = right;
-    return left;
+	if (!left)
+		return (right);
+	tmp = left;
+	while (tmp->next)
+	tmp = tmp->next;
+	tmp->next = right;
+	return (left);
 }
 
 void	resolve_pipeline_paths(t_cmd *cmd, t_env **env)
@@ -52,4 +52,3 @@ void	resolve_pipeline_paths(t_cmd *cmd, t_env **env)
 		current = current->next;
 	}
 }
-

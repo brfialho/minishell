@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:09:39 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 18:34:45 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 22:56:27 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 #include "main.h"
 
 static t_list	**get_exp_var_lst(char *s, t_bool heredoc, t_env **env);
-static char	*set_new_expd_var_info(char	*s, t_list **expd_var_lst, t_env **env);
-static int	get_expanded_len(char *s, t_list *expd_var_lst);
-static void	fill_expd_str(char	*old, char *new, t_list *expd_var_lst);
+static char		*set_new_expd_var_info(char	*s, t_list **expd_var_lst,
+					t_env **env);
+static int		get_expanded_len(char *s, t_list *expd_var_lst);
+static void		fill_expd_str(char	*old, char *new, t_list *expd_var_lst);
 
 char	*expand_string(char *old_str, t_bool heredoc, t_env **env)
 {
@@ -27,7 +28,8 @@ char	*expand_string(char *old_str, t_bool heredoc, t_env **env)
 	if (!ft_str_charcount(old_str, '$'))
 		return (old_str);
 	expd_var_lst = get_exp_var_lst(old_str, heredoc, env);
-	expd_str = ft_safe_calloc(get_expanded_len(old_str, *expd_var_lst) + 1, sizeof(char));
+	expd_str = ft_safe_calloc(
+			get_expanded_len(old_str, *expd_var_lst) + 1, sizeof(char));
 	fill_expd_str(old_str, expd_str, *expd_var_lst);
 	lst_del_all(expd_var_lst, del_exp_var);
 	free(old_str);
@@ -38,7 +40,7 @@ char	*expand_string(char *old_str, t_bool heredoc, t_env **env)
 static t_list	**get_exp_var_lst(char *s, t_bool heredoc, t_env **env)
 {
 	char	state;
-	t_list 	**expd_var_lst;
+	t_list	**expd_var_lst;
 
 	expd_var_lst = ft_safe_calloc(1, sizeof(t_list *));
 	state = 0;
@@ -48,7 +50,8 @@ static t_list	**get_exp_var_lst(char *s, t_bool heredoc, t_env **env)
 			state = 0;
 		else if (state == 0 && (*s == S_QUOTE || *s == D_QUOTE))
 			state = *s;
-		if (*s == '$' && *(s + 1) && ((!heredoc && state != S_QUOTE) || heredoc))
+		if (*s == '$' && *(s + 1)
+			&& ((!heredoc && state != S_QUOTE) || heredoc))
 			s = set_new_expd_var_info(s + 1, expd_var_lst, env);
 		s++;
 	}
@@ -91,7 +94,7 @@ static int	get_expanded_len(char *s, t_list *expd_var_lst)
 
 static void	fill_expd_str(char	*old, char *new, t_list *expd_var_lst)
 {
-	t_list *lst;
+	t_list	*lst;
 	char	*s;
 
 	lst = expd_var_lst;

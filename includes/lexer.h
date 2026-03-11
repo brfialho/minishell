@@ -6,14 +6,14 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:24:49 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/05 20:35:37 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:47:17 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-#include "libft.h"
+# include "libft.h"
 # include "defines.h"
 
 typedef enum e_token_code
@@ -43,7 +43,7 @@ typedef struct s_token
 	t_token_code	code;
 	char			*string;
 	t_int8			precedence;
-	t_bool 			space_next;
+	t_bool			space_next;
 }	t_token;
 
 typedef struct s_operator
@@ -51,7 +51,7 @@ typedef struct s_operator
 	t_int8			precedence;
 	char			*str;
 	int				str_len;
-	t_token_code 	code;
+	t_token_code	code;
 }	t_operator;
 
 typedef struct s_lexer
@@ -62,12 +62,11 @@ typedef struct s_lexer
 	char		*unclosed_quotes;
 }	t_lexer;
 
-typedef struct s_mini t_mini;
+typedef struct s_mini	t_mini;
 
 t_int8	ft_lexer(t_lexer *lexer, const char *input);
 char	*tokenize(t_lexer *lexer, char *input);
 void	lexer_destroy(t_lexer *lexer);
 void	lexer_error_handler(t_mini *mini);
 
-
-# endif
+#endif

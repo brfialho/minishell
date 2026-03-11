@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:00:28 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/06 20:02:45 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:35:51 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "defines.h"
 # include "parser.h"
 
-typedef struct s_n_redir t_n_redir;
+typedef struct s_n_redir	t_n_redir;
 
 typedef struct s_cmd
 {
@@ -58,6 +58,6 @@ void	env_print_sorted(t_env *env);
 void	ft_set_env(t_env **env, char *key, char *value);
 void	ft_unset_env(t_env **env, char *key);
 void	free_envp(char **envp);
-void 	env_clear(t_env **env);
+void	env_clear(t_env **env);
 
 #endif

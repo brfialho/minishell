@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 22:27:02 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/26 22:28:13 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 22:38:13 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_int8	syntax_validator(t_ast *root)
 
 static t_int8	check_redirs(t_list *lst)
 {
-	while(lst)
+	while (lst)
 	{
 		if (!ft_strlen(((t_redir *)lst->content)->target))
 			return (((t_redir *)lst->content)->type);
