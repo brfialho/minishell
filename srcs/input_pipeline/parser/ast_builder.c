@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 02:38:28 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/22 02:40:53 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 22:38:40 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ t_ast	*ast_builder(t_list *token_lst)
 
 static t_list	*get_lower_prec(t_list *token_lst)
 {
-	t_list *lst;
-	t_list *lower_prec_node;
+	t_list	*lst;
+	t_list	*lower_prec_node;
 
 	lst = token_lst;
 	lower_prec_node = token_lst;
 	while (lst)
 	{
-		if (((t_token *)lst->content)->precedence >= ((t_token *)lower_prec_node->content)->precedence)
+		if (((t_token *)lst->content)->precedence >= \
+			((t_token *)lower_prec_node->content)->precedence)
 			lower_prec_node = lst;
 		lst = lst->next;
 	}

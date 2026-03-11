@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 19:35:43 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 22:36:14 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,7 @@
 
 int g_shell_signal = 0;
 
-void	set_shell_status(t_env *env)
-{
-	char	*value;
-
-	if (!g_shell_signal)
-		return ;
-	value = ft_itoa(g_shell_signal + 128);
-	ft_set_env(&env, "?", value);
-	free(value);
-}
+static void	set_shell_status(t_env *env);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -53,3 +44,13 @@ int	main(int argc, char **argv, char **envp)
 	return (mini.exit_status);
 }
 
+static void	set_shell_status(t_env *env)
+{
+	char	*value;
+
+	if (!g_shell_signal)
+		return ;
+	value = ft_itoa(g_shell_signal + 128);
+	ft_set_env(&env, "?", value);
+	free(value);
+}

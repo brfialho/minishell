@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 21:46:26 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/26 22:22:01 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 22:36:45 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	lexer_error_handler(t_mini *mini)
 	quote = '\'';
 	if (mini->lexer.state == IN_D_QUOTES)
 		quote = '"';
-	arrow =get_arrow_string(mini->input, mini->lexer.unclosed_quotes);
+	arrow = get_arrow_string(mini->input, mini->lexer.unclosed_quotes);
 	ft_printf(BOLD "-------------%s" "^\n" RESET, arrow);
 	ft_printf(QUOTE_ERROR BOLD " %c\n" RESET, quote);
 	free(arrow);
@@ -34,7 +34,7 @@ static char	*get_arrow_string(const char *input, const char *end)
 {
 	char	*arrow;
 	char	*s;
-	int 	i;
+	int		i;
 
 	arrow = ft_safe_calloc(ft_strlen(input) + 1, sizeof(char));
 	s = (char *)input;

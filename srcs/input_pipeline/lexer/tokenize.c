@@ -6,23 +6,23 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:31:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/05 20:25:57 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 22:37:33 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
 static t_state	get_state(char *s);
-static char	*tokenize_operator(t_lexer *lexer, char *input);
-static char	*tokenize_default(t_lexer *lexer, char *input);
-static char	*tokenize_quoted(t_lexer *lexer, char *input);
+static char		*tokenize_operator(t_lexer *lexer, char *input);
+static char		*tokenize_default(t_lexer *lexer, char *input);
+static char		*tokenize_quoted(t_lexer *lexer, char *input);
 
 char	*tokenize(t_lexer *lexer, char *input)
 {
 	lexer->state = get_state(input);
 	if (lexer->state == IN_NULL)
 		return (input);
-	if (lexer->state == IN_D_QUOTES 
+	if (lexer->state == IN_D_QUOTES
 		|| lexer->state == IN_S_QUOTES)
 		return (tokenize_quoted(lexer, input));
 	if (lexer->state == IN_OPERATOR)
@@ -62,7 +62,7 @@ static char	*tokenize_default(t_lexer *lexer, char *input)
 	t_token	*token;
 
 	len = 0;
-	while(get_state(input + len) == DEFAULT)
+	while (get_state(input + len) == DEFAULT)
 		len++;
 	token_str = ft_safe_calloc(len + 1, sizeof(char));
 	ft_memcpy(token_str, input, len);
@@ -78,7 +78,7 @@ static char	*tokenize_default(t_lexer *lexer, char *input)
 
 static char	*tokenize_operator(t_lexer *lexer, char *input)
 {
-	t_token *token;
+	t_token	*token;
 	int		i;
 
 	i = 0;
