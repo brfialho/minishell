@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 21:21:37 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 21:22:31 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:02:50 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int	builtin_cd(t_cmd *cmd, t_env **env)
 	else
 		path = cmd->argv[1];
 	if (!path)
-	{
-		ft_printf("minishell: cd: HOME not set\n");
-		return (1);
-	}
+		return (ft_printf("minishell: cd: HOME not set\n"), 1);
 	if (chdir(path) != 0)
 	{
 		ft_printf("minishell: cd: %s: %s\n", path, strerror(errno));
