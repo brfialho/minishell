@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_unprotected.c                                :+:      :+:    :+:   */
+/*   split_unprotected_spaces.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 19:46:58 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/04 19:50:04 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 22:54:10 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	count_words(char *s, char c)
 
 static char	get_state(char c, t_bool reset)
 {
-	static int state = 0;
+	static int	state = 0;
 
 	if (state && state == c)
 		state = 0;
