@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:42:40 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 19:39:22 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:25:01 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-static char *search_in_dirs(char **dirs, char *cmd_name);
 
-static char *search_in_dirs(char **dirs, char *cmd_name)
+static char	*search_in_dirs(char **dirs, char *cmd_name);
+
+static char	*search_in_dirs(char **dirs, char *cmd_name)
 {
 	char	*tmp;
 	char	*full_path;
@@ -43,7 +44,7 @@ char	*get_path_dirs(t_cmd *cmd, t_env **envp)
 		return (NULL);
 	path_value = get_env_value(*envp, "PATH");
 	if (ft_strchr(cmd->argv[0], '/'))
-    	return (ft_strdup(cmd->argv[0]));
+		return (ft_strdup(cmd->argv[0]));
 	if (!path_value)
 		return (NULL);
 	dirs = ft_split(path_value, ':');
@@ -54,7 +55,7 @@ char	*get_path_dirs(t_cmd *cmd, t_env **envp)
 	return (result);
 }
 
-char *get_env_value(t_env *env, char *key)
+char	*get_env_value(t_env *env, char *key)
 {
 	while (env)
 	{
@@ -81,10 +82,10 @@ void	ft_free_matrix(char ***matrix)
 	*matrix = NULL;
 }
 
-void destroy_exec_cmd(t_cmd *cmd)
+void	destroy_exec_cmd(t_cmd *cmd)
 {
 	if (!cmd)
-		return;
+		return ;
 	if (cmd->argv)
 		ft_split_free(cmd->argv);
 	if (cmd->path)

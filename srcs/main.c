@@ -6,13 +6,13 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 22:36:14 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:32:46 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int g_shell_signal = 0;
+int	g_shell_signal = 0;
 
 static void	set_shell_status(t_env *env);
 
@@ -32,10 +32,10 @@ int	main(int argc, char **argv, char **envp)
 		if (mini.input == NULL)
 		{
 			ft_printf("exit\n");
-			break;
+			break ;
 		}
 		if (process_input_pipeline(&mini) == EXIT_FAILURE)
-			continue;
+			continue ;
 		executor(&mini);
 		parser_destroy(mini.root);
 		mini.root = NULL;

@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:00:28 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:38:57 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ static char	*colorize_helper(char *prompt, char c)
 	char	*color;
 
 	if (c == '/')
-		color = COLORIZE_AUX_1;
+		color = "\001\033[38;5;214m\002/\001\033[0m\002";
 	if (c == '$')
-		color = COLORIZE_AUX_2;
+		color = "\001\033[38;5;214m\002$\001\033[0m\002";
 	while (*color)
 		*prompt++ = *color++;
 	return (prompt);

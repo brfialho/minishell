@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 22:25:17 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:16:08 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ static void	cleanup_parent_fds(
 
 int	exec_builtin_parent(t_cmd *cmd, t_env **env, t_mini *mini)
 {
-	int	stdin_backup;
-	int	stdout_backup;
-	int	ret;
-	int	is_parent_exit;
-	char *value;
+	int		stdin_backup;
+	int		stdout_backup;
+	int		ret;
+	int		is_parent_exit;
+	char	*value;
 
 	is_parent_exit = 1;
 	if (apply_parent_redir(cmd, &stdin_backup, &stdout_backup) == -1)

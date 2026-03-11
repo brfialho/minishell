@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:24:30 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/06 19:29:34 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:09:04 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void	executor(t_mini *mini)
 {
 	if (!mini || !mini->root)
 		return ;
-	mini->exit_status =	exec_node(*mini->root, &mini->env, mini);
+	mini->exit_status = exec_node(*mini->root, &mini->env, mini);
 }

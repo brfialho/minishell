@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipeline.c                                         :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:02:08 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/07 00:09:49 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:11:35 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,14 @@
 t_cmd	*convert_ast_pipeline(t_ast *node, t_env **env)
 {
 	t_msh_ast	*data;
+	t_cmd		*left;
+	t_cmd		*right;
 
 	if (!node)
 		return (NULL);
 	data = node->content;
 	if (data->type == NODE_PIPE)
 	{
-		t_cmd	*left;
-		t_cmd	*right;
-
 		left = convert_ast_pipeline(node->left, env);
 		right = convert_ast_pipeline(node->right, env);
 		left = cmd_add_back(left, right);

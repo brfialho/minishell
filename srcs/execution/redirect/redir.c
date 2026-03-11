@@ -6,25 +6,25 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:05:48 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 20:26:07 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:15:17 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "parser.h"
-# include "execution.h"
-# include "shell_signal.h"
+#include "parser.h"
+#include "execution.h"
+#include "shell_signal.h"
 
-int apply_redirections(t_n_redir *redir, t_cmd *cmd)
+int	apply_redirections(t_n_redir *redir, t_cmd *cmd)
 {
-	int fd;
+	int	fd;
 
 	(void)cmd;
 	while (redir)
 	{
-		if (redir->type >= REDIR_HEREDOC)
+		if (redir->type >= REDIR_HEREDOC
+			&& setup_heredoc_to_stdin(redir->target) == -1)
 		{
-			if (setup_heredoc_to_stdin(redir->target) == -1)
-           		exit(EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 		else
 		{
@@ -42,5 +42,3 @@ int apply_redirections(t_n_redir *redir, t_cmd *cmd)
 	}
 	return (0);
 }
-
-

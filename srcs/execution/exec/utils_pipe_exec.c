@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_pipeline_exec.c                              :+:      :+:    :+:   */
+/*   utils_pipe_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 21:22:08 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/01 21:23:59 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:21:22 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ int	wait_for_last_pid(pid_t last_pid)
 	int		last_status;
 
 	last_status = 0;
-	while ((pid = wait(&status)) > 0)
+	while (TRUE)
 	{
+		pid = wait(&status);
+		if (pid <= 0)
+			break ;
 		if (pid == last_pid)
 			last_status = status;
 	}

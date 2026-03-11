@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_pipeline.c                                    :+:      :+:    :+:   */
+/*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 18:07:51 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/06 19:38:23 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:40:14 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "parser.h"
+#include "main.h"
 
-static void	setup_and_exec_pipeline_child(t_cmd *cmd, int *pipe_fd, 
-	int prev_fd, t_env **env, t_mini *mini) 
+static void	setup_and_exec_pipeline_child(t_cmd *cmd, int *pipe_fd,
+	int prev_fd, t_mini *mini)
 {
 	if (prev_fd != -1)
 	{
@@ -27,14 +28,16 @@ static void	setup_and_exec_pipeline_child(t_cmd *cmd, int *pipe_fd,
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 	}
-	exec_child(cmd, env, mini);
+	exec_child(cmd, &mini->env, mini);
 }
 
-static pid_t	execute_pipeline_iteration(t_cmd *cmd, int *prev_fd, t_env **env, t_mini *mini)
+static pid_t	execute_pipeline_iteration(t_cmd *cmd, int *prev_fd,
+	t_env **env, t_mini *mini)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
 
+	(void)env;
 	if (setup_pipe_if_needed(pipe_fd, cmd) == -1)
 		return (-1);
 	pid = fork();
@@ -44,7 +47,7 @@ static pid_t	execute_pipeline_iteration(t_cmd *cmd, int *prev_fd, t_env **env, t
 		return (-1);
 	}
 	if (pid == 0)
-		setup_and_exec_pipeline_child(cmd, pipe_fd, *prev_fd, env, mini);
+		setup_and_exec_pipeline_child(cmd, pipe_fd, *prev_fd, mini);
 	update_prev_fd(prev_fd, pipe_fd, cmd);
 	return (pid);
 }

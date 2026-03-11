@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 13:21:18 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 19:25:33 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:34:16 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,22 @@
 
 void	env_clear(t_env **env)
 {
-    t_env *tmp;
+	t_env	*tmp;
 
-    while (*env)
-    {
-        tmp = (*env)->next;
-        free((*env)->key);
-        free((*env)->value);
-        free(*env);
-        *env = tmp;
-    }
+	while (*env)
+	{
+		tmp = (*env)->next;
+		free((*env)->key);
+		free((*env)->value);
+		free(*env);
+		*env = tmp;
+	}
 }
-static	t_env *env_dup(t_env *env)
+
+static t_env	*env_dup(t_env *env)
 {
-	t_env *head;
-	t_env *node;
+	t_env	*head;
+	t_env	*node;
 
 	head = NULL;
 	while (env)
@@ -45,7 +46,7 @@ static	t_env *env_dup(t_env *env)
 	return (head);
 }
 
-static void only_print(t_env *env)
+static void	only_print(t_env *env)
 {
 	if (!ft_strcmp(env->key, "?"))
 		return ;
