@@ -6,14 +6,15 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:03:13 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:23:15 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "main.h"
 
-static int	is_valid_number(const char *str, long long *value);
+static int			is_valid_number(const char *str, long long *value);
+static long long	exit_atoll(char *s, t_bool *error);
 
 int	builtin_exit(t_cmd *cmd, int is_parent, t_mini *mini)
 {
@@ -45,11 +46,35 @@ int	builtin_exit(t_cmd *cmd, int is_parent, t_mini *mini)
 
 static int	is_valid_number(const char *str, long long *value)
 {
-	char	*endptr;
+	t_bool	error;
 
-	errno = 0;
-	*value = strtoll(str, &endptr, 10);
-	if (errno != 0 || *endptr != '\0')
-		return (0);
-	return (1);
+	error = 0;
+	*value = exit_atoll((char *)str, &error);
+	printf("ld: %lld\nEROR:%d\n", *value, error);
+	return ((error == 0));
+}
+
+static long long	exit_atoll(char *s, t_bool *error)
+{
+	long long	sum;
+	int			sign;
+
+	sign = 1;
+	sum = 0;
+	if (*s == '+' || *s == '-')
+	{		
+		if (*s == '-' && s++)
+			sign = -1;
+		else
+			s++;
+	}
+	while (*s)
+	{
+		if (!ft_isdigit(*s))
+			*error = TRUE;
+		if (sum * 10 + *s - '0' < sum)
+			*error = TRUE;
+		sum = sum * 10 + *s++ - '0';
+	}
+	return (sum * sign);
 }
