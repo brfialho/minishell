@@ -45,13 +45,18 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/execution/exec/utils_exec.c \
 	srcs/execution/pipe/utils_pipe.c \
 	srcs/execution/redirect/utils_redir.c \
-	srcs/builtins/builtin_functions_two.c \
-	srcs/builtins/builtin_functions.c \
 	srcs/builtins/builtin.c \
+	srcs/builtins/builtin_utils.c \
+	srcs/builtins/cd.c \
+	srcs/builtins/echo.c \
+	srcs/builtins/env.c \
+	srcs/builtins/exit.c \
+	srcs/builtins/export.c \
+	srcs/builtins/pwd.c \
+	srcs/builtins/unset.c \
 	srcs/env/env_functions_two.c \
 	srcs/env/env_functions.c \
 	srcs/env/env_utils.c \
-	srcs/builtins/utils_builtin.c \
 	srcs/signals/shell_signals.c \
 	srcs/execution/executor.c \
 	srcs/execution/exec/exec_pipe.c \
