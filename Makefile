@@ -47,23 +47,23 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/expansion/expand_string.c \
 	srcs/expansion/split_unprotected_spaces.c \
 	srcs/execution/exec/exec.c \
-	srcs/execution/exec/exec_builtin_parent.c \
-	srcs/execution/pipeline/pipeline.c \
+	srcs/execution/exec/exec_builtin.c \
+	srcs/execution/pipe/pipe.c \
 	srcs/execution/redirect/redir.c \
 	srcs/execution/exec/utils_exec.c \
-	srcs/execution/pipeline/utils_pipeline.c \
+	srcs/execution/pipe/utils_pipe.c \
 	srcs/execution/redirect/utils_redir.c \
-	srcs/execution/builtins/builtin_functions_two.c \
-	srcs/execution/builtins/builtin_functions.c \
-	srcs/execution/builtins/builtin.c \
-	srcs/execution/builtins/env_functions_two.c \
-	srcs/execution/builtins/env_functions.c \
+	srcs/builtins/builtin_functions_two.c \
+	srcs/builtins/builtin_functions.c \
+	srcs/builtins/builtin.c \
+	srcs/env/env_functions_two.c \
+	srcs/env/env_functions.c \
+	srcs/env/env_utils.c \
+	srcs/builtins/utils_builtin.c \
 	srcs/signals/shell_signals.c \
 	srcs/execution/executor.c \
-	srcs/execution/exec/exec_pipeline.c \
-	srcs/execution/exec/utils_pipeline_exec.c \
-	srcs/execution/builtins/env_utils.c \
-	srcs/execution/builtins/utils_builtin.c \
+	srcs/execution/exec/exec_pipe.c \
+	srcs/execution/exec/utils_pipe_exec.c \
 
 O_DIR= obj/
 OBJ= $(SRC:%.c=$(O_DIR)%.o)
