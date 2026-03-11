@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafreire <rafreire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:24:10 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 19:17:16 by rafreire         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:48:43 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_mini
 	char	*input;
 	t_lexer	lexer;
 	t_ast	**root;
-	t_error error_code;
+	t_error	error_code;
 	t_env	*env;
 	int		exit_status;
 }	t_mini;
@@ -42,6 +42,6 @@ typedef struct s_mini
 t_bool	process_input_pipeline(t_mini *mini);
 void	executor(t_mini *mini);
 
-extern int g_shell_signal;
+extern int	g_shell_signal;
 
 #endif

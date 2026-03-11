@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:38:57 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:43:32 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	get_prompt(char *prompt)
 	else
 		ft_memcpy(prompt, cwd_buffer, 1024);
 	free(aux_str);
-	aux_str = ft_strjoin(PROMPT_START, prompt);
+	aux_str = ft_strjoin(PRMPT_STRT, prompt);
 	ft_memcpy(prompt, aux_str, ft_strlen(aux_str));
 	free(aux_str);
 	ft_memcpy(prompt + ft_strlen(prompt), PROMPT_END, ft_strlen(PROMPT_END));
