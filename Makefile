@@ -45,7 +45,6 @@ SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/execution/exec/utils_exec.c \
 	srcs/execution/pipe/utils_pipe.c \
 	srcs/execution/redirect/utils_redir.c \
-	srcs/builtins/builtin.c \
 	srcs/builtins/builtin_utils.c \
 	srcs/builtins/cd.c \
 	srcs/builtins/echo.c \
