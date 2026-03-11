@@ -20,14 +20,6 @@ CC= cc -Werror -Wextra -Wall -g $(INCLUDES)
 
 MAIN_SRC= srcs/main.c
 
-ifeq ($(findstring parse, $(MAKECMDGOALS)), parse)
-	MAIN_SRC = srcs/input_pipeline/parsing_test_main.c
-endif
-
-ifeq ($(findstring exec, $(MAKECMDGOALS)), exec)
-	MAIN_SRC = srcs/execution/execution_test_main.c
-endif
-
 SRC= srcs/input_pipeline/lexer/lexer.c \
 	srcs/input_pipeline/lexer/lexer_destroy.c \
 	srcs/input_pipeline/lexer/tokenize.c \
@@ -80,12 +72,7 @@ TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
 VALGRIND = valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all
 
-
 all: $(LIBFT) $(NAME)
-
-parse: re_nolib
-
-exec: re_nolib
 
 $(NAME): $(OBJ) $(MAIN_OBJ)
 	@$(CC) $(OBJ) $(MAIN_OBJ) $(LIBFT) $(DEPENDENCIES) -o $(NAME)
