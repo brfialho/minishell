@@ -118,9 +118,8 @@ minishell/
 │   ├── execution/     # Command execution, pipes, redirections
 │   ├── expansion/     # Variable and quote expansion
 │   ├── heredoc/       # Heredoc handling
-│   ├── input_pipeline/
-│   │   ├── lexer/     # Tokenization
-│   │   └── parser/    # AST construction
+│   |── lexer/         # Tokenization
+│   |── parser/        # AST construction
 │   ├── prompt/        # Prompt display
 │   └── signals/       # Signal handling
 └── tests/             # Test suite
