@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 10:26:24 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 18:32:18 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/11 17:47:46 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_set_env(t_env **env, char *key, char *value)
 	tmp = *env;
 	while (tmp)
 	{
-		if (!strcmp(tmp->key, key))
+		if (!ft_strcmp(tmp->key, key))
 		{
 			free(tmp->value);
 			if (value)
@@ -83,7 +83,7 @@ void	ft_unset_env(t_env **env, char *key)
 	prev = NULL;
 	while (cur)
 	{
-		if (!strcmp(cur->key, key))
+		if (!ft_strcmp(cur->key, key))
 		{
 			if (prev)
 				prev->next = cur->next;

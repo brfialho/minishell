@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 19:08:17 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 21:24:19 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/11 17:44:10 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ int	is_builtin(char *cmd)
 {
 	if (!cmd)
 		return (0);
-	if (strcmp(cmd, "echo") == 0)
+	if (ft_strcmp(cmd, "echo") == 0)
 		return (1);
-	if (strcmp(cmd, "cd") == 0)
+	if (ft_strcmp(cmd, "cd") == 0)
 		return (1);
-	if (strcmp(cmd, "pwd") == 0)
+	if (ft_strcmp(cmd, "pwd") == 0)
 		return (1);
-	if (strcmp(cmd, "export") == 0)
+	if (ft_strcmp(cmd, "export") == 0)
 		return (1);
-	if (strcmp(cmd, "unset") == 0)
+	if (ft_strcmp(cmd, "unset") == 0)
 		return (1);
-	if (strcmp(cmd, "env") == 0)
+	if (ft_strcmp(cmd, "env") == 0)
 		return (1);
-	if (strcmp(cmd, "exit") == 0)
+	if (ft_strcmp(cmd, "exit") == 0)
 		return (1);
 	return (0);
 }

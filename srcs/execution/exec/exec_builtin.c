@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:16:08 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/11 17:48:16 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ int	execute_builtin(t_cmd *cmd, t_env **env, int is_parent, t_mini *mini)
 	if (!cmd->argv[0])
 		return (0);
 	builtin = cmd->argv[0];
-	if (!strcmp(builtin, "echo"))
+	if (!ft_strcmp(builtin, "echo"))
 		return (builtin_echo(cmd));
-	if (!strcmp(builtin, "cd"))
+	if (!ft_strcmp(builtin, "cd"))
 		return (builtin_cd(cmd, env));
-	if (!strcmp(builtin, "pwd"))
+	if (!ft_strcmp(builtin, "pwd"))
 		return (builtin_pwd());
-	if (!strcmp(builtin, "export"))
+	if (!ft_strcmp(builtin, "export"))
 		return (builtin_export(cmd, env));
-	if (!strcmp(builtin, "unset"))
+	if (!ft_strcmp(builtin, "unset"))
 		return (builtin_unset(cmd, env));
-	if (!strcmp(builtin, "env"))
+	if (!ft_strcmp(builtin, "env"))
 		return (builtin_env(*env));
-	if (!strcmp(builtin, "exit"))
+	if (!ft_strcmp(builtin, "exit"))
 		return (builtin_exit(cmd, is_parent, mini));
 	return (1);
 }

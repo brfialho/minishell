@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:22:24 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:07:23 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/11 17:51:36 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	setup_heredoc_to_stdin(char *heredoc_string)
 	}
 	if (heredoc_string != NULL)
 	{
-		write(pipe_fd[1], heredoc_string, strlen(heredoc_string));
+		write(pipe_fd[1], heredoc_string, ft_strlen(heredoc_string));
 	}
 	close(pipe_fd[1]);
 	if (dup2(pipe_fd[0], STDIN_FILENO) == -1)

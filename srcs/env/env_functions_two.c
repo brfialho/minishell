@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 09:58:33 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:32:54 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/11 17:47:20 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_get_envp(t_env *env, char *key)
 	lst = env;
 	while (lst)
 	{
-		if (!strcmp(lst->key, key))
+		if (!ft_strcmp(lst->key, key))
 			return (lst->value);
 		lst = lst->next;
 	}
