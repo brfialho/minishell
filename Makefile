@@ -20,17 +20,16 @@ CC= cc -Werror -Wextra -Wall -g $(INCLUDES)
 
 MAIN_SRC= srcs/main.c
 
-SRC= srcs/input_pipeline/lexer/lexer.c \
-	srcs/input_pipeline/lexer/lexer_destroy.c \
-	srcs/input_pipeline/lexer/tokenize.c \
-	srcs/input_pipeline/lexer/lexer_error_handler.c \
-	srcs/input_pipeline/parser/ast_builder.c \
-	srcs/input_pipeline/parser/get_node.c \
-	srcs/input_pipeline/parser/parser.c \
-	srcs/input_pipeline/parser/parser_destroy.c \
-	srcs/input_pipeline/parser/syntax_validator.c \
-	srcs/input_pipeline/parser/parser_error_handler.c \
-	srcs/input_pipeline/input_pipeline.c \
+SRC= srcs/lexer/lexer.c \
+	srcs/lexer/lexer_destroy.c \
+	srcs/lexer/tokenize.c \
+	srcs/lexer/lexer_error_handler.c \
+	srcs/parser/ast_builder.c \
+	srcs/parser/get_node.c \
+	srcs/parser/parser.c \
+	srcs/parser/parser_destroy.c \
+	srcs/parser/syntax_validator.c \
+	srcs/parser/parser_error_handler.c \
 	srcs/prompt/prompt_line.c \
 	srcs/heredoc/collect_heredocs.c \
 	srcs/heredoc/heredoc_fd_handler.c \

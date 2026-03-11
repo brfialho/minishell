@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:24:10 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/11 18:35:36 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/11 19:17:01 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_mini
 }	t_mini;
 
 char	*read_prompt_line(t_mini *mini);
-t_bool	process_input_pipeline(t_mini *mini);
+t_error	collect_heredocs(t_mini *mini);
 void	executor(t_mini *mini);
 
 extern int	g_shell_signal;
