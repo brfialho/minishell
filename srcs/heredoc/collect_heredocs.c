@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:06:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 18:28:28 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:05:56 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*trim_heredoc(char *s);
 
 t_error	collect_heredocs(t_mini *mini)
 {
-	t_error error;
+	t_error	error;
 
 	error = NO_ERROR;
 	rl_event_hook = shell_signal_hook;
@@ -65,9 +65,10 @@ static void	heredoc(t_redir *redir)
 	line = readline("> ");
 	while (ft_strcmp(redir->target, line))
 	{
-		heredoc_string = ft_strjoin_free(heredoc_string , ft_strjoin(line, "\n"), TRUE, TRUE);
+		heredoc_string = ft_strjoin_free(heredoc_string,
+				ft_strjoin(line, "\n"), TRUE, TRUE);
 		if (g_shell_signal == SIGINT)
-			break;
+			break ;
 		line = readline("> ");
 	}
 	free(redir->target);
@@ -77,7 +78,7 @@ static void	heredoc(t_redir *redir)
 static char	*trim_heredoc(char *s)
 {
 	char	*new;
-	
+
 	new = ft_safe_calloc(ft_strlen(s) - 2 + 1, sizeof(char));
 	ft_memcpy(new, s + 1, ft_strlen(s) - 2);
 	free(s);
