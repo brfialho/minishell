@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 22:53:31 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/10 23:52:35 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_bool	expand_all_redir(t_list **redir_lst, t_env **env)
 			error = expand_redir(lst->content, env);
 		if (error)
 		{
-			ft_printf("Minishell: $%d: ambigous redirect",
+			ft_printf("Minishell: '%s': ambigous redirect\n",
 				((t_redir *)lst->content)->target);
 			return (EXIT_FAILURE);
 		}
