@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:06:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:43:32 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/11 19:14:18 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ static void	set_username(char *username);
 static void	colorize_path(char *prompt);
 static char	*colorize_helper(char *prompt, char c);
 
-char	*read_prompt_line(void)
+char	*read_prompt_line(t_mini *mini)
 {
 	char		prompt[1024];
 	char		*line;
 
 	ft_bzero(prompt, sizeof(prompt));
 	get_prompt(prompt);
+	mini->prompt_len = 13 + (ft_strlen(prompt + 35)
+			- (ft_str_charcount(prompt + 35, '/') * 19) - 19 - 7);
 	g_shell_signal = 0;
 	rl_event_hook = shell_signal_hook;
 	line = readline(prompt);

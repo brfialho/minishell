@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 19:17:31 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/09 17:44:57 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:34:41 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "defines.h"
 
 void	set_signals(void);
-void	sighandler_heredoc(int sig);
 int		shell_signal_hook(void);
 
 #endif

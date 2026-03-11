@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/11 18:07:51 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:35:52 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	while (TRUE)
 	{
 		set_shell_status(mini.env);
-		mini.input = read_prompt_line();
+		mini.input = read_prompt_line(&mini);
 		if (mini.input == NULL)
 		{
 			ft_printf("exit\n");
