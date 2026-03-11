@@ -21,6 +21,7 @@ CC= cc -Werror -Wextra -Wall -g $(INCLUDES)
 MAIN_SRC= srcs/main.c
 
 SRC= srcs/lexer/lexer.c \
+	srcs/input_pipeline.c \
 	srcs/lexer/lexer_destroy.c \
 	srcs/lexer/tokenize.c \
 	srcs/lexer/lexer_error_handler.c \
