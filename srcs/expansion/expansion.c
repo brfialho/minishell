@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 23:52:35 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 15:03:55 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	expand_heredoc(t_redir *redir, t_env **env)
 {
 	if (redir->type != REDIR_HEREDOC)
 		return ;
-	mark_protected_quotes(redir->target);
 	redir->target = expand_string(redir->target, TRUE, env);
 }
 
