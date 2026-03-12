@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:06:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 23:05:56 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 14:58:23 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	heredoc(t_redir *redir)
 	}
 	heredoc_string = ft_strdup("");
 	line = readline("> ");
-	while (ft_strcmp(redir->target, line))
+	while (line && ft_strcmp(redir->target, line))
 	{
 		heredoc_string = ft_strjoin_free(heredoc_string,
 				ft_strjoin(line, "\n"), TRUE, TRUE);
@@ -71,6 +71,8 @@ static void	heredoc(t_redir *redir)
 			break ;
 		line = readline("> ");
 	}
+	if (!line)
+		ft_printf("Minishell: warning: heredoc delimited by EOF (wanted '%s')\n", redir->target);
 	free(redir->target);
 	redir->target = heredoc_string;
 }
