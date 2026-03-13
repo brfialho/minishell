@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 23:10:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/12 21:20:11 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:25:26 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	if (!cmd->argv || !cmd->argv[0])
-		exit(0);
 	if (is_builtin(cmd->argv[0]))
 		exec_builtin_child(cmd, env, mini);
 	if (apply_redirections(cmd->redir, cmd) == -1)
@@ -31,6 +29,8 @@ void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 	envp_exec = env_to_envp(*env);
 	if (!envp_exec)
 		exit(1);
+	if (!cmd->path)
+		cmd->path = ft_strdup("");
 	execve(cmd->path, cmd->argv, envp_exec);
 	perror(cmd->argv[0]);
 	free_envp(envp_exec);
