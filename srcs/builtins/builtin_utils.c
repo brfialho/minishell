@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 19:08:17 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/11 17:44:10 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 23:06:31 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 
 void	cleanup_exit(t_cmd *cmd, t_mini *mini)
 {
-	if (cmd && cmd->argv)
-		ft_split_free(cmd->argv);
+	if (mini->current_cmd_head)
+		ft_cleaner_list(mini->current_cmd_head);
+	else
+		ft_cleaner_list(cmd);
 	if (mini && mini->root)
 		parser_destroy(mini->root);
 	if (mini)
