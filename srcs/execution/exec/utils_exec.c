@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:42:40 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/12 22:23:27 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 22:31:19 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ char	*get_path_dirs(t_cmd *cmd, t_env **envp)
 	char	*path_value;
 	char	*result;
 
-	// if (!cmd || !cmd->argv || !cmd->argv[0])
-	// 	return (NULL);
 	path_value = get_env_value(*envp, "PATH");
 	if (ft_strchr(cmd->argv[0], '/'))
 		return (ft_strdup(cmd->argv[0]));
