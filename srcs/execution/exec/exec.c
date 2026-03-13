@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 23:10:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 23:32:02 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:20:11 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 	if (!cmd->argv || !cmd->argv[0])
 		exit(0);
 	if (is_builtin(cmd->argv[0]))
-	{
 		exec_builtin_child(cmd, env, mini);
-		exit(0);
-	}
 	if (apply_redirections(cmd->redir, cmd) == -1)
 		exit(1);
 	if (cmd->heredoc_fd != -1)
@@ -37,7 +34,8 @@ void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 	execve(cmd->path, cmd->argv, envp_exec);
 	perror(cmd->argv[0]);
 	free_envp(envp_exec);
-	ft_split_free(cmd->argv);
+	env_clear(&mini->env);
+	ft_cleaner_list(cmd);
 	parser_destroy(mini->root);
 	exit(127);
 }

@@ -6,13 +6,14 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:02:08 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:11:35 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:16:12 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "parser.h"
 #include "expansion.h"
+#include "main.h"
 
 t_cmd	*convert_ast_pipeline(t_ast *node, t_env **env)
 {
