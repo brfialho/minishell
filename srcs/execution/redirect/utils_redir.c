@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 14:43:34 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:15:52 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 18:10:34 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	open_redir_fd(t_n_redir *redir)
 	else if (redir->type == REDIR_OUT)
 		return (open(redir->target, O_WRONLY | O_CREAT | O_TRUNC, 0644));
 	else if (redir->type == REDIR_APPEND)
-		return (open(redir->target, O_WRONLY | O_CREAT | O_APPEND));
+		return (open(redir->target, O_WRONLY | O_CREAT | O_APPEND, 0644));
 	return (0);
 }
 
