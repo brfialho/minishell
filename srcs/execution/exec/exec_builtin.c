@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/13 01:09:47 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:15:34 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	execute_builtin(t_cmd *cmd, t_env **env, int is_parent, t_mini *mini)
 	if (!ft_strcmp(builtin, "unset"))
 		return (builtin_unset(cmd, env));
 	if (!ft_strcmp(builtin, "env"))
-		return (builtin_env(*env));
+		return (builtin_env(*env, cmd));
 	if (!ft_strcmp(builtin, "exit"))
 		return (builtin_exit(cmd, is_parent, mini));
 	return (1);

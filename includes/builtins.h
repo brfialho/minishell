@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:00:28 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:35:51 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:15:54 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		builtin_cd(t_cmd *cmd, t_env **env);
 int		builtin_pwd(void);
 int		builtin_export(t_cmd *cmd, t_env **env);
 int		builtin_unset(t_cmd *cmd, t_env **env);
-int		builtin_env(t_env *envp);
+int		builtin_env(t_env *envp, t_cmd *cmd);
 int		builtin_exit(t_cmd *cmd, int is_parent, t_mini *mini);
 int		env_len(t_env *env);
 char	*ft_get_envp(t_env *env, char *key);
