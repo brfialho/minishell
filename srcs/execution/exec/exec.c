@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 23:10:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/12 21:25:26 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:47:08 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 	envp_exec = env_to_envp(*env);
 	if (!envp_exec)
 		exit(1);
-	if (!cmd->path)
-		cmd->path = ft_strdup("");
+	// if (!cmd->path)
+	// 	cmd->path = ft_strdup("");
 	execve(cmd->path, cmd->argv, envp_exec);
 	perror(cmd->argv[0]);
 	free_envp(envp_exec);
@@ -110,7 +110,7 @@ int	exec_node(t_ast *node, t_env **env, t_mini *mini)
 int	exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
 {
 	t_msh_ast	*data;
-	t_cmd		cmd;
+	t_cmd		*cmd;
 	int			result;
 
 	result = 0;
@@ -121,14 +121,12 @@ int	exec_single_ast(t_ast *node, t_env **env, t_mini *mini)
 		return (1);
 	if (expand_all_redir(data->redir, env))
 		return (1);
-	cmd.argv = expand_argv(data->argv, env);
-	cmd.heredoc_fd = -1;
-	cmd.next = NULL;
-	cmd.redir = NULL;
-	cmd.path = NULL;
+	cmd = ft_safe_calloc(1, sizeof(t_cmd));
+	cmd->argv = expand_argv(data->argv, env);
+	cmd->heredoc_fd = -1;
 	if (data->redir && *data->redir)
-	cmd.redir = convert_redir_list(*data->redir);
-	result = ft_exec_cmd(&cmd, env, mini);
-	destroy_exec_cmd(&cmd);
+	cmd->redir = convert_redir_list(*data->redir);
+	result = ft_exec_cmd(cmd, env, mini);
+	destroy_exec_cmd(cmd);
 	return (result);
 }

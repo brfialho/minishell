@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:42:40 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:25:01 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 21:37:47 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*search_in_dirs(char **dirs, char *cmd_name)
 		free(full_path);
 		i++;
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 char	*get_path_dirs(t_cmd *cmd, t_env **envp)
@@ -40,8 +40,8 @@ char	*get_path_dirs(t_cmd *cmd, t_env **envp)
 	char	*path_value;
 	char	*result;
 
-	if (!cmd || !cmd->argv || !cmd->argv[0])
-		return (NULL);
+	// if (!cmd || !cmd->argv || !cmd->argv[0])
+	// 	return (NULL);
 	path_value = get_env_value(*envp, "PATH");
 	if (ft_strchr(cmd->argv[0], '/'))
 		return (ft_strdup(cmd->argv[0]));
@@ -86,10 +86,20 @@ void	destroy_exec_cmd(t_cmd *cmd)
 {
 	if (!cmd)
 		return ;
+	ft_printf("OOOOOO\n");
 	if (cmd->argv)
+	{
+		ft_printf("A\n");
 		ft_split_free(cmd->argv);
+	}
 	if (cmd->path)
+	{
+		ft_printf("B\n");
 		free(cmd->path);
+	}
 	if (cmd->redir)
+	{
+		ft_printf("C\n");
 		free_exec_redir_list(cmd->redir);
+	}
 }
