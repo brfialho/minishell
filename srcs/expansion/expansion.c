@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/12 15:03:55 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 23:43:29 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_bool	expand_redir(t_redir *redir, t_env **env)
 	word_split = split_unprotected_spaces(redir->target, ' ');
 	if (ft_split_len(word_split) != 1)
 		return (ft_split_free(word_split), EXIT_FAILURE);
+	free(redir->target);
 	redir->target = trim_quotes(word_split[0]);
 	free(word_split);
 	return (EXIT_SUCCESS);
