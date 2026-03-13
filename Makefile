@@ -74,7 +74,7 @@ TEST_BIN_DIR= tests/bin/
 TEST_NAMES= lexer ast expansion
 TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
-VALGRIND = valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all
+VALGRIND = valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes
 
 all: $(LIBFT) $(NAME)
 
