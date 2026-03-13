@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 18:07:51 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/12 22:20:12 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 22:30:35 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static void	setup_and_exec_pipeline_child(t_cmd *cmd, int *pipe_fd,
 {
 	if (prev_fd != -1)
 	{
-		// dup2(prev_fd, STDIN_FILENO);
+		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
 	if (cmd->next)
 	{
-		// dup2(pipe_fd[1], STDOUT_FILENO);
+		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 	}
