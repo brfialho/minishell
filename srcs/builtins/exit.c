@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/11 18:23:15 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 20:45:21 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	builtin_exit(t_cmd *cmd, int is_parent, t_mini *mini)
 	if (is_parent)
 		ft_printf("exit\n");
 	if (!cmd->argv[1])
-		status = g_shell_signal;
+		status = ft_atoi(get_env_value(mini->env, "?"));
 	else if (!is_valid_number(cmd->argv[1], &value))
 	{
 		ft_putstr_fd("minishell: exit: ", 2);
@@ -50,7 +50,6 @@ static int	is_valid_number(const char *str, long long *value)
 
 	error = 0;
 	*value = exit_atoll((char *)str, &error);
-	printf("ld: %lld\nEROR:%d\n", *value, error);
 	return ((error == 0));
 }
 
@@ -71,9 +70,11 @@ static long long	exit_atoll(char *s, t_bool *error)
 	while (*s)
 	{
 		if (!ft_isdigit(*s))
-			*error = TRUE;
-		if (sum * 10 + *s - '0' < sum)
-			*error = TRUE;
+			return (*error = TRUE, EXIT_FAILURE);
+		if (sum >= LONG_MAX / 10
+			&& ((sign > 0 && *s > '7')
+			|| (sign < 0 && *s > '8')))
+			return (*error = TRUE, EXIT_FAILURE);
 		sum = sum * 10 + *s++ - '0';
 	}
 	return (sum * sign);
