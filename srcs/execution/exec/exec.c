@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 23:10:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/13 18:58:41 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:12:09 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ static int	exec_external_cmd(t_cmd *cmd, t_env **env, t_mini *mini)
 		return (1);
 	}
 	if (pid == 0)
+	{
+		mini->current_cmd_head = cmd;
 		exec_child(cmd, env, mini);
+	}
 	waitpid(pid, &status, 0);
 	value = ft_itoa(status / 256);
 	ft_set_env(env, "?", value);
