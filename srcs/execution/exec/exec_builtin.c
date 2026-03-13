@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/12 21:13:40 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/12 22:21:38 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	exec_builtin_child(t_cmd *cmd, t_env **env, t_mini *mini)
 	if (apply_redirections(cmd->redir, cmd) == -1)
 		exit(1);
 	execute_builtin(cmd, env, 0, mini);
-	ft_cleaner_list(cmd);
+	ft_cleaner_list(mini->current_cmd_head);
 	env_clear(env);
 	parser_destroy(mini->root);
 	exit(0);
