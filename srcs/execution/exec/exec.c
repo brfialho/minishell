@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 23:10:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/13 21:16:15 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 23:22:27 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	exec_child(t_cmd *cmd, t_env **env, t_mini *mini)
 	signal(SIGQUIT, SIG_DFL);
 	if (apply_redirections(cmd->redir, cmd) == -1)
 		exec_error_handler(mini, 1);
+	if (!cmd->argv[0])
+		exec_error_handler(mini, 0);
 	if (is_builtin(cmd->argv[0]))
 		exec_builtin_child(cmd, env, mini);
 	if (cmd->heredoc_fd != -1)

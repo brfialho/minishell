@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 12:43:39 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/12 21:55:41 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 23:14:59 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void	resolve_pipeline_paths(t_cmd *cmd, t_env **env)
 	current = cmd;
 	while (current)
 	{
-		if (!is_builtin(current->argv[0]))
+		if (!current->argv[0])
+			current->path = NULL;
+		else if (!is_builtin(current->argv[0]))
 		{
 			current->path = get_path_dirs(current, env);
 		}
