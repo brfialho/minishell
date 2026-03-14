@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:00:28 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/13 19:15:54 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 02:10:58 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_env	*env_from_envp(char **envp);
 void	env_add_back(t_env **env, t_env *new);
 void	env_print_sorted(t_env *env);
 void	ft_set_env(t_env **env, char *key, char *value);
+void	env_set_shlvl(t_env **env);
 void	ft_unset_env(t_env **env, char *key);
 void	free_envp(char **envp);
 void	env_clear(t_env **env);
