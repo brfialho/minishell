@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 21:46:26 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/12 22:33:40 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 21:34:13 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	lexer_error_handler(t_mini *mini)
 	ft_printf(QUOTE_ERROR BOLD " %c\n" RESET, quote);
 	free(arrow);
 	lexer_destroy(&mini->lexer);
-	mini->error_code = UNCLOSED_QUOTES;
+	mini->error_status = UNCLOSED_QUOTES;
 }
 
 static char	*get_arrow_string(const char *input,

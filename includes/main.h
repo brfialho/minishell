@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:24:10 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/12 22:18:27 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 21:33:41 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@ typedef enum e_error
 
 typedef struct s_mini
 {
-	char	*input;
 	int		prompt_len;
-	t_lexer	lexer;
+	int		error_status;
+	char	*input;
 	t_ast	**root;
-	t_error	error_code;
 	t_env	*env;
-	int		exit_status;
 	t_cmd	*current_cmd_head;
+	t_lexer	lexer;
 }	t_mini;
 
 char	*read_prompt_line(t_mini *mini);

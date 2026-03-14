@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 18:24:30 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/12 22:28:49 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 21:34:40 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	executor(t_mini *mini)
 
 	if (!mini || !mini->root)
 		return ;
-	mini->exit_status = exec_node(*mini->root, &mini->env, mini);
-	value = ft_itoa(mini->exit_status);
+	mini->error_status = exec_node(*mini->root, &mini->env, mini);
+	value = ft_itoa(mini->error_status);
 	ft_set_env(&mini->env, "?", value);
 	free(value);
 }
