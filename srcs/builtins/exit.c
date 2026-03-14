@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 14:05:56 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/13 20:45:21 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 00:21:42 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static long long	exit_atoll(char *s, t_bool *error)
 			return (*error = TRUE, EXIT_FAILURE);
 		if (sum >= LONG_MAX / 10
 			&& ((sign > 0 && *s > '7')
-			|| (sign < 0 && *s > '8')))
+				|| (sign < 0 && *s > '8')))
 			return (*error = TRUE, EXIT_FAILURE);
 		sum = sum * 10 + *s++ - '0';
 	}
