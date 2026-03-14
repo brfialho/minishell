@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:23:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/14 00:21:22 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:18:11 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ int	main(int argc, char **argv, char **envp)
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.env = env_from_envp(envp);
 	set_signals();
+	tcgetattr(STDIN_FILENO, &mini.def_termios);
 	while (TRUE)
 	{
+		tcsetattr(STDIN_FILENO, 0, &mini.def_termios);
 		set_shell_status(mini.env, mini.error_status);
 		mini.input = read_prompt_line(&mini);
 		if (mini.input == NULL)
