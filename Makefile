@@ -43,6 +43,7 @@ SRC= srcs/lexer/lexer.c \
 	srcs/execution/pipe/pipe.c \
 	srcs/execution/redirect/redir.c \
 	srcs/execution/exec/utils_exec.c \
+	srcs/execution/exec/exec_error_handler.c \
 	srcs/execution/pipe/utils_pipe.c \
 	srcs/execution/redirect/utils_redir.c \
 	srcs/builtins/builtin_utils.c \
@@ -74,7 +75,7 @@ TEST_BIN_DIR= tests/bin/
 TEST_NAMES= lexer ast expansion
 TEST_BINARIES= $(addprefix $(TEST_BIN_DIR), $(TEST_NAMES))
 
-VALGRIND = valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes
+VALGRIND = valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all #--track-fds=yes
 
 all: $(LIBFT) $(NAME)
 

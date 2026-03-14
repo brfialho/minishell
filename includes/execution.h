@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:30:38 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/11 18:35:28 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 21:16:35 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_n_redir	*new_exec_redir(t_redir *ast_redir);
 t_n_redir	*convert_redir_list(t_list *ast_list);
 void		exec_child(t_cmd *cmd, t_env **env, t_mini *mini);
 void		exec_builtin_child(t_cmd *cmd, t_env **env, t_mini *mini);
+void		exec_error_handler(t_mini *mini, int status);
 void		ft_cleaner_list(t_cmd *list);
 void		resolve_pipeline_paths(t_cmd *cmd, t_env **env);
 void		free_exec_redir_list(t_n_redir *redir);

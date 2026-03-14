@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:37:52 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/13 19:15:34 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 21:18:24 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ int	exec_builtin_parent(t_cmd *cmd, t_env **env, t_mini *mini)
 
 void	exec_builtin_child(t_cmd *cmd, t_env **env, t_mini *mini)
 {
-	if (apply_redirections(cmd->redir, cmd) == -1)
-		exit(1);
 	execute_builtin(cmd, env, 0, mini);
 	ft_cleaner_list(mini->current_cmd_head);
 	env_clear(env);
