@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:09:39 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 22:56:27 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 21:44:51 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static t_list	**get_exp_var_lst(char *s, t_bool heredoc, t_env **env)
 		else if (state == 0 && (*s == S_QUOTE || *s == D_QUOTE))
 			state = *s;
 		if (*s == '$' && *(s + 1)
+			&& !ft_str_charcount(ARGV_EXPAND_DELIMITER, *(s + 1))
 			&& ((!heredoc && state != S_QUOTE) || heredoc))
 			s = set_new_expd_var_info(s + 1, expd_var_lst, env);
 		s++;
