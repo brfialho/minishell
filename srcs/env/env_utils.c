@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 13:21:18 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/10 23:34:16 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 02:13:19 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,13 @@ void	env_print_sorted(t_env *env)
 		ft_unset_env(&copy, min->key);
 	}
 	env_clear(&copy);
+}
+
+void	env_set_shlvl(t_env **env)
+{
+	char	*value;
+
+	value = ft_itoa((1 + ft_atoi(ft_get_envp(*env, "SHLVL"))));
+	ft_set_env(env, "SHLVL", value);
+	free(value);
 }

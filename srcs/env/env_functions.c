@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 10:26:24 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/11 17:47:46 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 02:09:44 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_env	*env_from_envp(char **envp)
 		i++;
 	}
 	ft_set_env(&env, "?", "0");
+	env_set_shlvl(&env);
 	return (env);
 }
 
