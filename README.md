@@ -47,7 +47,7 @@ brew install readline
 Clone the repository and compile using `make`:
 
 ```bash
-git clone <repository-url> minishell
+git clone --recurse-submodule https://github.com/brfialho/minishell.git
 cd minishell
 make
 ```
