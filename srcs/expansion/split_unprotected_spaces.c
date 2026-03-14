@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 19:46:58 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/14 01:42:19 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:45:05 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static t_bool	fill_split(char **split, char *s)
 	{
 		len = 0;
 		while (s[len] && (get_state(s[len], FALSE)
-			|| !ft_str_charcount(WHITESPACE, s[len])))
+				|| !ft_str_charcount(WHITESPACE, s[len])))
 			len++;
 		split[word] = ft_substr(s, 0, len);
 		if (!split[word++])
