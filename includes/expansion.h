@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:05:13 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/14 01:42:18 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:58:46 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_env	t_env;
 void	del_exp_var(void *content);
 char	*expand_string(char *old_str, t_bool heredoc, t_env **env);
 void	mark_protected_quotes(char *s);
-char	*trim_quotes(char *old_str);
+char	*trim_quotes(char *old_str, char s_quote, char d_quote);
 char	**expand_argv(char **old_argv, t_env **env);
 void	expand_heredoc(t_redir *redir, t_env **env);
 t_bool	expand_redir(t_redir *redir, t_env **env);

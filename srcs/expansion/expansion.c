@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:04:01 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/14 01:42:33 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:59:44 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**expand_argv(char **old_argv, t_env **env)
 	free(full_argv);
 	i = -1;
 	while (argv[++i])
-		argv[i] = trim_quotes(argv[i]);
+		argv[i] = trim_quotes(argv[i], S_QUOTE, D_QUOTE);
 	return (argv);
 }
 
@@ -76,7 +76,7 @@ t_bool	expand_redir(t_redir *redir, t_env **env)
 	if (ft_split_len(word_split) != 1)
 		return (ft_split_free(word_split), EXIT_FAILURE);
 	free(redir->target);
-	redir->target = trim_quotes(word_split[0]);
+	redir->target = trim_quotes(word_split[0], S_QUOTE, D_QUOTE);
 	free(word_split);
 	return (EXIT_SUCCESS);
 }

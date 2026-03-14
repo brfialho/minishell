@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:10:06 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 22:54:25 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:58:02 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	mark_protected_quotes(char *s)
 	}
 }
 
-char	*trim_quotes(char *old_str)
+char	*trim_quotes(char *old_str, char s_quote, char d_quote)
 {
 	char	*new_str;
 	char	*new;
@@ -60,7 +60,7 @@ char	*trim_quotes(char *old_str)
 			state = 0;
 			old++;
 		}
-		else if (state == 0 && (*old == S_QUOTE || *old == D_QUOTE))
+		else if (state == 0 && (*old == d_quote || *old == s_quote))
 			state = *old++;
 		else
 			*new++ = *old++;

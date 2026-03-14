@@ -6,15 +6,15 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:06:48 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/12 22:34:29 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 02:02:47 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-static void	heredoc_recursion(t_ast *root);
-static void	heredoc(t_redir *redir);
-static char	*trim_heredoc(char *s);
+static void		heredoc_recursion(t_ast *root);
+static void		heredoc(t_redir *redir);
+static t_bool	check_for_quotes(char *s);
 
 t_error	collect_heredocs(t_mini *mini)
 {
@@ -56,9 +56,9 @@ static void	heredoc(t_redir *redir)
 	char	*heredoc_string;
 	char	*line;
 
-	if (*redir->target == '\'' || *redir->target == '"')
+	if (check_for_quotes(redir->target))
 	{
-		redir->target = trim_heredoc(redir->target);
+		redir->target = trim_quotes(redir->target, '\'', '"');
 		redir->type = REDIR_HEREDOC_NO_EXPANSION;
 	}
 	heredoc_string = ft_strdup("");
@@ -78,12 +78,13 @@ static void	heredoc(t_redir *redir)
 	redir->target = heredoc_string;
 }
 
-static char	*trim_heredoc(char *s)
+static t_bool	check_for_quotes(char *s)
 {
-	char	*new;
+	int	i;
 
-	new = ft_safe_calloc(ft_strlen(s) - 2 + 1, sizeof(char));
-	ft_memcpy(new, s + 1, ft_strlen(s) - 2);
-	free(s);
-	return (new);
+	i = -1;
+	while (s[++i])
+		if (ft_str_charcount("'\"", s[i]))
+			return (TRUE);
+	return (FALSE);
 }
