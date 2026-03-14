@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 23:44:13 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 21:26:12 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@
 // Error Messages
 # define QUOTE_ERROR "Minishell: unexpected EOF while looking for matching"
 # define SYNTAX_ERROR "Minishell: syntax error near unexpected token"
+# define REDIR_IN_ERROR "Minishell: '%s': No such file or directory\n"
 
 // Expansion
 # define ARGV_EXPAND_DELIMITER " $-'\"\x01\x02\n"

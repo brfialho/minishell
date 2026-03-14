@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 20:05:48 by rafreire          #+#    #+#             */
-/*   Updated: 2026/03/11 17:38:26 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/13 21:25:39 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	apply_redirections(t_n_redir *redir, t_cmd *cmd)
 		{
 			fd = open_redir_fd(redir);
 			if (fd == -1)
-				return (-1);
+				return (ft_printf(REDIR_IN_ERROR, redir->target), -1);
 			if (apply_redir_fd(fd, redir) == -1)
 			{
 				close(fd);
