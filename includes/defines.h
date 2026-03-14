@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 14:48:16 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/14 01:09:12 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:34:57 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@
 # define REDIR_IN_ERROR "Minishell: '%s': No such file or directory\n"
 
 // Expansion
-# define ARGV_EXPAND_DELIMITER " $-'\"\x01\x02\n"
+# define ARGV_EXPAND_DELIMITER " $-'\t\"\x01\x02\n"
 # define EXPAND_SPECIAL "$?"
 # define S_QUOTE '\x02'
 # define D_QUOTE '\x01'

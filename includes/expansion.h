@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:05:13 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 23:45:12 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:42:18 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ char	**expand_argv(char **old_argv, t_env **env);
 void	expand_heredoc(t_redir *redir, t_env **env);
 t_bool	expand_redir(t_redir *redir, t_env **env);
 t_bool	expand_all_redir(t_list **redir_lst, t_env **env);
-char	**split_unprotected_spaces(char *s, char c);
+char	**split_unprotected_spaces(char *s);
 
 #endif
