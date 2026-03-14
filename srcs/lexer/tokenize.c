@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 17:31:09 by brfialho          #+#    #+#             */
-/*   Updated: 2026/03/10 22:37:33 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:00:12 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static t_state	get_state(char *s)
 		return (IN_D_QUOTES);
 	if (*s == '\'')
 		return (IN_S_QUOTES);
-	if (*s == ' ')
+	if (ft_str_charcount(WHITESPACE, *s))
 		return (IN_SPACE);
 	if (ft_str_charcount(OPERATOR, *s)
 		|| !ft_strncmp ("&&", s, 2))

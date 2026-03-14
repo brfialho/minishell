@@ -6,7 +6,7 @@
 /*   By: brfialho <brfialho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:57:22 by brfialho          #+#    #+#             */
-/*   Updated: 2026/02/26 22:12:14 by brfialho         ###   ########.fr       */
+/*   Updated: 2026/03/14 00:59:49 by brfialho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_int8	ft_lexer(t_lexer *lexer, const char *input)
 	s = (char *)input;
 	while (*s)
 	{
-		while (*s == ' ')
+		while (ft_str_charcount(WHITESPACE, *s))
 			s++;
 		s = tokenize(lexer, s);
 	}
