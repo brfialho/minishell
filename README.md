@@ -1,3 +1,8 @@
+🌐 Available languages:
+🇺🇸 English | 🇧🇷 [Português](README.pt.md)
+
+---
+
 *This project was created as part of the 42 curriculum by rafreire, brfialho.*
 
 # 🔥 Minishell 🔥
