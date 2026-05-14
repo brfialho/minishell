@@ -63,6 +63,25 @@ This will generate the `minishell` executable.
 | `make fclean` | Remove object files and executable               |
 | `make re`     | Recompile from scratch                           |
 | `make leaks`  | Run with Valgrind for memory leak detection      |
+| `make test`   | Custom test suite with unitary tests		       |
+
+### Test suite
+
+The project includes a custom unit test suite focused on validating some of the most critical shell components.
+
+Current test coverage includes:
+
+Lexer tokenization
+Parser behavior and AST generation
+Expansion logic and environment variable handling
+
+Run the tests with:
+
+```bash
+make test
+```
+
+The tests are designed to help validate parser correctness and prevent regressions during development.
 
 ### Running
 
@@ -150,8 +169,8 @@ AI tools (GitHub Copilot) were used in this project for:
 
 ## Authors
 
-- **rafreire** - [42 Profile](https://profile.intra.42.fr/users/rafreire)
-- **brfialho** - [42 Profile](https://profile.intra.42.fr/users/brfialho)
+ - [**rafreire**](https://github.com/AlmeidaRafaelFeh)
+ - [**brfialho**](https://github.com/brfialho)
 
 ---
 
